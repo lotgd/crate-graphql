@@ -1,4 +1,4 @@
-lotgd.create.www:
+lotgd_create_php:
     resource: "@AppBundle/Controller/GraphController.php"
     type: annotation
     prefix: /

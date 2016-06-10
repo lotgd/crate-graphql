@@ -29,7 +29,7 @@ class WebTestCase extends BaseWebTestCase
     protected function queryHelper($query, $jsonVariables)
     {
         $client = static::makeClient();
-        $path = $this->getUrl('overblog_graphql_endpoint');
+        $path = $this->getUrl("lotgd_crate_www_app_graph_endpoint");
 
         $client->request(
             'GET', $path, ['query' => $query, 'variables' => $jsonVariables], [], ['CONTENT_TYPE' => 'application/graphql']
