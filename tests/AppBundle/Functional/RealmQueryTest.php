@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\AppBundle\Functional\Relay;
+namespace Tests\AppBundle\Functional;
 
 use Tests\AppBundle\Functional\WebTestCase;
 

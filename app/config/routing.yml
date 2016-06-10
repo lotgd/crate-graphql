@@ -1,5 +1,16 @@
-overblog_graphql_endpoint:
-    resource: "@OverblogGraphQLBundle/Resources/config/routing/graphql.yml"
+lotgd.create.www:
+    resource: "@AppBundle/Controller/GraphController.php"
+    type: annotation
+    prefix: /
+#overblog_graphql_endpoint:
+#    path: /
+#    defaults:
+#        _controller: LotGD:Crate:WWW:AppBundle:Controller:GraphController:endpoint
+
+#lotgd_crate_endpoint:
+#    resource: "@LotGD
+#overblog_graphql_endpoint:
+#    resource: "@OverblogGraphQLBundle/Resources/config/routing/graphql.yml"
 
 overblog_graphql_graphiql:
     resource: "@OverblogGraphQLBundle/Resources/config/routing/graphiql.yml"
