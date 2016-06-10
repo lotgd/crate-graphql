@@ -21,8 +21,8 @@
     },
     "repositories": [
         {
-            "type": "path",
-            "url": "../core"
+            "type": "vcs",
+            "url": "https://github.com/lotgd/core.git"
         }
     ],
     "require": {
@@ -37,7 +37,7 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
         
-        "lotgd/core": "dev-feature/buffs",
+        "lotgd/core": "dev-master",
         "overblog/graphql-bundle": "dev-master"
     },
     "require-dev": {

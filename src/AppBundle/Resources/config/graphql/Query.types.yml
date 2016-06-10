@@ -21,5 +21,6 @@ Query:
         description: "The GraphQL interface for communicating with the lotgd core."
         fields:
             Realm:
+                description: "General information about the server configuration."
                 type: "Realm"
                 resolve: "@=resolver('realm_realm')"

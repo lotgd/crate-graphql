@@ -9,5 +9,5 @@ parameters:
     database_port: null
     database_name: daenerys
     database_user: root
-    database_password: ~
+    database_password: null
     database_path: '%kernel.root_dir%/data.db3'
