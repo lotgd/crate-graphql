@@ -34,30 +34,12 @@ query RealmQuery {
     }
 }
 GraphQL;
-        $jsonExpected = <<<JSON
-{
-    "data": {
-        "Realm": {
-            "libraries": [
-                {
-                    "name": "Core",
-                    "version": "0.1.0",
-                    "library": "lotgd\/core",
-                    "url": "https:\/\/github.com\/lotgd\/core.git",
-                    "author": "The daenerys development team"
-                }, {
-                    "name": "Crate",
-                    "version": "0.1.0",
-                    "library": "lotgd\/crate-www",
-                    "url": "https:\/\/github.com\/lotgd\/crate-www.git",
-                    "author": "The daenerys development team"
-                }
-            ]
-        }
-    }
-}
-JSON;
         
-        $this->assertQuery($query, $jsonExpected);
+        $result = $this->getQueryResults($query);
+        
+        $this->assertArrayHasKey("data", $result);
+        $this->assertArrayHasKey("Realm", $result["data"]);
+        $this->assertArrayHasKey("libraries", $result["data"]["Realm"]);
+        $this->assertGreaterThanOrEqual(2, count($result["data"]["Realm"]["libraries"]));
     }
 }

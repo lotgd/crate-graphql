@@ -19,24 +19,39 @@ class RealmResolver implements ContainerAwareInterface
     
     public function resolveRealm(Argument $args = null)
     {
+        $moduleManager = $this->container->get('lotgd.core.game')->getModuleManager();
+        $modules = $moduleManager->getModules();
+        
+        $libraries = [
+            [
+                "name" => "Core",
+                "version" => $this->container->get("lotgd.core.game")->getVersion(),
+                "library" => "lotgd/core",
+                "url" => "https://github.com/lotgd/core.git",
+                "author" => "The daenerys development team",
+            ], [
+                "name" => "Crate",
+                "version" => "0.1.0",
+                "library" => "lotgd/crate-www",
+                "url" => "https://github.com/lotgd/crate-www.git",
+                "author" => "The daenerys development team",
+            ]
+        ];
+        
+        foreach ($modules as $module) {
+            $libraries[] = [
+                "name" => "",
+                "version" => "",
+                "library" => $module->getLibrary(),
+                "url" => "",
+                "author" => "",
+            ];
+        }
+        
         // Realm is defined as an object, but arrays work too
         return [
             "name" => "Test-Environment",
-            "libraries" => [
-                [
-                    "name" => "Core",
-                    "version" => $this->container->get("lotgd.core.game")->getVersion(),
-                    "library" => "lotgd/core",
-                    "url" => "https://github.com/lotgd/core.git",
-                    "author" => "The daenerys development team",
-                ], [
-                    "name" => "Crate",
-                    "version" => "0.1.0",
-                    "library" => "lotgd/crate-www",
-                    "url" => "https://github.com/lotgd/crate-www.git",
-                    "author" => "The daenerys development team",
-                ]
-            ],
+            "libraries" => $libraries,
         ];
     }
 }

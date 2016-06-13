@@ -38,6 +38,15 @@ class WebTestCase extends BaseWebTestCase
         
         return [$result, $client];
     }
+    
+    protected function getQueryResults($query, $jsonVariables = '{}')
+    {
+        list($result, $client) = $this->queryHelper($query, $jsonVariables);
+        
+        $this->assertStatusCode(200, $client);
+        
+        return json_decode($result, true);
+    }
 
     protected function assertQuery($query, $jsonExpected, $jsonVariables = '{}')
     {
