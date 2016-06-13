@@ -1,0 +1,15 @@
+# Configuration
+Configuration:
+    type: object
+    config:
+        description: "Realm configuration."
+        fields:
+            core:
+                type: "[Library]"
+                description: "Core library details."
+            crate:
+                type: "[Library]"
+                description: "Crate library details."
+            modules:
+                type: "[Library]"
+                description: "Module details."

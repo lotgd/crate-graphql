@@ -1,0 +1,21 @@
+# Library
+Library:
+    type: object
+    config:
+        description: "A library entry."
+        fields:
+            name:
+                type: "String"
+                description: "Name of the library"
+            version:
+                type: "String"
+                description: "Version of the library"
+            library:
+                type: "String"
+                description: "Library version"
+            url:
+                type: "String"
+                description: "Access url of the library"
+            author:
+                type: "String"
+                description: "Author of this library"

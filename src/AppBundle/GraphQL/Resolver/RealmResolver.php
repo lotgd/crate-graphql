@@ -22,8 +22,21 @@ class RealmResolver implements ContainerAwareInterface
         // Realm is defined as an object, but arrays work too
         return [
             "name" => "Test-Environment",
-            "crateVersion" => "0.1.0-dev",
-            "coreVersion" => $this->container->get("lotgd.core.game")->getVersion()
+            "libraries" => [
+                [
+                    "name" => "Core",
+                    "version" => $this->container->get("lotgd.core.game")->getVersion(),
+                    "library" => "lotgd/core",
+                    "url" => "https://github.com/lotgd/core.git",
+                    "author" => "The daenerys development team",
+                ], [
+                    "name" => "Crate",
+                    "version" => "0.1.0",
+                    "library" => "lotgd/crate-www",
+                    "url" => "https://github.com/lotgd/crate-www.git",
+                    "author" => "The daenerys development team",
+                ]
+            ],
         ];
     }
 }

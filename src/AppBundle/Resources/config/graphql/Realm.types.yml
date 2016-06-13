@@ -7,12 +7,15 @@ Realm:
     config:
         description: "Common information about the Realm."
         fields:
+            url:
+                type: "String"
+                description: "URL of this realm."
             name:
                 type: "String"
                 description: "The name of this realm."
-            crateVersion:
+            description:
                 type: "String"
-                description: "The version of LotGD\\Crate\\WWW."
-            coreVersion:
-                type: "String"
-                description: "The version of LotGD\\Core."
+                description: "The description of this realm."
+            libraries:
+                type: "[Library]"
+                description: "Configuration."
