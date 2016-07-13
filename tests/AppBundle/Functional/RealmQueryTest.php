@@ -15,31 +15,41 @@ query RealmQuery {
     }
 }
 EOF;
-        
+
         $this->assertArrayKeysInQuery($query, "Realm", ["name"]);
     }
-    
+
     public function testIfRealmReturnsLibraryList()
     {
         $query = <<<GraphQL
 query RealmQuery {
     Realm {
-        libraries {
-            name
-            version
-            library
-            url
-            author
+        configuration {
+            core {
+                name
+                version
+                library
+                url
+                author
+            }
+            crate {
+                name
+                version
+                library
+                url
+                author
+            }
         }
     }
 }
 GraphQL;
-        
+
         $result = $this->getQueryResults($query);
-        
+
         $this->assertArrayHasKey("data", $result);
         $this->assertArrayHasKey("Realm", $result["data"]);
-        $this->assertArrayHasKey("libraries", $result["data"]["Realm"]);
-        $this->assertGreaterThanOrEqual(2, count($result["data"]["Realm"]["libraries"]));
+        $this->assertArrayHasKey("configuration", $result["data"]["Realm"]);
+        $this->assertArrayHasKey("core", $result["data"]["Realm"]['configuration']);
+        $this->assertArrayHasKey("crate", $result["data"]["Realm"]['configuration']);
     }
 }

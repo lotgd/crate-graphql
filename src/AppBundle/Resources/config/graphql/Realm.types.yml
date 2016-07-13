@@ -11,11 +11,11 @@ Realm:
                 type: "String"
                 description: "URL of this realm."
             name:
-                type: "String"
+                type: "String!"
                 description: "The name of this realm."
             description:
                 type: "String"
                 description: "The description of this realm."
-            libraries:
-                type: "[Library]"
-                description: "Configuration."
+            configuration:
+                type: "Configuration!"
+                description: "Information about the configuration of htis realm."

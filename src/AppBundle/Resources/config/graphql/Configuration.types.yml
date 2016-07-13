@@ -5,11 +5,11 @@ Configuration:
         description: "Realm configuration."
         fields:
             core:
-                type: "[Library]"
-                description: "Core library details."
+                type: "Library!"
+                description: "Configuration of the LotGD core."
             crate:
-                type: "[Library]"
-                description: "Crate library details."
+                type: "Library!"
+                description: "Configuration of the crate around the core."
             modules:
                 type: "[Library]"
-                description: "Module details."
+                description: "Details about the modules installed on this realm."
