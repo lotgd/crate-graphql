@@ -6,7 +6,7 @@ use Tests\AppBundle\Functional\WebTestCase;
 
 class RealmQueryTest extends WebTestCase
 {
-    public function testRealmTypeReturnsGeneralInformations()
+    public function testRealmTypeReturnsGeneralInformation()
     {
         $query = <<<EOF
 query RealmQuery {
@@ -19,7 +19,7 @@ EOF;
         $this->assertArrayKeysInQuery($query, "Realm", ["name"]);
     }
 
-    public function testIfRealmReturnsLibraryList()
+    public function testIfRealmReturnsCrateAndCore()
     {
         $query = <<<GraphQL
 query RealmQuery {
