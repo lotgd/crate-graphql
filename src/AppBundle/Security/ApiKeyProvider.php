@@ -1,15 +1,22 @@
 <?php
+declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\AppBundle\Security;
 
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ {
+    ContainerAwareInterface,
+    ContainerAwareTrait
+};
+use Symfony\Component\Security\Core\Exception\ {
+    UnsupportedUserException,
+    UsernameNotFoundException
+};
+use Symfony\Component\Security\Core\User\ {
+    UserInterface,
+    UserProviderInterface
+};
 
-use LotGD\Crate\GraphQL\Models\Account;
+use LotGD\Crate\GraphQL\Models\User;
 
 /**
  * UserProvider

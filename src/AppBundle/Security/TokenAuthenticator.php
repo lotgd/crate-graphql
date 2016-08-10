@@ -1,11 +1,18 @@
 <?php
+declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\AppBundle\Security;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Core\Authentication\Token\ {
+    PreAuthenticatedToken,
+    TokenInterface
+};
+use Symfony\Component\Security\Core\ {
+    Exception\AuthenticationException,
+    User\UserInterface as SymfonyUserInterface,
+    User\UserProviderInterface
+};
 use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterface;
 
 
