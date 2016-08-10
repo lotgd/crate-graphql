@@ -4,6 +4,11 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
+        auth:
+            id: lotgd.user_provider
+        endpoint:
+            id: lotgd.api_key_provider
+        
         in_memory:
             memory: ~
 
@@ -12,9 +17,24 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
-        main:
+            
+        auth:
+            pattern: ^/auth
             anonymous: ~
+            stateless: true
+            guard:
+                authenticators:
+                    - lotgd.credential_authenticator
+            provider: auth
+
+        endpoint:
+            pattern: ^/
+            anonymous: ~
+            stateless: true  
+            simple_preauth:
+                authenticator: lotgd.token_authenticator
+            provider: endpoint
+  
             # activate different ways to authenticate
 
             # http_basic: ~

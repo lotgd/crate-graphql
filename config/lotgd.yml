@@ -1,5 +1,5 @@
 database:
-    dsn: "sqlite::memory:"
+    dsn: "sqlite:%cwd%/daenerys.db3"
     name: daenerys
     user: root
     password:

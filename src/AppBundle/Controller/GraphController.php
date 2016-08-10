@@ -5,9 +5,10 @@ namespace LotGD\Crate\GraphQL\AppBundle\Controller;
 
 use Overblog\GraphQLBundle\Controller\GraphController as OverblogGraphController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\ {
+    JsonResponse,
+    Request
+};
 
 /**
  * Shows either the entry site or performs a query
@@ -15,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 class GraphController extends OverblogGraphController
 {
     /**
-     * Main controller action.$
+     * Main controller action.
      * 
      * This method either displays a landing page informing the user that this is
      * a graphql interface or submits the query to the real controller that manages
@@ -49,5 +50,14 @@ class GraphController extends OverblogGraphController
                 'base_url' => $request->getUri(),
             ]);
         }
+    }
+    
+    /**
+     * @Route("/auth")
+     * @param Request $request
+     */
+    public function authAction(Request $request)
+    {
+        return new JsonResponse(["hi"]);
     }
 }

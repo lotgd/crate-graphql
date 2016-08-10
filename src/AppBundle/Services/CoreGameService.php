@@ -18,7 +18,7 @@ class CoreGameService
     public function __construct()
     {
         if (substr(getcwd(), -4) === "/web") { 
-            $this->game = Bootstrap::createGame(getcwd() . "/..");
+            $this->game = Bootstrap::createGame(getcwd() . DIRECTORY_SEPARATOR . "..");
         }
         else {
             $this->game = Bootstrap::createGame(getcwd());

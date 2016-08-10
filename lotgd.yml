@@ -1,2 +1,1 @@
-bootstrap:
-    
+entityNamespace: "LotGD\\Crate\\GraphQL\\Models\\"

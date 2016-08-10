@@ -6,6 +6,18 @@ parameters:
 services:
     lotgd.core.game:
         class: LotGD\Crate\GraphQL\AppBundle\Services\CoreGameService
+    # User providers
+    lotgd.user_provider:
+        class: LotGD\Crate\GraphQL\AppBundle\Security\UserProvider
+    lotgd.api_key_provider:
+        class: LotGD\Crate\GraphQL\AppBundle\Security\ApiKeyProvider
+    # Authenticators
+    lotgd.credential_authenticator:
+        class: LotGD\Crate\GraphQL\AppBundle\Security\CredentialAuthenticator
+        calls:
+            - [setContainer, ["@service_container"]]
+    lotgd.token_authenticator:
+        class: LotGD\Crate\GraphQL\AppBundle\Security\TokenAuthenticator
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
