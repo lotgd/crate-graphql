@@ -10,8 +10,6 @@ use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterfa
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use LotGD\Crate\GraphQL\Models\User;
@@ -20,10 +18,8 @@ use LotGD\Crate\GraphQL\Models\UserInterface;
 /**
  * CredentialAuthenticator
  */
-class CredentialAuthenticator extends AbstractGuardAuthenticator implements ContainerAwareInterface
-{
-    use ContainerAwareTrait;
-    
+class CredentialAuthenticator extends AbstractGuardAuthenticator 
+{    
     const TYPE_PASSWORD = 1;
     
     /**
@@ -35,8 +31,7 @@ class CredentialAuthenticator extends AbstractGuardAuthenticator implements Cont
     {
         // We do not support authentification via get
         if ($request->isMethod("POST") === false) {
-            throw new AuthentificationException("Auth via anything else than POST is not supported.");
-            return;
+            throw new AuthenticationException("Authentication via anything else than POST is not supported.");
         }
         
         if (strlen($request->getContent()) > 0) {
@@ -44,29 +39,27 @@ class CredentialAuthenticator extends AbstractGuardAuthenticator implements Cont
             
             // no valid json
             if ($content === null) {
-                throw new AuthentificationException("No valid json data has been pushed");
+                throw new AuthenticationException("No valid json data has been pushed");
             }
             
             // password auth
             if (isset($content["password"]) && isset($content["email"])) {
-                $credentials = [
+                return [
                     "type" => self::TYPE_PASSWORD,
                     "password" => $content["password"],
                     "email" => $content["email"]
                 ];
             } elseif (isset($content["oauth2"])) {
-                $credentials = [
+                return [
                     "type" => self::OAUTH2,
                     "provider" => $content["oauth2"],
                     "token" => $content["token"] ?? ""
                 ];
             }
-            else {
-                throw new AuthenticationException("The login credentials are not valid.");
-            }
         }
 
-        return $credentials ?? [];
+        // If script has not yet returned credentials, let's throw an exception
+        throw new AuthenticationException("The login credentials are not valid.");
     }
 
     /**
@@ -77,14 +70,7 @@ class CredentialAuthenticator extends AbstractGuardAuthenticator implements Cont
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $em = $this->container->get('lotgd.core.game')->getEntityManager();
-        
-        return $em->getRepository(User::class)
-            ->findOneBy(["email" => $credentials["email"]]);
-        // if null, authentication will fail
-        // if a User object, checkCredentials() is called
-        //return $this->em->getRepository(':User')
-        //    ->findOneBy(array('apiKey' => $apiKey));
+        return $userProvider->loadUserByEmail($credentials["email"]);
     }
 
     public function checkCredentials($credentials, SymfonyUserInterface $user)
@@ -114,7 +100,7 @@ class CredentialAuthenticator extends AbstractGuardAuthenticator implements Cont
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         $data = array(
-            'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
+            'message' => $exception->getMessage()
         );
 
         return new JsonResponse($data, 403);

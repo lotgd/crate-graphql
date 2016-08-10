@@ -9,13 +9,15 @@ services:
     # User providers
     lotgd.user_provider:
         class: LotGD\Crate\GraphQL\AppBundle\Security\UserProvider
+        calls:
+            - [setContainer, ["@service_container"]]
     lotgd.api_key_provider:
         class: LotGD\Crate\GraphQL\AppBundle\Security\ApiKeyProvider
+        calls:
+            - [setContainer, ["@service_container"]]
     # Authenticators
     lotgd.credential_authenticator:
         class: LotGD\Crate\GraphQL\AppBundle\Security\CredentialAuthenticator
-        calls:
-            - [setContainer, ["@service_container"]]
     lotgd.token_authenticator:
         class: LotGD\Crate\GraphQL\AppBundle\Security\TokenAuthenticator
 #    service_name:

@@ -6,14 +6,18 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 use LotGD\Crate\GraphQL\Models\Account;
 
 /**
  * UserProvider
  */
-class ApiKeyProvider implements UserProviderInterface
+class ApiKeyProvider implements UserProviderInterface, ContainerAwareInterface
 {
+    use ContainerAwareTrait;
+    
     /**
      * @inheritDoc
      */
