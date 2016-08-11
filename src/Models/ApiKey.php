@@ -9,27 +9,31 @@ namespace LotGD\Crate\GraphQL\Models;
 class ApiKey
 {
     private $apiKey;
+    private $user;
+    private $createdOn;
+    private $expiresAt;
     
     /**
      * Creates a new api key entry with a randomly generated key.
      * @return \self
      */
-    public static function generate()
+    public static function generate(UserInterface $user)
     {
         $length = 64;
         $randomBytes = random_bytes($length);
         $apiKey = base64_encode($randomBytes);
 
-        return new self($apiKey);
+        return new self($apiKey, $user);
     }
     
     /**
      * constructs a new api key entry linking key and user.
      * @param string $apiKey
      */
-    public function __construct(string $apiKey)
+    public function __construct(string $apiKey, UserInterface $user)
     {
         $this->apiKey = $apiKey;
+        $this->user = $user;
     }
     
     /**

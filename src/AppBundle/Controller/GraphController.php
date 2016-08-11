@@ -60,8 +60,12 @@ class GraphController extends OverblogGraphController
      */
     public function authAction(Request $request)
     {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
+    
         // If we end up here, we should be authorized to issue an api key
-        $key = ApiKey::generate();
+        $key = ApiKey::generate($this->getUser());
         
         return new JsonResponse([
             "apiKey" => $key->getApiKey(),
