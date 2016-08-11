@@ -17,11 +17,12 @@ class User implements UserInterface
     /** @Column(type="string", length=250, unique=True); */
     private $email;
     /** @Column(type="string", length=250); */
-    private $password = "";
+    private $passwordHash = "";
     
     /**
      * Constructs an user account with an email and a password.
-     * @param string $email
+     * @param string $email Email address
+     * @param string $password plain text password to be hashed
      */
     public function __construct(string $email, string $password)
     {
@@ -48,23 +49,23 @@ class User implements UserInterface
     }
     
     /**
-     * Hashes a given plain password and stored the hash
+     * Takes a plain text password and stores it's hash.
      * @param string $password
      */
     public function setPassword(string $password)
     {
-        $this->password = password_hash($password, PASSWORD_DEFAULT);
+        $this->passwordHash = password_hash($password, PASSWORD_DEFAULT);
     }
     
     /**
      * Verifies if a given plain password is the same as the one in the hash
-     * @param string $password
-     * @return bool
+     * @param string $password Plain password
+     * @return bool True if hashed given plain password is the same as in $passwordHash
      */
     public function verifyPassword(string $password): bool
     {
-        if (password_verify($password, $this->password)) {
-            if (password_needs_rehash($this->password, PASSWORD_DEFAULT)) {
+        if (password_verify($password, $this->passwordHash)) {
+            if (password_needs_rehash($this->passwordHash, PASSWORD_DEFAULT)) {
                 $this->setPassword($password);
             }
             return true;
@@ -99,7 +100,7 @@ class User implements UserInterface
      */
     public function getPassword()
     {
-        return $this->password;
+        return $this->passwordHash;
     }
     
     /**

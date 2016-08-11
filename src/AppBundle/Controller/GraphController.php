@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\ {
     Request
 };
 
+use LotGD\Crate\GraphQL\Models\ApiKey;
+
 /**
  * Shows either the entry site or performs a query
  */
@@ -58,6 +60,12 @@ class GraphController extends OverblogGraphController
      */
     public function authAction(Request $request)
     {
-        return new JsonResponse(["hi"]);
+        // If we end up here, we should be authorized to issue an api key
+        $key = ApiKey::generate();
+        
+        return new JsonResponse([
+            "apiKey" => $key->getApiKey(),
+            "expires" => 0,
+        ]);
     }
 }
