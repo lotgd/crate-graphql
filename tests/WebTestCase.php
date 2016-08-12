@@ -22,6 +22,13 @@ class WebTestCase extends BaseWebTestCase
         }
     }
     
+    protected function tearDown()
+    {
+        static::$em->clear();
+        static::$em->close();
+        static::$kernel->shutdown();
+    }
+    
     public function loadDefaultData(EntityManagerInterface $em)
     {
         include implode(DIRECTORY_SEPARATOR, [getcwd(), "tests", "datasets", "default.php"]);
