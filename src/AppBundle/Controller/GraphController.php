@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\AppBundle\Controller;
 
+use DateTime;
+
 use Overblog\GraphQLBundle\Controller\GraphController as OverblogGraphController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\ {
@@ -11,6 +13,7 @@ use Symfony\Component\HttpFoundation\ {
 };
 
 use LotGD\Crate\GraphQL\Models\ApiKey;
+use LotGD\Crate\GraphQL\Models\UserInterface;
 
 /**
  * Shows either the entry site or performs a query
@@ -63,13 +66,35 @@ class GraphController extends OverblogGraphController
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
             throw $this->createAccessDeniedException();
         }
-    
-        // If we end up here, we should be authorized to issue an api key
-        $key = ApiKey::generate($this->getUser());
+        
+        $user = $this->getUser();
+        $entityManager = $this->get("lotgd.core.game")->getEntityManager();
+        
+        if ($user->hasApiKey() === false) {
+            print("NEW");
+            $key = ApiKey::generate($user);
+            $user->setApiKey($key);
+        } elseif ($user->getApiKey()->isValid() === false) {
+            print("RENEW");
+            // Delete old key
+            $key = $user->getApiKey();
+            $key->delete($entityManager);
+            
+            // Create new key
+            $key = ApiKey::generate($user);
+            $user->setApiKey($key);
+        }
+        else {
+            print("NONE");
+            $key = $user->getApiKey();
+        }
+        
+        $key->setLastUsed();
+        $key->save($entityManager);
         
         return new JsonResponse([
             "apiKey" => $key->getApiKey(),
-            "expires" => 0,
+            "expiresAt" => $key->getExpiresAtAsString(),
         ]);
     }
 }

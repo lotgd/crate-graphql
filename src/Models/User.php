@@ -6,18 +6,25 @@ namespace LotGD\Crate\GraphQL\Models;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 
+use LotGD\Core\Models\SaveableInterface;
+use LotGD\Core\Tools\Model\Saveable;
+
 /**
  * @Entity
  * @Table(name="users")
  */
-class User implements UserInterface
+class User implements UserInterface, SaveableInterface
 {
+    use Saveable;
+    
     /** @Id @Column(type="integer") @GeneratedValue */
     private $id;
     /** @Column(type="string", length=250, unique=True); */
     private $email;
     /** @Column(type="string", length=250); */
     private $passwordHash = "";
+    /** @OneToOne(targetEntity="ApiKey", mappedBy="user", cascade={"persist"}) */
+    private $apiKey;
     
     /**
      * Constructs an user account with an email and a password.
@@ -73,6 +80,21 @@ class User implements UserInterface
         else {
             return false;
         }
+    }
+    
+    public function setApiKey(ApiKey $key)
+    {
+        $this->apiKey = $key;
+    }
+    
+    public function hasApiKey(): bool
+    {
+        return !is_null($this->apiKey);
+    }
+    
+    public function getApiKey(): ApiKey
+    {
+        return $this->apiKey;
     }
     
     //
