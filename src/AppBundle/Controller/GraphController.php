@@ -71,11 +71,9 @@ class GraphController extends OverblogGraphController
         $entityManager = $this->get("lotgd.core.game")->getEntityManager();
         
         if ($user->hasApiKey() === false) {
-            print("NEW");
             $key = ApiKey::generate($user);
             $user->setApiKey($key);
         } elseif ($user->getApiKey()->isValid() === false) {
-            print("RENEW");
             // Delete old key
             $key = $user->getApiKey();
             $key->delete($entityManager);
@@ -85,7 +83,6 @@ class GraphController extends OverblogGraphController
             $user->setApiKey($key);
         }
         else {
-            print("NONE");
             $key = $user->getApiKey();
         }
         

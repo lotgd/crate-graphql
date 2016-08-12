@@ -37,27 +37,27 @@ class ApiKey implements SaveableInterface
      * Creates a new api key entry with a randomly generated key.
      * @return \self
      */
-    public static function generate(UserInterface $user)
+    public static function generate(UserInterface $user, $expiresIn = 5)
     {
         $length = 64;
         $randomBytes = random_bytes($length);
         $apiKey = base64_encode($randomBytes);
 
-        return new self($apiKey, $user);
+        return new self($apiKey, $user, $expiresIn);
     }
     
     /**
      * constructs a new api key entry linking key and user.
      * @param string $apiKey
      */
-    public function __construct(string $apiKey, UserInterface $user)
+    public function __construct(string $apiKey, UserInterface $user, int $expiresIn)
     {
         $this->apiKey = $apiKey;
         $this->user = $user;
         $this->createdAt = new DateTime();
         $this->lastUsedAt = new DateTime();
         $this->expiresAt = new DateTime();
-        $this->expiresAt->add(DateInterval::createFromDateString(sprintf("%s seconds", 5)));
+        $this->expiresAt->add(DateInterval::createFromDateString(sprintf("%s seconds", $expiresIn)));
     }
     
     /**
@@ -81,6 +81,16 @@ class ApiKey implements SaveableInterface
         else {
             return true;
         }
+    }
+    
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+    
+    public function getExpiresAt(): DateTime
+    {
+        return $this->expiresAt;
     }
     
     public function getExpiresAtAsString(string $format = DateTime::W3C): string

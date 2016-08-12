@@ -1,31 +1,12 @@
 <?php
 
-namespace Tests\AppBundle\Functional;
+namespace LotGD\Crate\GraphQL\Tests\Functional\GraphQL;
 
 use Doctrine\ORM\Tools\SchemaTool;
-use Liip\FunctionalTestBundle\Test\WebTestCase as BaseWebTestCase;
+use LotGD\Crate\GraphQL\Tests\WebTestCase;
 
-class WebTestCase extends BaseWebTestCase
-{
-    private static $dbLoaded = false;
-    
-    public function testNothing() {
-        $this->assertTrue(true);
-    }
-
-    public function __setUp()
-    {
-        if (self::$dbLoaded) {
-            return;
-        }
-        $this->resetDatabase();
-        self::$dbLoaded = true;
-    }
-
-    protected function __resetDatabase()
-    {
-    }
-    
+class GraphQLTestCase extends WebTestCase
+{    
     protected function queryHelper($query, $jsonVariables)
     {
         $client = static::makeClient();

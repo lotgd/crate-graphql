@@ -1,10 +1,8 @@
 <?php
 
-namespace Tests\AppBundle\Functional;
+namespace LotGD\Crate\GraphQL\Tests\Functional\GraphQL;
 
-use Tests\AppBundle\Functional\WebTestCase;
-
-class RealmQueryTest extends WebTestCase
+class RealmQueryTest extends GraphQLTestCase
 {
     public function testRealmTypeReturnsGeneralInformation()
     {
@@ -26,21 +24,21 @@ query RealmQuery {
     Realm {
         configuration {
             core {
-                name
-                version
-                library
-                url
-                author
+                ...Lib
             }
             crate {
-                name
-                version
-                library
-                url
-                author
+                ...Lib
             }
         }
     }
+}
+                
+fragment Lib on Library {
+    name
+    version
+    library
+    url
+    author
 }
 GraphQL;
 

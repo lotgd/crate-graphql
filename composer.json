@@ -16,6 +16,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "LotGD\\Crate\\GraphQL\\Tests\\": "tests/",
             "Tests\\": "tests/"
         }
     },
