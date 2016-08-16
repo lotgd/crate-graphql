@@ -56,42 +56,4 @@ class GraphController extends OverblogGraphController
             ]);
         }
     }
-    
-    /**
-     * @Route("/auth")
-     * @param Request $request
-     */
-    public function authAction(Request $request)
-    {
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            throw $this->createAccessDeniedException();
-        }
-        
-        $user = $this->getUser();
-        $entityManager = $this->get("lotgd.core.game")->getEntityManager();
-        
-        if ($user->hasApiKey() === false) {
-            $key = ApiKey::generate($user);
-            $user->setApiKey($key);
-        } elseif ($user->getApiKey()->isValid() === false) {
-            // Delete old key
-            $key = $user->getApiKey();
-            $key->delete($entityManager);
-            
-            // Create new key
-            $key = ApiKey::generate($user);
-            $user->setApiKey($key);
-        }
-        else {
-            $key = $user->getApiKey();
-        }
-        
-        $key->setLastUsed();
-        $key->save($entityManager);
-        
-        return new JsonResponse([
-            "apiKey" => $key->getApiKey(),
-            "expiresAt" => $key->getExpiresAtAsString(),
-        ]);
-    }
 }

@@ -15,7 +15,7 @@ class AppExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('graphql.yml');
-        $loader->load('graphql-relay.yml');
+        $loader->load('graphql-queries.yml');
+        $loader->load('graphql-mutations.yml');
     }
 }

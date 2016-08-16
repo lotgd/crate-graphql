@@ -56,4 +56,4 @@ overblog_graphql:
         config_validation: "%kernel.debug%"
         schema:
             query: Query
-            mutation: ~
+            mutation: Mutation

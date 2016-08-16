@@ -1,0 +1,10 @@
+Mutation:
+    type: object
+    config:
+        fields:
+            authWithPassword:
+                builder: Mutation
+                builderConfig:
+                    inputType: AuthWithPasswordInput
+                    payloadType: AuthWithPasswordPayload
+                    mutateAndGetPayload: "@=mutation('auth_with_password', [value['email'], value['password']])"

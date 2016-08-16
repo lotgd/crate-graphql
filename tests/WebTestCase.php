@@ -11,6 +11,10 @@ class WebTestCase extends BaseWebTestCase
 {
     static $em;
     
+    public function testNothing() {
+        $this->assertTrue(true);
+    }
+    
     public function setUp()
     {
         if (static::$em === null) {
@@ -18,7 +22,6 @@ class WebTestCase extends BaseWebTestCase
             static::$kernel->boot();
                     
             static::$em = static::$kernel->getContainer()->get("lotgd.core.game")->getEntityManager();
-            $this->loadDefaultData(static::$em);
         }
     }
     
@@ -27,13 +30,9 @@ class WebTestCase extends BaseWebTestCase
         static::$em->clear();
         static::$em->close();
         static::$kernel->shutdown();
-    }
-    
-    public function loadDefaultData(EntityManagerInterface $em)
-    {
-        include implode(DIRECTORY_SEPARATOR, [getcwd(), "tests", "datasets", "default.php"]);
-        $em->flush();
-        $em->clear();
+        
+        static::$em = null;
+        static::$kernel = null;
     }
     
     protected function getEntityManager(): EntityManagerInterface
@@ -47,9 +46,9 @@ class WebTestCase extends BaseWebTestCase
         
         $method = $requestData["method"] ?? "GET";
         $query = $requestData["query"] ?? [];
-        $files = $request["files"] ?? [];
-        $server = $request["server"] ?? [];
-        $content = $request["content"] ?? null;
+        $files = $requestData["files"] ?? [];
+        $server = $requestData["server"] ?? [];
+        $content = $requestData["content"] ?? null;
         
         $client->request($method, $path, $query, $files, $server, $content);
         

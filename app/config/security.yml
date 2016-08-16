@@ -4,8 +4,6 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        auth:
-            id: lotgd.user_provider
         endpoint:
             id: lotgd.api_key_provider
         
@@ -17,15 +15,6 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-            
-        auth:
-            pattern: ^/auth
-            anonymous: ~
-            stateless: true
-            guard:
-                authenticators:
-                    - lotgd.credential_authenticator
-            provider: auth
 
         endpoint:
             pattern: ^/

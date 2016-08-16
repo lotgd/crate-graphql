@@ -1,0 +1,5 @@
+services:
+    lotgd.crate.graph.mutation.ship:
+        class: LotGD\Crate\GraphQL\AppBundle\GraphQL\Mutation\AuthMutation
+        tags:
+            - { name: overblog_graphql.mutation, alias: "auth_with_password", method: "authWithPassword" }
