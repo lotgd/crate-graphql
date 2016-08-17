@@ -20,6 +20,11 @@ class WebTestCase extends BaseWebTestCase
         if (static::$em === null) {
             static::$kernel = static::createKernel();
             static::$kernel->boot();
+            
+            if (file_exists("daenerys-test.db3")) {
+                unlink("daenerys-test.db3");
+            }
+            copy("daenerys-test.db3.dist", "daenerys-test.db3");
                     
             static::$em = static::$kernel->getContainer()->get("lotgd.core.game")->getEntityManager();
         }
