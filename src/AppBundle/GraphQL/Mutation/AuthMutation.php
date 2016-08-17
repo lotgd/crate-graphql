@@ -2,20 +2,23 @@
 
 namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Mutation;
 
+use Doctrine\DBAL\DBALException;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Overblog\GraphQLBundle\Error\UserError;
 
 use LotGD\Crate\GraphQL\Models\User;
 use LotGD\Crate\GraphQL\Models\ApiKey;
+use LotGD\Crate\GraphQL\Tools\EntityManagerAwareInterface;
+use LotGD\Crate\GraphQL\Tools\EntityManagerAwareTrait;
 
-class AuthMutation implements ContainerAwareInterface
+class AuthMutation implements EntityManagerAwareInterface
 {
-    use ContainerAwareTrait;
+    use EntityManagerAwareTrait;
     
-    function authWithPassword(string $email, string $password)
+    function authWithPassword(string $email = null, string $password = null)
     {
-        $entityManager = $this->container->get('lotgd.core.game')->getEntityManager();
+        $entityManager = $this->getEntityManager();
         
         $user = $entityManager->getRepository(User::class)
             ->findOneBy(["email" => $email]);
@@ -54,5 +57,34 @@ class AuthMutation implements ContainerAwareInterface
             "apiKey" => $key->getApiKey(),
             "expiresAt" => $key->getExpiresAtAsString(),
         ];
+    }
+    
+    function createPasswordUser(string $name = "", string $email = "", string $password = "")
+    {
+        $entityManager = $this->getEntityManager();
+        
+        $userByEmail = $entityManager->getRepository(User::class)
+            ->findOneBy(["email" => $email]);
+        if ($userByEmail !== null) {
+            throw new UserError("Email address is already in use.");
+        }
+        
+        $userByName = $entityManager->getRepository(User::class)
+            ->findOneBy(["name" => $name]);
+        if ($userByName !== null) {
+            throw new UserError("Username is already in use.");
+        }
+        
+        $user = new User($name, $email, $password);
+        
+        try {
+            $user->save($entityManager);
+        } catch (DBALException $ex) {
+            throw new UserError("An unknown DBALException occured.");
+        } catch (\Exception $ex) {
+            throw new UserError("An unknown Exception occured.");
+        }
+        
+        return [];
     }
 }

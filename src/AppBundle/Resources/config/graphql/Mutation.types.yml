@@ -2,9 +2,18 @@ Mutation:
     type: object
     config:
         fields:
+            # Create an user entry with name/email/password
+            createPasswordUser:
+                builder: Mutation
+                builderConfig:
+                    inputType: CreatePasswordUserInput
+                    payloadType: CreatePasswordUserPayload
+                    mutateAndGetPayload: "@=mutation('create_password_user', [value['name'], value['email'], value['password']])"
+            # Authenticate a password user with email/password
             authWithPassword:
                 builder: Mutation
                 builderConfig:
                     inputType: AuthWithPasswordInput
                     payloadType: AuthWithPasswordPayload
                     mutateAndGetPayload: "@=mutation('auth_with_password', [value['email'], value['password']])"
+            

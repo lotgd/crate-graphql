@@ -37,7 +37,7 @@ class ApiKey implements SaveableInterface
      * Creates a new api key entry with a randomly generated key.
      * @return \self
      */
-    public static function generate(UserInterface $user, $expiresIn = 5)
+    public static function generate(UserInterface $user, $expiresIn = 3600)
     {
         $length = 64;
         $randomBytes = random_bytes($length);

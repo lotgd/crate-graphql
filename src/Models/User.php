@@ -20,6 +20,8 @@ class User implements UserInterface, SaveableInterface
     /** @Id @Column(type="integer") @GeneratedValue */
     private $id;
     /** @Column(type="string", length=250, unique=True); */
+    private $name;
+    /** @Column(type="string", length=250, unique=True); */
     private $email;
     /** @Column(type="string", length=250); */
     private $passwordHash = "";
@@ -31,8 +33,9 @@ class User implements UserInterface, SaveableInterface
      * @param string $email Email address
      * @param string $password plain text password to be hashed
      */
-    public function __construct(string $email, string $password)
+    public function __construct(string $name, string $email, string $password)
     {
+        $this->name = $name;
         $this->email = $email;
         $this->setPassword($password);
     }
