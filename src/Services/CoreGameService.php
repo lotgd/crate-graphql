@@ -1,12 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace LotGD\Crate\GraphQL\AppBundle\Services;
+namespace LotGD\Crate\GraphQL\Services;
 
 use Doctrine\ORM\EntityManagerInterface;
 
-use LotGD\Core\Bootstrap;
-use LotGD\Core\ModuleManager;
+use LotGD\Core\ {
+    Bootstrap,
+    Game,
+    ModuleManager
+};
 
 /**
  * Description of CoreGameService
@@ -24,16 +27,37 @@ class CoreGameService
         }
     }
     
-    public function getVersion()
+    /**
+     * Returns the game instance
+     * @return Game
+     */
+    public function getGame(): Game
+    {
+        return $this->game;
+    }
+    
+    /**
+     * Returns the current game version
+     * @return string
+     */
+    public function getVersion(): string
     {
         return $this->game->getVersion();
     }
     
+    /**
+     * Returns the EntityManager used by the game
+     * @return EntityManagerInterface
+     */
     public function getEntityManager(): EntityManagerInterface
     {
         return $this->game->getEntityManager();
     }
     
+    /**
+     * Returns the Module Manager used by the game
+     * @return ModuleManager
+     */
     public function getModuleManager(): ModuleManager
     {
         return $this->game->getModuleManager();

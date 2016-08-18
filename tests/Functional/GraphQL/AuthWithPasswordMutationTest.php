@@ -9,9 +9,9 @@ class AuthWithPasswordMutationTest extends GraphQLTestCase
 {
     public function testIfNonExistingUserFailsAuth()
     {
-        $query = <<<EOF
-mutation AuthWithPasswordMutation(\$input: AuthWithPasswordInput!) {
-  authWithPassword(input: \$input) {
+        $query = <<<'EOF'
+mutation AuthWithPasswordMutation($input: AuthWithPasswordInput!) {
+  authWithPassword(input: $input) {
     apiKey
     expiresAt
   	clientMutationId

@@ -4,8 +4,15 @@ parameters:
 #    parameter_name: value
 
 services:
+    # Core service
     lotgd.core.game:
-        class: LotGD\Crate\GraphQL\AppBundle\Services\CoreGameService
+        class: LotGD\Crate\GraphQL\Services\CoreGameService
+    # Manager services
+    lotgd.crate.graphql.user_manager:
+        class: LotGD\Crate\GraphQL\Services\UserManagerService
+        calls:
+            - [setCoreGameService, ["@lotgd.core.game"]]
+    
     # User providers
     lotgd.api_key_provider:
         class: LotGD\Crate\GraphQL\AppBundle\Security\ApiKeyProvider

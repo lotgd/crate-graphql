@@ -7,10 +7,14 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Overblog\GraphQLBundle\Error\UserError;
 
-use LotGD\Crate\GraphQL\Models\User;
-use LotGD\Crate\GraphQL\Models\ApiKey;
-use LotGD\Crate\GraphQL\Tools\EntityManagerAwareInterface;
-use LotGD\Crate\GraphQL\Tools\EntityManagerAwareTrait;
+use LotGD\Crate\GraphQL\{
+    Exceptions\UserEmailExistsException,
+    Exceptions\UserNameExistsException,
+    Models\User,
+    Models\ApiKey,
+    Tools\EntityManagerAwareInterface,
+    Tools\EntityManagerAwareTrait
+};
 
 class AuthMutation implements EntityManagerAwareInterface
 {
@@ -18,11 +22,9 @@ class AuthMutation implements EntityManagerAwareInterface
     
     function authWithPassword(string $email = null, string $password = null)
     {
-        $entityManager = $this->getEntityManager();
+        $userManager = $this->container->get("lotgd.crate.graphql.user_manager");
         
-        $user = $entityManager->getRepository(User::class)
-            ->findOneBy(["email" => $email]);
-        $passwordVerified = false;
+        $user = $userManager->findByEmail($email);
         
         if ($user instanceof User) {
             $passwordVerified = $user->verifyPassword($password);
@@ -39,19 +41,22 @@ class AuthMutation implements EntityManagerAwareInterface
             $user->setApiKey($key);
         } elseif ($user->getApiKey()->isValid() === false) {
             // Delete old key
-            $key = $user->getApiKey();
-            $key->delete($entityManager);
+            $oldKey = $user->getApiKey();
+            $oldKey->delete($this->getEntityManager());
+            unset($oldKey);
             
             // Create new key
-            $key = ApiKey::generate($user);
-            $user->setApiKey($key);
+            $newKey = ApiKey::generate($user);
+            $user->setApiKey($newKey);
+            
+            $key = $newKey;
         }
         else {
             $key = $user->getApiKey();
         }
         
         $key->setLastUsed();
-        $key->save($entityManager);
+        $key->save($this->getEntityManager());
         
         return [
             "apiKey" => $key->getApiKey(),
@@ -61,28 +66,16 @@ class AuthMutation implements EntityManagerAwareInterface
     
     function createPasswordUser(string $name = "", string $email = "", string $password = "")
     {
-        $entityManager = $this->getEntityManager();
-        
-        $userByEmail = $entityManager->getRepository(User::class)
-            ->findOneBy(["email" => $email]);
-        if ($userByEmail !== null) {
-            throw new UserError("Email address is already in use.");
-        }
-        
-        $userByName = $entityManager->getRepository(User::class)
-            ->findOneBy(["name" => $name]);
-        if ($userByName !== null) {
-            throw new UserError("Username is already in use.");
-        }
-        
-        $user = new User($name, $email, $password);
+        $userManager = $this->container->get("lotgd.crate.graphql.user_manager");
         
         try {
-            $user->save($entityManager);
-        } catch (DBALException $ex) {
-            throw new UserError("An unknown DBALException occured.");
+            $userManager->createNewWithPassword($name, $email, $password);
+        } catch (UserNameExistsException $ex) {
+            throw new UserError("Username is already in use.");
+        } catch (UserEmailExistsException $ex) {
+            throw new UserError("Email address is already in use.");
         } catch (\Exception $ex) {
-            throw new UserError("An unknown Exception occured.");
+            throw new UserError("An unknown exception occured: " . $ex->getMessage());
         }
         
         return [];

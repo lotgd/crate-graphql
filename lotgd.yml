@@ -1,1 +1,3 @@
 entityNamespace: "LotGD\\Crate\\GraphQL\\Models\\"
+daenerysCommands:
+    - "Console\\Commands\\CreatePasswordUserCommand"
