@@ -18,9 +18,16 @@ services:
         class: LotGD\Crate\GraphQL\AppBundle\Security\ApiKeyProvider
         calls:
             - [setContainer, ["@service_container"]]
+            - [setCoreGameService, ["@lotgd.core.game"]]
     # Authenticators
     lotgd.token_authenticator:
         class: LotGD\Crate\GraphQL\AppBundle\Security\TokenAuthenticator
+        
+    # Events
+    lotgd.listeners.authentificationFailure:
+        class: LotGD\Crate\GraphQL\SymfonyEventListeners\AuthentificationFailureListener
+        tags:
+            - { name: kernel.exception_listener, event: security.authentication.failure }
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

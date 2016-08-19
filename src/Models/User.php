@@ -41,12 +41,20 @@ class User implements UserInterface, SaveableInterface
     }
     
     /**
-     * Returns the user id
-     * @return int
+     * @inheritDoc
      */
     public function getId(): int
     {
         return $this->id;
+    }
+    
+    /**
+     * Returns the user email address
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
     
     /**
@@ -59,8 +67,7 @@ class User implements UserInterface, SaveableInterface
     }
     
     /**
-     * Takes a plain text password and stores it's hash.
-     * @param string $password
+     * @inheritDoc
      */
     public function setPassword(string $password)
     {
@@ -68,9 +75,7 @@ class User implements UserInterface, SaveableInterface
     }
     
     /**
-     * Verifies if a given plain password is the same as the one in the hash
-     * @param string $password Plain password
-     * @return bool True if hashed given plain password is the same as in $passwordHash
+     * @inheritDoc
      */
     public function verifyPassword(string $password): bool
     {
@@ -85,60 +90,58 @@ class User implements UserInterface, SaveableInterface
         }
     }
     
+    /**
+     * Sets an api key to belong to this user.
+     * @param ApiKey $key
+     */
     public function setApiKey(ApiKey $key)
     {
         $this->apiKey = $key;
     }
     
+    /**
+     * Returns true if a user has an api key.
+     * @return bool
+     */
     public function hasApiKey(): bool
     {
         return !is_null($this->apiKey);
     }
     
+    /**
+     * Returns the api key instance.
+     * @return ApiKey
+     */
     public function getApiKey(): ApiKey
     {
         return $this->apiKey;
     }
     
-    //
-    // Implementation of UserInterface
-    //
-    
-    /**
-     * @inheritDoc
-     */
-    public function getUsername()
-    {
-        
-    }
-    
-    /**
-     * @inheritDoc
-     */
     public function getRoles()
     {
         return ['ROLE_USER'];
     }
     
+    public function eraseCredentials()
+    {
+    }
+    
+    public function getUsername()
+    {
+        return $this->getName();
+    }
+    
+    public function getSalt()
+    {
+        return "NaCl";
+    }
+    
     /**
-     * @inheritDoc
+     * Returns the hashed password (including salt)
+     * @return type
      */
     public function getPassword()
     {
         return $this->passwordHash;
-    }
-    
-    /**
-     * @inheritDoc
-     */
-    public function getSalt()
-    {
-    }
-    
-    /**
-     * @inheritDoc
-     */
-    public function eraseCredentials()
-    {
     }
 }

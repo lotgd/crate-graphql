@@ -7,6 +7,28 @@ use LotGD\Crate\GraphQL\Tests\WebTestCase;
 
 class GraphQLTestCase extends WebTestCase
 {    
+    protected function sendRequestToGraphQLEndpoint(array $requestData = [])
+    {
+        $client = static::makeClient();
+        
+        $method = $requestData["method"] ?? "GET";
+        $query = $requestData["query"] ?? [];
+        $files = $requestData["files"] ?? [];
+        $server = $requestData["server"] ?? [];
+        $content = $requestData["content"] ?? null;
+        
+        $client->request(
+            $method, 
+            $this->getUrl("lotgd_crate_graphql_app_graph_endpoint"), 
+            $query, 
+            $files, 
+            $server, 
+            $content
+        );
+        
+        return $client;
+    }
+    
     protected function queryHelper($query, $jsonVariables)
     {
         $client = static::makeClient();

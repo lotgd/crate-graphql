@@ -16,23 +16,31 @@ use Symfony\Component\Security\Core\User\ {
     UserProviderInterface
 };
 
+use LotGD\Crate\GraphQL\Models\ApiKey;
 use LotGD\Crate\GraphQL\Models\User;
+use LotGD\Crate\GraphQL\Services\BaseManagerService;
 
 /**
  * UserProvider
  */
-class ApiKeyProvider implements UserProviderInterface, ContainerAwareInterface
+class ApiKeyProvider extends BaseManagerService implements UserProviderInterface, ContainerAwareInterface
 {
     use ContainerAwareTrait;
+    
+    public function getUserForApiKey($apiKey)
+    {
+        $apiKey = $this->getEntityManager()->getRepository(ApiKey::class)
+            ->findOneBy(["apiKey" => $apiKey]);
+        
+        return $apiKey === null ? null : $apiKey->getUser();
+    }
     
     /**
      * @inheritDoc
      */
     public function loadUserByUsername($username)
     {
-        $entityManager = $this->container->get('lotgd.core.game')->getEntityManager();
-        
-        var_dump($username, $entityManager);
+        $entityManager = $this->getEntityManager();
     }
     
     /**
@@ -40,16 +48,16 @@ class ApiKeyProvider implements UserProviderInterface, ContainerAwareInterface
      */
     public function supportsClass($class)
     {
-        return $class === 'LotGD\Crate\GraphQl\Models\Account';
+        return $class === 'LotGD\Crate\GraphQl\Models\ApiKey';
     }
     
     /**
      * @inheritDoc
      */
     public function refreshUser(UserInterface $user) {
-        if (!$user instanceof Account) {
+        if (!$user instanceof ApiKey) {
             $class = get_class($user);
-            throw new UnsupportedUserException("Users of type {$class} are not supported.");
+            throw new UnsupportedUserException("ApiKeys of type {$class} are not supported.");
         }
         
         return $this->loadUserByUsername($user->getUsername());

@@ -44,7 +44,16 @@ class CreatePasswordUserCommand extends BaseCommand
         $email = $input->getOption('email');
         $password = $input->getOption('password');
         
-        $userManager = new UserManagerService($this->game);      
-        $userManager->createNewWithPassword($name, $email, $password);
+        if ($name === null || $email === null || $password === null) {
+            $output->write("Name, email and password are not allowed to be null.");
+        }
+        else {
+            $userManager = new UserManagerService($this->game);      
+            $user = $userManager->createNewWithPassword($name, $email, $password);
+
+            $output->write(sprintf("User created with id %i", $user->getId()));
+        }
+        
+        $output->write("\n\n");
     }
 }

@@ -102,4 +102,9 @@ class ApiKey implements SaveableInterface
     {
         $this->lastUsedAt = new DateTime();
     }
+    
+    public function getUser()
+    {
+        return $this->user;
+    }
 }

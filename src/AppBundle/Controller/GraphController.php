@@ -31,7 +31,7 @@ class GraphController extends OverblogGraphController
      * @return type
      */
     public function endpointAction(Request $request)
-    {
+    {        
         if ($request->isMethod("GET")) {
             $check = "query";
         }

@@ -10,11 +10,12 @@ use Symfony\Component\Security\Core\Authentication\Token\ {
 };
 use Symfony\Component\Security\Core\ {
     Exception\AuthenticationException,
+    Exception\CustomUserMessageAuthenticationException,
     User\UserInterface as SymfonyUserInterface,
     User\UserProviderInterface
 };
 use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterface;
-
+use Overblog\GraphQLBundle\Error\UserError;
 
 /**
  * TokenAuthenticator
@@ -44,27 +45,24 @@ class TokenAuthenticator implements SimplePreAuthenticatorInterface
     }
 
     
-    public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)
+    public function authenticateToken(TokenInterface $token, UserProviderInterface $apiKeyProvider, $providerKey)
     {
-        if (!$userProvider instanceof ApiKeyProvider) {
-            $userProvider = get_class($userProvider);
+        if (!$apiKeyProvider instanceof ApiKeyProvider) {
+            $apiKeyProvider = get_class($apiKeyProvider);
             throw new \InvalidArgumentException(
-                "The user provider must be an instance of ApiKeyUserProvider ({$userProvider} was given)."
+                "The user provider must be an instance of ApiKeyUserProvider ({$apiKeyProvider} was given)."
             );
         }
 
         $apiKey = $token->getCredentials();
-        $username = $userProvider->getUsernameForApiKey($apiKey);
+        $user = $apiKeyProvider->getUserForApiKey($apiKey);
 
-        if (!$username) {
-            // CAUTION: this message will be returned to the client
-            // (so don't put any un-trusted messages / error strings here)
-            throw new CustomUserMessageAuthenticationException(
+        if ($user === null) {
+            // User not found, throw exception
+            throw new \Exception(
                 sprintf('API Key "%s" does not exist.', $apiKey)
             );
         }
-
-        $user = $userProvider->loadUserByUsername($username);
 
         return new PreAuthenticatedToken(
             $user,
