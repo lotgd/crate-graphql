@@ -24,16 +24,16 @@ query RealmQuery {
     Realm {
         configuration {
             core {
-                ...Lib
+                ...LibraryFragment
             }
             crate {
-                ...Lib
+                ...LibraryFragment
             }
         }
     }
 }
                 
-fragment Lib on Library {
+fragment LibraryFragment on Library {
     name
     version
     library
