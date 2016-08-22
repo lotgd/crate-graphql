@@ -2,6 +2,8 @@
 
 namespace LotGD\Crate\GraphQL\Tests;
 
+use DateInterval;
+
 use LotGD\Crate\GraphQL\Tests\WebTestCase;
 
 use LotGD\Crate\GraphQL\Models\ApiKey;
@@ -24,6 +26,13 @@ class ApiKeyTest extends WebTestCase
         
         $created = $key->getCreatedAt();
         $expires = $key->getExpiresAt();
+        
+        $created2 = $created->add(DateInterval::createFromDateString("10 seconds"));
+        
+        $this->assertEquals(
+            $created2,
+            $expires
+        );
         
         $em->clear();
     }
