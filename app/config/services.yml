@@ -27,7 +27,7 @@ services:
     lotgd.listeners.authentificationFailure:
         class: LotGD\Crate\GraphQL\SymfonyEventListeners\AuthentificationFailureListener
         tags:
-            - { name: kernel.exception_listener, event: security.authentication.failure }
+            - { name: kernel.event_listener, event: kernel.exception }
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

@@ -8,14 +8,10 @@ use Symfony\Component\Security\Core\Authentication\Token\ {
     PreAuthenticatedToken,
     TokenInterface
 };
-use Symfony\Component\Security\Core\ {
-    Exception\AuthenticationException,
-    Exception\CustomUserMessageAuthenticationException,
-    User\UserInterface as SymfonyUserInterface,
-    User\UserProviderInterface
-};
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterface;
-use Overblog\GraphQLBundle\Error\UserError;
+
+use LotGD\Crate\GraphQL\Exceptions\AuthenticationException;
 
 /**
  * A pre authenticator used to identify a user via an api key (instead of email/password)
@@ -80,7 +76,7 @@ class TokenAuthenticator implements SimplePreAuthenticatorInterface
 
         if ($user === null) {
             // User not found, throw exception
-            throw new \Exception(
+            throw new AuthenticationException(
                 sprintf('API Key "%s" does not exist.', $apiKey)
             );
         }
