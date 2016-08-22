@@ -45,9 +45,9 @@ class UserManagerService extends BaseManagerService
         try {
             $user->save($entityManager);
         } catch (DBALException $ex) {
-            throw new CrateException("An unknown DBALException occured.");
+            throw new CrateException("An unknown DBALException occured: " . $ex->getMessage());
         } catch (\Exception $ex) {
-            throw new CrateException("An unknown Exception occured.");
+            throw new CrateException("An unknown Exception occured: " . $ex->getMessage());
         }
         
         return $user;
