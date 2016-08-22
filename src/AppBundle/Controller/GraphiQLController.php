@@ -9,9 +9,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Controller for the GraphiQL interface.
+ */
 class GraphiQLController extends Controller {
     /**
-     * Main controller action.$
+     * Main controller action.
      * 
      * This method either displays a landing page informing the user that this is
      * a graphql interface or submits the query to the real controller that manages

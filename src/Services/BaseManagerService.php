@@ -14,7 +14,7 @@ use LotGD\Core\ {
 };
 
 /**
- * Basic Manager Service which provides the services with the core's game class.
+ * Basic Manager Service to use with all services that need to access LotGD\Core\Game.
  */
 abstract class BaseManagerService
 {

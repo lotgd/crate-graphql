@@ -8,7 +8,8 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
- * Loads yml files
+ * Loads additional yml files
+ * ToDo: Expand this for modules?
  */
 class AppExtension extends Extension
 {

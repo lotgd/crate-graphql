@@ -12,12 +12,22 @@ use LotGD\Core\ {
 };
 
 /**
- * Description of CoreGameService
+ * A service to manage the lotgd/core procedure.
+ * 
+ * This service initiates the lotgd/core game object and provides
+ * proxy methods as abbreviations to ease the typing effort.
  */
 class CoreGameService
 {
     public $game;
     
+    /**
+     * Creates the lotgd/core game object and decides which cwd to use.
+     * 
+     * If the cwd is /web instead of the crate's root directory, this method
+     * changes the cwd which the core uses. (This is important to make a distinction
+     * between test runs (cwd = /), console runs (cwd = /) and web runs (/web, via /web/app.php).
+     */
     public function __construct()
     {
         if (substr(getcwd(), -4) === "/web") { 

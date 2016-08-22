@@ -18,10 +18,16 @@ use Symfony\Component\Security\Http\Authentication\SimplePreAuthenticatorInterfa
 use Overblog\GraphQLBundle\Error\UserError;
 
 /**
- * TokenAuthenticator
+ * A pre authenticator used to identify a user via an api key (instead of email/password)
  */
 class TokenAuthenticator implements SimplePreAuthenticatorInterface
 {
+    /**
+     * Creates an anonymous pre authenticated symfony token from the authentication data.
+     * @param Request $request The current request roken
+     * @param type $providerKey Provider key.
+     * @return PreAuthenticatedToken
+     */
     public function createToken(Request $request, $providerKey)
     {
         // look for a token in
@@ -39,12 +45,27 @@ class TokenAuthenticator implements SimplePreAuthenticatorInterface
         );
     }
     
+    /**
+     * Returns true if this authenticator supports the given token.
+     * @param TokenInterface $token
+     * @param type $providerKey
+     * @return type
+     */
     public function supportsToken(TokenInterface $token, $providerKey)
     {
         return $token instanceof PreAuthenticatedToken && $token->getProviderKey() === $providerKey;
     }
 
     
+    /**
+     * Checks the credentials stored in the token and tries to authenticate it's information.
+     * @param TokenInterface $token
+     * @param UserProviderInterface $apiKeyProvider
+     * @param type $providerKey
+     * @return PreAuthenticatedToken
+     * @throws \InvalidArgumentException
+     * @throws \Exception
+     */
     public function authenticateToken(TokenInterface $token, UserProviderInterface $apiKeyProvider, $providerKey)
     {
         if (!$apiKeyProvider instanceof ApiKeyProvider) {

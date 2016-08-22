@@ -16,10 +16,20 @@ use LotGD\Crate\GraphQL\{
     Tools\EntityManagerAwareTrait
 };
 
+/**
+ * Resolver for authentication mutations
+ */
 class AuthMutation implements EntityManagerAwareInterface
 {
     use EntityManagerAwareTrait;
     
+    /**
+     * Authenticates an user with a password
+     * @param string $email
+     * @param string $password
+     * @return array GraphQL answer with the fields apiKey and expiresAt
+     * @throws UserError If the login Credentials are invalid.
+     */
     function authWithPassword(string $email = null, string $password = null)
     {
         $userManager = $this->container->get("lotgd.crate.graphql.user_manager");
@@ -32,6 +42,8 @@ class AuthMutation implements EntityManagerAwareInterface
         
         // Do not tell if user is unknown or password wrong
         if ($user === null || $passwordVerified === false) {
+            // Throw a UserError - this gets catched by the GraphQL bundle to deliver a 
+            // valid graphql error.
             throw new UserError("The login credentials are invalid.");
         }
         
@@ -55,7 +67,9 @@ class AuthMutation implements EntityManagerAwareInterface
             $key = $user->getApiKey();
         }
         
+        // Refresh last used
         $key->setLastUsed();
+        // Save the key and flush.
         $key->save($this->getEntityManager());
         
         return [

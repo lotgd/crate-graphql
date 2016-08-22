@@ -16,7 +16,7 @@ use LotGD\Crate\GraphQL\Models\ApiKey;
 use LotGD\Crate\GraphQL\Models\UserInterface;
 
 /**
- * Shows either the entry site or performs a query
+ * Controller for the GraphQL endpoint and the default landing page.
  */
 class GraphController extends OverblogGraphController
 {

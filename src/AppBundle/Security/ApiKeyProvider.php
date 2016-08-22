@@ -21,13 +21,18 @@ use LotGD\Crate\GraphQL\Models\User;
 use LotGD\Crate\GraphQL\Services\BaseManagerService;
 
 /**
- * UserProvider
+ * Manager for ApiKeys: Loads an user
  */
 class ApiKeyProvider extends BaseManagerService implements UserProviderInterface, ContainerAwareInterface
 {
     use ContainerAwareTrait;
     
-    public function getUserForApiKey($apiKey)
+    /**
+     * Returns a user matching a given api key.
+     * @param string $apiKey
+     * @return User|null
+     */
+    public function getUserForApiKey(string $apiKey)
     {
         $apiKey = $this->getEntityManager()->getRepository(ApiKey::class)
             ->findOneBy(["apiKey" => $apiKey]);
@@ -36,11 +41,10 @@ class ApiKeyProvider extends BaseManagerService implements UserProviderInterface
     }
     
     /**
-     * @inheritDoc
+     * not implemented
      */
     public function loadUserByUsername($username)
     {
-        $entityManager = $this->getEntityManager();
     }
     
     /**
@@ -48,7 +52,7 @@ class ApiKeyProvider extends BaseManagerService implements UserProviderInterface
      */
     public function supportsClass($class)
     {
-        return $class === 'LotGD\Crate\GraphQl\Models\ApiKey';
+        return $class === self::class;
     }
     
     /**

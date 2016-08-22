@@ -1,18 +1,12 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\Models;
 
 use Symfony\Component\Security\Core\User\UserInterface as SymfonyUserInterface;
 
 /**
- *
- * @author sauterb
+ * UserInterface which extends symfonys interface and provides additional method needed by our own auth mechanisms.
  */
 interface UserInterface extends SymfonyUserInterface
 {

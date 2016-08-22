@@ -15,12 +15,11 @@ use LotGD\Core\Console\Command\BaseCommand;
 use LotGD\Crate\GraphQL\Services\UserManagerService;
 
 /**
- * CreatePasswordUserCommand
- * @author sauterb
+ * Command to create a password user.
  */
 class CreatePasswordUserCommand extends BaseCommand
 {
-        /**
+    /**
      * @inheritDoc
      */
     protected function configure()
@@ -35,6 +34,7 @@ class CreatePasswordUserCommand extends BaseCommand
                ))
            );
     }
+    
     /**
      * @inheritDoc
      */

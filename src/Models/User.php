@@ -117,20 +117,32 @@ class User implements UserInterface, SaveableInterface
         return $this->apiKey;
     }
     
+    /**
+     * @inheritDoc
+     */
     public function getRoles()
     {
         return ['ROLE_USER'];
     }
     
+    /**
+     * @inheritDoc
+     */
     public function eraseCredentials()
     {
     }
     
+    /**
+     * @inheritDoc
+     */
     public function getUsername()
     {
         return $this->getName();
     }
     
+    /**
+     * @inheritDoc
+     */
     public function getSalt()
     {
         return "NaCl";
