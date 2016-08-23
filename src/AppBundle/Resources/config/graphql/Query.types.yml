@@ -3,7 +3,19 @@ Query:
     config:
         description: "The GraphQL interface for communicating with the LotGD core."
         fields:
-            Realm:
+            realm:
                 description: "General information about the server configuration."
                 type: "Realm"
-                resolve: "@=resolver('realm_realm')"
+                resolve: "@=resolver('realm_resolver')"
+            session:
+                description: "Information about the current session."
+                type: "Session"
+                resolve: "@=resolver('session_resolver')"
+            user:
+                description: "Information about an user account."
+                type: "User"
+                args:
+                    name:
+                        description: "Name of the user."
+                        type: "String!"
+                resolve: "@=resolver('user_resolver', [args])"

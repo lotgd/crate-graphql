@@ -8,20 +8,20 @@ class RealmQueryTest extends GraphQLTestCase
     {
         $query = <<<EOF
 query RealmQuery {
-    Realm {
+    realm {
         name
     }
 }
 EOF;
 
-        $this->assertArrayKeysInQuery($query, "Realm", ["name"]);
+        $this->assertArrayKeysInQuery($query, "realm", ["name"]);
     }
 
     public function testIfRealmReturnsCrateAndCore()
     {
         $query = <<<GraphQL
 query RealmQuery {
-    Realm {
+    realm {
         configuration {
             core {
                 ...LibraryFragment
@@ -45,9 +45,9 @@ GraphQL;
         $result = $this->getQueryResults($query);
 
         $this->assertArrayHasKey("data", $result);
-        $this->assertArrayHasKey("Realm", $result["data"]);
-        $this->assertArrayHasKey("configuration", $result["data"]["Realm"]);
-        $this->assertArrayHasKey("core", $result["data"]["Realm"]['configuration']);
-        $this->assertArrayHasKey("crate", $result["data"]["Realm"]['configuration']);
+        $this->assertArrayHasKey("realm", $result["data"]);
+        $this->assertArrayHasKey("configuration", $result["data"]["realm"]);
+        $this->assertArrayHasKey("core", $result["data"]["realm"]['configuration']);
+        $this->assertArrayHasKey("crate", $result["data"]["realm"]['configuration']);
     }
 }

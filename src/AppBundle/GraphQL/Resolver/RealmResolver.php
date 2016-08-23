@@ -6,7 +6,9 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Overblog\GraphQLBundle\Definition\Argument;
 
-class RealmResolver implements ContainerAwareInterface
+use LotGD\Crate\GraphQL\Services\BaseManagerService;
+
+class RealmResolver extends BaseManagerService implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
 
@@ -17,7 +19,7 @@ class RealmResolver implements ContainerAwareInterface
         return $typeResolver->resolve("Realm");
     }
 
-    public function resolveRealm(Argument $args = null)
+    public function resolve(Argument $args = null)
     {
         $moduleManager = $this->container->get('lotgd.core.game')->getModuleManager();
         $modules = $moduleManager->getModules();

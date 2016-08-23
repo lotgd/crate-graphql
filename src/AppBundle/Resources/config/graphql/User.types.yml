@@ -1,0 +1,12 @@
+# Library
+User:
+    type: object
+    config:
+        description: "A user account."
+        fields:
+            id:
+                type: "Int!"
+                description: "Unique ID of the user."
+            name:
+                type: "String!"
+                description: "Name of the user library."

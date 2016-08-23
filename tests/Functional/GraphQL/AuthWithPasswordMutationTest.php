@@ -53,9 +53,9 @@ JSON;
     
     public function testIfKnownUserCanAuthenticate()
     {
-        $query = <<<EOF
-mutation AuthWithPasswordMutation(\$input: AuthWithPasswordInput!) {
-  authWithPassword(input: \$input) {
+        $query = <<<'EOF'
+mutation AuthWithPasswordMutation($input: AuthWithPasswordInput!) {
+  authWithPassword(input: $input) {
     apiKey
     expiresAt
   	clientMutationId

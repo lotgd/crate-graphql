@@ -1,0 +1,18 @@
+# Notice about creation of types:
+#   for array return valies in the Resolver, use object.
+#   If the type is interface, it needs a resolveType argument to resolve the real type.
+#       resolveType: "@=resolver('realm_type', [value])"
+Session:
+    type: object
+    config:
+        description: "Information about the current session."
+        fields:
+            apiKey:
+                type: "String"
+                description: "ApiKey to this realm."
+            expiresAt:
+                type: "String"
+                description: "Date this session expires at."
+            user:
+                type: "User"
+                description: "The user account associated with this session."
