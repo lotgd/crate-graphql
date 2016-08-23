@@ -35,11 +35,11 @@ class SessionResolver extends BaseManagerService implements ContainerAwareInterf
             ]);
             
             $return["user"] = $userResolver->resolve($argument);
+            
+            return $return;
         }
         else {
-            $return["user"] = null;
+            return null;
         }
-                
-        return $return;
     }
 }
