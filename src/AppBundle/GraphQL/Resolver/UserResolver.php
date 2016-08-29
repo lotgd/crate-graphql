@@ -24,7 +24,7 @@ class UserResolver extends BaseManagerService implements ContainerAwareInterface
         
         if ($user instanceof User) {
             return [
-                "id" => $user->getId(),
+                "id" => (string)$user->getId(),
                 "name" => $user->getName()
             ];
         }

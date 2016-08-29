@@ -5,11 +5,11 @@ Query:
         fields:
             realm:
                 description: "General information about the server configuration."
-                type: "Realm"
+                type: "Realm!"
                 resolve: "@=resolver('realm_resolver')"
             session:
                 description: "Information about the current session."
-                type: "Session"
+                type: "Session!"
                 resolve: "@=resolver('session_resolver')"
             user:
                 description: "Information about an user account."

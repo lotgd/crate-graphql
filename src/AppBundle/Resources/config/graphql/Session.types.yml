@@ -8,11 +8,11 @@ Session:
         description: "Information about the current session."
         fields:
             apiKey:
-                type: "String!"
+                type: "String"
                 description: "ApiKey to this realm."
             expiresAt:
-                type: "String!"
+                type: "String"
                 description: "Date this session expires at."
             user:
-                type: "User!"
+                type: "User"
                 description: "The user account associated with this session."

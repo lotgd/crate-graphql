@@ -16,6 +16,8 @@ use LotGD\Crate\GraphQL\{
     Tools\EntityManagerAwareTrait
 };
 
+use Overblog\GraphQLBundle\Definition\Argument;
+
 /**
  * Resolver for authentication mutations
  */
@@ -72,9 +74,11 @@ class AuthMutation implements EntityManagerAwareInterface
         // Save the key and flush.
         $key->save($this->getEntityManager());
         
+        $argument = new Argument(["apiKey" => $key->getApiKey()]);
+        $return = $this->container->get("app.graph.resolver.session")->resolve($argument);
+        
         return [
-            "apiKey" => $key->getApiKey(),
-            "expiresAt" => $key->getExpiresAtAsString(),
+            "session" => $return,
         ];
     }
     

@@ -39,7 +39,32 @@ class SessionResolver extends BaseManagerService implements ContainerAwareInterf
             return $return;
         }
         else {
-            return null;
+            if (isset($args["apiKey"])) {
+                $em = $this->getEntityManager();
+                $apiKey = $em->getRepository(\LotGD\Crate\GraphQL\Models\ApiKey::class)
+                    ->findOneBy(["apiKey" => $args["apiKey"]]);
+                
+                if ($apiKey !== null) {
+                    $user = $apiKey->getUser();
+                    
+                    $userResolver = $this->container->get('app.graph.resolver.user');
+                    $argument = new Argument([
+                        "name" => $user->getName()
+                    ]);
+                    
+                    return [
+                        "user" => $userResolver->resolve($argument),
+                        "apiKey" => $apiKey->getApiKey(),
+                        "expiresAt" => $apiKey->getExpiresAtAsString()
+                    ];
+                }
+            }
+            
+            return [
+                "user" => null,
+                "apiKey" => null,
+                "expiresAt" => null
+            ];
         }
     }
 }

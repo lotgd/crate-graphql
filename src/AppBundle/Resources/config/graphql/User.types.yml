@@ -5,7 +5,7 @@ User:
         description: "A user account."
         fields:
             id:
-                type: "Int!"
+                type: "String!"
                 description: "Unique ID of the user."
             name:
                 type: "String!"
