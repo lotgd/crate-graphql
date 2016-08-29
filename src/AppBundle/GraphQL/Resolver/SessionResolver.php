@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Resolver;
 
@@ -21,21 +22,21 @@ class SessionResolver extends BaseManagerService implements ContainerAwareInterf
             "apiKey" => null,
             "expiresAt" => null
         ];
-        
-        if ($return["user"] instanceof User) { 
+
+        if ($return["user"] instanceof User) {
             // User must have an api key or else he would not be authenticated.
             $apiKey = $return["user"]->getApiKey();
-            
+
             $return["apiKey"] = $apiKey->getApiKey();
             $return["expiresAt"] = $apiKey->getExpiresAtAsString();
-            
+
             $userResolver = $this->container->get('app.graph.resolver.user');
             $argument = new Argument([
                 "name" => $return["user"]->getName()
             ]);
-            
+
             $return["user"] = $userResolver->resolve($argument);
-            
+
             return $return;
         }
         else {
@@ -43,15 +44,15 @@ class SessionResolver extends BaseManagerService implements ContainerAwareInterf
                 $em = $this->getEntityManager();
                 $apiKey = $em->getRepository(\LotGD\Crate\GraphQL\Models\ApiKey::class)
                     ->findOneBy(["apiKey" => $args["apiKey"]]);
-                
+
                 if ($apiKey !== null) {
                     $user = $apiKey->getUser();
-                    
+
                     $userResolver = $this->container->get('app.graph.resolver.user');
                     $argument = new Argument([
                         "name" => $user->getName()
                     ]);
-                    
+
                     return [
                         "user" => $userResolver->resolve($argument),
                         "apiKey" => $apiKey->getApiKey(),
@@ -59,7 +60,7 @@ class SessionResolver extends BaseManagerService implements ContainerAwareInterf
                     ];
                 }
             }
-            
+
             return [
                 "user" => null,
                 "apiKey" => null,

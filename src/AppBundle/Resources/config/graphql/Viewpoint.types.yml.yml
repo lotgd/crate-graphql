@@ -1,0 +1,21 @@
+# Library
+Viewpoint:
+    type: object
+    config:
+        description: "A viewpoint of a character."
+        fields:
+            title:
+                type: "String!"
+                description: "The title of the scene."
+            description:
+                type: "String!"
+                description: "The description of the scene."
+            template:
+                type: "String"
+                description: "A template this scene is based on."
+            attachements:
+                type: "[String]"
+                description: "A list of attachements."
+            actions:
+                type: "[String]"
+                description: "A list of actions."

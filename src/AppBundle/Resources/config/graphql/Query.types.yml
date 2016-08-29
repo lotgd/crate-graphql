@@ -19,3 +19,12 @@ Query:
                         description: "Name of the user."
                         type: "String!"
                 resolve: "@=resolver('user_resolver', [args])"
+            viewpoint:
+                description: "The viewpoint of a given character."
+                type: "Viewpoint"
+                args:
+                    characterId:
+                        description: "The characterId of the character to display the viewpoint."
+                        type: "String!"
+                resolve: "@=resolver('viewpoint_resolver')"
+                

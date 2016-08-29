@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Mutation;
 
@@ -24,7 +25,7 @@ use Overblog\GraphQLBundle\Definition\Argument;
 class AuthMutation implements EntityManagerAwareInterface
 {
     use EntityManagerAwareTrait;
-    
+
     /**
      * Authenticates an user with a password
      * @param string $email
@@ -35,20 +36,20 @@ class AuthMutation implements EntityManagerAwareInterface
     function authWithPassword(string $email = null, string $password = null)
     {
         $userManager = $this->container->get("lotgd.crate.graphql.user_manager");
-        
+
         $user = $userManager->findByEmail($email);
-        
+
         if ($user instanceof User) {
             $passwordVerified = $user->verifyPassword($password);
         }
-        
+
         // Do not tell if user is unknown or password wrong
         if ($user === null || $passwordVerified === false) {
-            // Throw a UserError - this gets catched by the GraphQL bundle to deliver a 
+            // Throw a UserError - this gets catched by the GraphQL bundle to deliver a
             // valid graphql error.
             throw new UserError("The login credentials are invalid.");
         }
-        
+
         // Generate api key
         if ($user->hasApiKey() === false) {
             $key = ApiKey::generate($user);
@@ -58,34 +59,34 @@ class AuthMutation implements EntityManagerAwareInterface
             $oldKey = $user->getApiKey();
             $oldKey->delete($this->getEntityManager());
             unset($oldKey);
-            
+
             // Create new key
             $newKey = ApiKey::generate($user);
             $user->setApiKey($newKey);
-            
+
             $key = $newKey;
         }
         else {
             $key = $user->getApiKey();
         }
-        
+
         // Refresh last used
         $key->setLastUsed();
         // Save the key and flush.
         $key->save($this->getEntityManager());
-        
+
         $argument = new Argument(["apiKey" => $key->getApiKey()]);
         $return = $this->container->get("app.graph.resolver.session")->resolve($argument);
-        
+
         return [
             "session" => $return,
         ];
     }
-    
+
     function createPasswordUser(string $name = "", string $email = "", string $password = "")
     {
         $userManager = $this->container->get("lotgd.crate.graphql.user_manager");
-        
+
         try {
             $userManager->createNewWithPassword($name, $email, $password);
         } catch (UserNameExistsException $ex) {
@@ -95,7 +96,7 @@ class AuthMutation implements EntityManagerAwareInterface
         } catch (\Exception $ex) {
             throw new UserError("An unknown exception occured: " . $ex->getMessage());
         }
-        
+
         return [];
     }
 }
