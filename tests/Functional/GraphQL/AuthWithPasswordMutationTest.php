@@ -12,13 +12,19 @@ class AuthWithPasswordMutationTest extends GraphQLTestCase
         $query = <<<'EOF'
 mutation AuthWithPasswordMutation($input: AuthWithPasswordInput!) {
   authWithPassword(input: $input) {
-    apiKey
-    expiresAt
-  	clientMutationId
+    session {
+        apiKey,
+        expiresAt,
+        user {
+            id,
+            name
+        }
+    },
+    clientMutationId,
   }
 }
 EOF;
-        
+
         $variables = <<<JSON
 {
   "input": {
@@ -28,7 +34,7 @@ EOF;
   }
 }
 JSON;
-        
+
         $answer = <<<JSON
 {
   "data": {
@@ -50,19 +56,25 @@ JSON;
 
         $this->assertQuery($query, $answer, $variables);
     }
-    
+
     public function testIfKnownUserCanAuthenticate()
     {
         $query = <<<'EOF'
 mutation AuthWithPasswordMutation($input: AuthWithPasswordInput!) {
   authWithPassword(input: $input) {
-    apiKey
-    expiresAt
-  	clientMutationId
+    session {
+        apiKey,
+        expiresAt,
+        user {
+            id,
+            name
+        }
+    },
+    clientMutationId,
   }
 }
 EOF;
-        
+
         $variables = <<<JSON
 {
   "input": {
@@ -72,30 +84,44 @@ EOF;
   }
 }
 JSON;
-        
+
         $result = $this->getQueryResults($query, $variables);
-        
+
         $this->assertArrayHasKey("data", $result);
         $this->assertArrayHasKey("authWithPassword", $result["data"]);
-        $this->assertArrayHasKey("apiKey", $result["data"]["authWithPassword"]);
-        $this->assertArrayHasKey("expiresAt", $result["data"]["authWithPassword"]);
         $this->assertArrayHasKey("clientMutationId", $result["data"]["authWithPassword"]);
-        
+        $this->assertArrayHasKey("session", $result["data"]["authWithPassword"]);
+
+        $this->assertArrayHasKey("apiKey", $result["data"]["authWithPassword"]["session"]);
+        $this->assertArrayHasKey("expiresAt", $result["data"]["authWithPassword"]["session"]);
+        $this->assertArrayHasKey("user", $result["data"]["authWithPassword"]["session"]);
+        $this->assertArrayHasKey("id", $result["data"]["authWithPassword"]["session"]["user"]);
+        $this->assertArrayHasKey("name", $result["data"]["authWithPassword"]["session"]["user"]);
+
         $this->assertSame("avcd", $result["data"]["authWithPassword"]["clientMutationId"]);
+        $this->assertGreaterThan(0, count($result["data"]["authWithPassword"]["session"]["user"]["name"]));
+        $this->assertInternalType("string", $result["data"]["authWithPassword"]["session"]["user"]["id"]);
+        $this->assertGreaterThan(0, count($result["data"]["authWithPassword"]["session"]["user"]["id"]));
     }
-    
+
     public function testIfTwoAuthRequestResultInSameApiKey()
     {
-        $query = <<<EOF
-mutation AuthWithPasswordMutation(\$input: AuthWithPasswordInput!) {
-  authWithPassword(input: \$input) {
-    apiKey
-    expiresAt
-  	clientMutationId
+        $query = <<<'EOF'
+mutation AuthWithPasswordMutation($input: AuthWithPasswordInput!) {
+  authWithPassword(input: $input) {
+    session {
+        apiKey,
+        expiresAt,
+        user {
+            id,
+            name
+        }
+    },
+    clientMutationId,
   }
 }
 EOF;
-        
+
         $variables = <<<JSON
 {
   "input": {
@@ -105,10 +131,10 @@ EOF;
   }
 }
 JSON;
-        
+
         $result1 = $this->getQueryResults($query, $variables);
         $result2 = $this->getQueryResults($query, $variables);
-        
+
         $this->assertSame($result1, $result2);
     }
 }
