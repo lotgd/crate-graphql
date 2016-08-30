@@ -22,7 +22,7 @@ services:
             - { name: overblog_graphql.resolver, alias: "user_resolver", method: "resolve" }
 
     app.graph.resolver.viewpoint:
-        class: LotGD\Crate\GraphQL\AppBundle\GraphQL\Resolver\UserResolver
+        class: LotGD\Crate\GraphQL\AppBundle\GraphQL\Resolver\ViewpointResolver
         calls:
             - [setCoreGameService, ["@lotgd.core.game"]]
         tags:

@@ -26,22 +26,22 @@ class UserManagerService extends BaseManagerService
      * @throws CrateException if another exception for unknown reasons occurs.
      */
     public function createNewWithPassword(
-        string $name, 
-        string $email, 
+        string $name,
+        string $email,
         string $password
     ): User {
         $entityManager = $this->getEntityManager();
-        
+
         if ($this->findByName($name) !== null) {
             throw new UserNameExistsException();
         }
-        
+
         if ($this->findByEmail($email) !== null) {
             throw new UserEmailExistsException();
         }
-        
+
         $user = new User($name, $email, $password);
-        
+
         try {
             $user->save($entityManager);
         } catch (DBALException $ex) {
@@ -49,10 +49,10 @@ class UserManagerService extends BaseManagerService
         } catch (\Exception $ex) {
             throw new CrateException("An unknown Exception occured: " . $ex->getMessage());
         }
-        
+
         return $user;
     }
-    
+
     /**
      * Finds an user entity by name.
      * @param string $name The name to search by.
@@ -60,11 +60,9 @@ class UserManagerService extends BaseManagerService
      */
     public function findByName(string $name)
     {
-        return $this->getEntityManager()
-            ->getRepository(User::class)
-            ->findOneBy(["name" => $name]);
+        return $this->getOneBy(User::class, ["name" => $name]);
     }
-    
+
     /**
      * Finds an user entity by email.
      * @param string $email The email to search by.
@@ -72,8 +70,6 @@ class UserManagerService extends BaseManagerService
      */
     public function findByEmail(string $email)
     {
-        return $this->getEntityManager()
-            ->getRepository(User::class)
-            ->findOneBy(["email" => $email]);
+        return $this->getOneBy(User::class, ["email" => $email]);
     }
 }

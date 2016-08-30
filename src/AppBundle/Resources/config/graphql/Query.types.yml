@@ -26,5 +26,4 @@ Query:
                     characterId:
                         description: "The characterId of the character to display the viewpoint."
                         type: "String!"
-                resolve: "@=resolver('viewpoint_resolver')"
-                
+                resolve: "@=resolver('viewpoint_resolver', [args])"
