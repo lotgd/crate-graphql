@@ -3,7 +3,7 @@
     "description": "Adapts the lotgd/core engine and provides a public API for playing the game",
     "license": "AGPL-3.0",
     "type": "lotgd-crate",
-    
+
     "autoload": {
         "psr-4": {
             "LotGD\\Crate\\GraphQL\\": "src/",
@@ -24,6 +24,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/lotgd/core.git"
+        },
+        {
+            "type": "composer",
+            "url": "http://code.lot.gd"
         }
     ],
     "require": {
@@ -37,9 +41,11 @@
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
-        
+
         "lotgd/core": "dev-master",
-        "overblog/graphql-bundle": "dev-master"
+        "overblog/graphql-bundle": "dev-master",
+
+        "lotgd/village": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
@@ -76,5 +82,9 @@
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         }
+    },
+
+    "config": {
+        "secure-http": false
     }
 }
