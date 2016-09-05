@@ -36,8 +36,8 @@ class ViewpointResolver extends BaseManagerService implements ContainerAwareInte
                 $viewpoint = $game->getViewpoint();
 
                 return [
-                    "title" => "Hallo",
-                    "description" => "Hallo.",
+                    "title" => $viewpoint->getTitle(),
+                    "description" => $viewpoint->getDescription(),
                 ];
             } catch (InvalidConfigurationException $e) {
                 throw new \Overblog\GraphQLBundle\Error\UserError("No default scene!");

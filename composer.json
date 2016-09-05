@@ -26,6 +26,14 @@
             "url": "https://github.com/lotgd/core.git"
         },
         {
+            "type": "vcs",
+            "url": "https://github.com/lotgd/module-village.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/lotgd/module-scene-bundle.git"
+        },
+        {
             "type": "composer",
             "url": "http://code.lot.gd"
         }
@@ -45,7 +53,8 @@
         "lotgd/core": "dev-master",
         "overblog/graphql-bundle": "dev-master",
 
-        "lotgd/village": "dev-master"
+        "lotgd/module-village": "dev-master",
+        "lotgd/module-scene-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
