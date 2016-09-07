@@ -1,4 +1,3 @@
-# Library
 Viewpoint:
     type: object
     config:
@@ -17,5 +16,5 @@ Viewpoint:
                 type: "[String]"
                 description: "A list of attachements."
             actions:
-                type: "[String]"
-                description: "A list of actions."
+                type: "[ActionGroup]"
+                description: "A list of action groups."

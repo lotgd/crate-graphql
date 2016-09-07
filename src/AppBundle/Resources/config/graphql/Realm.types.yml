@@ -1,7 +1,3 @@
-# Notice about creation of types:
-#   for array return valies in the Resolver, use object.
-#   If the type is interface, it needs a resolveType argument to resolve the real type.
-#       resolveType: "@=resolver('realm_type', [value])"
 Realm:
     type: object
     config:

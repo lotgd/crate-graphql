@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Overblog\GraphQLBundle\Definition\Argument;
 
 use LotGD\Core\Exceptions\InvalidConfigurationException;
+use LotGD\Core\Models\Scene;
 use LotGD\Crate\GraphQL\Services\BaseManagerService;
 
 class ViewpointResolver extends BaseManagerService implements ContainerAwareInterface
@@ -34,13 +35,37 @@ class ViewpointResolver extends BaseManagerService implements ContainerAwareInte
 
             try {
                 $viewpoint = $game->getViewpoint();
+                $viewpointActionGroups = $viewpoint->getActionGroups();
+                $actionGroups = [];
+
+                foreach ($viewpointActionGroups as $group) {
+                    $groupActions = $group->getActions();
+                    $actions = [];
+
+                    foreach ($groupActions as $action) {
+                        $actions[] = [
+                            "id" => $action->getId(),
+                            "title" => $game->getEntityManager()->getRepository(Scene::class)
+                                ->find($action->getDestinationSceneId())->getTitle(),
+                        ];
+                    }
+
+                    $actionGroups[] = [
+                        "id" => $group->getId(),
+                        "title" => $group->getTitle(),
+                        "sortKey" => $group->getSortKey(),
+                        "actions" => $actions,
+                    ];
+                }
 
                 return [
                     "title" => $viewpoint->getTitle(),
                     "description" => $viewpoint->getDescription(),
+                    "template" => $viewpoint->getTemplate(),
+                    "actions" => $actionGroups,
                 ];
             } catch (InvalidConfigurationException $e) {
-                throw new \Overblog\GraphQLBundle\Error\UserError("No default scene!");
+                throw new \Overblog\GraphQLBundle\Error\UserError("No default scene handler found.");
             }
         }
     }

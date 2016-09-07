@@ -1,0 +1,17 @@
+ActionGroup:
+    type: object
+    config:
+        description: "A list of actions grouped together under a common title."
+        fields:
+            id:
+                type: "String!"
+                description: "Unique identifier for this action group."
+            title:
+                type: "String!"
+                description: "The title of this action group."
+            sortKey:
+                type: "Int!"
+                description: "A value to sort the items inside this group."
+            actions:
+                type: "[Action]"
+                description: "The list of actions stored in this group."

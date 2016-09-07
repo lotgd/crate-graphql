@@ -1,0 +1,11 @@
+Action:
+    type: object
+    config:
+        description: "An action leading the user to a different scene."
+        fields:
+            id:
+                type: "String!"
+                description: "Unique identifier for this action."
+            title:
+                type: "String!"
+                description: "The title of this action."
