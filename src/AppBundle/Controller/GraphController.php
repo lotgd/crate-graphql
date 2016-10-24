@@ -30,7 +30,7 @@ class GraphController extends OverblogGraphController
      * @param Request $request
      * @return type
      */
-    public function endpointAction(Request $request)
+    public function endpointAction(Request $request, $schemaName = null)
     {        
         if ($request->isMethod("GET")) {
             $check = "query";
@@ -45,10 +45,10 @@ class GraphController extends OverblogGraphController
                 $request->$check->set("variables", "{}");
             }
             
-            return parent::endpointAction($request);
+            return parent::endpointAction($request, $schemaName);
         }
         elseif (strlen($request->getContent()) > 0) {
-            return parent::endpointAction($request);
+            return parent::endpointAction($request, $schemaName);
         }
         else {
             return $this->render('default/index.html.twig', [
