@@ -22,4 +22,4 @@ Mutation:
                 builderConfig:
                     inputType: TakeActionInput
                     payloadType: TakeActionPayload
-                    mutateAndGetPayload: "@=mutation('take_action', [value['characterId'], value['id']])"
+                    mutateAndGetPayload: "@=mutation('take_action', [value['characterId'], value['actionId']])"
