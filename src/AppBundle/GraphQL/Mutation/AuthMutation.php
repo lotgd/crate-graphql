@@ -6,6 +6,7 @@ namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Mutation;
 use Doctrine\DBAL\DBALException;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
 
 use LotGD\Crate\GraphQL\{
@@ -17,7 +18,6 @@ use LotGD\Crate\GraphQL\{
     Tools\EntityManagerAwareTrait
 };
 
-use Overblog\GraphQLBundle\Definition\Argument;
 
 /**
  * Resolver for authentication mutations

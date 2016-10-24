@@ -4,3 +4,7 @@ services:
         tags:
             - { name: overblog_graphql.mutation, alias: "auth_with_password", method: "authWithPassword" }
             - { name: overblog_graphql.mutation, alias: "create_password_user", method: "createPasswordUser" }
+    lotgd.crate.graph.mutation.viewpoint:
+        class: LotGD\Crate\GraphQL\AppBundle\GraphQL\Mutation\ViewpointMutation
+        tags:
+            - { name: overblog_graphql.mutation, alias: "take_action", method: "takeAction" }
