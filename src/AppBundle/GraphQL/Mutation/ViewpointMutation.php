@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Mutation;
 
+use Overblog\GraphQLBundle\Definition\Argument;
+
 use LotGD\Crate\GraphQL\Services\BaseManagerService;
 use LotGD\Crate\GraphQL\Tools\EntityManagerAwareInterface;
 use LotGD\Crate\GraphQL\Tools\EntityManagerAwareTrait;
@@ -33,6 +35,7 @@ class ViewpointMutation extends BaseManagerService implements EntityManagerAware
             "characterId" => $characterId,
         ]);
         
-        return $this->container->get("app.graph.resolver.viewpoint")->resolve($argument);
+        $a = $this->container->get("app.graph.resolver.viewpoint")->resolve($argument);
+        return ["viewpoint" => $a];
     }
 }
