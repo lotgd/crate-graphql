@@ -15,6 +15,6 @@ Viewpoint:
             attachements:
                 type: "[String]"
                 description: "A list of attachements."
-            actions:
+            actionGroups:
                 type: "[ActionGroup]"
                 description: "A list of action groups."

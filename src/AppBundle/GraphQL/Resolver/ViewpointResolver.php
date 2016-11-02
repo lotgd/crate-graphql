@@ -17,6 +17,7 @@ class ViewpointResolver extends BaseManagerService implements ContainerAwareInte
 
     public function resolve(Argument $args = null)
     {
+        // @ToDo: Implement getting selected character from user session (see SessionResolver).
         if (empty($args["characterId"])) {
             return null;
         }
@@ -62,7 +63,7 @@ class ViewpointResolver extends BaseManagerService implements ContainerAwareInte
                     "title" => $viewpoint->getTitle(),
                     "description" => $viewpoint->getDescription(),
                     "template" => $viewpoint->getTemplate(),
-                    "actions" => $actionGroups,
+                    "actionGroups" => $actionGroups,
                 ];
             } catch (InvalidConfigurationException $e) {
                 throw new \Overblog\GraphQLBundle\Error\UserError("No default scene handler found.");

@@ -16,7 +16,7 @@ query ViewQuery($id: String!) {
     title,
     description,
     template,
-    actions {
+    actionGroups {
       id,
       title,
       sortKey,
@@ -34,14 +34,14 @@ GraphQL;
     "id": "1"
 }
 JSON;
-        
+
         $results = $this->getQueryResults($query, $jsonVariables);
         $this->assertArrayHasKey("viewpoint", $results["data"]);
         $this->assertArrayHasKey("title", $results["data"]["viewpoint"]);
         $this->assertArrayHasKey("description", $results["data"]["viewpoint"]);
         $this->assertArrayHasKey("template", $results["data"]["viewpoint"]);
-        $this->assertArrayHasKey("actions", $results["data"]["viewpoint"]);
-        $this->assertGreaterThan(0, count($results["data"]["viewpoint"]["actions"]));
-        $this->assertGreaterThan(0, count($results["data"]["viewpoint"]["actions"][0]["actions"]));
+        $this->assertArrayHasKey("actionGroups", $results["data"]["viewpoint"]);
+        $this->assertGreaterThan(0, count($results["data"]["viewpoint"]["actionGroups"]));
+        $this->assertGreaterThan(0, count($results["data"]["viewpoint"]["actionGroups"][0]["actions"]));
     }
 }
