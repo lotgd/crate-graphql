@@ -35,7 +35,7 @@ class CoreGameService
         if (self::$_game) {
             $this->game = self::$_game;
         } else {
-            if (substr(getcwd(), -4) === "/web") {
+            if (substr(getcwd(), -4) === DIRECTORY_SEPARATOR . "web") {
                 $this->game = Bootstrap::createGame(getcwd() . DIRECTORY_SEPARATOR . "..");
             } else {
                 $this->game = Bootstrap::createGame(getcwd());
