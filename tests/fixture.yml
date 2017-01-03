@@ -1,0 +1,51 @@
+# fixture
+users:
+    -
+        id: 1
+        email: "admin"
+        name: "admin"
+        passwordHash: "$2y$10$5JBI.jWv5RKwvmDHatP3MuOLu//DtctwDHiSqiKhVwm.pP3wUVVB6"
+characters:
+    -
+        id: 1
+        name: "DB-Test"
+        displayName: "DB-Test"
+        maxHealth: 10
+        health: 10
+        level: 1
+        deletedAt:
+modules:
+    -
+        library: "lotgd/module-village"
+        createdAt: "2017-01-03 09:15:39"
+    -
+        library: "lotgd/module-scene-bundle"
+        createdAt: "2017-01-03 09:15:39"
+module_properties:
+    -
+        owner: "lotgd/module-village"
+        propertyName: "lotgd/module-village/scenes"
+        propertyValue: "i:1;"
+scenes:
+    -
+        id: 1
+        title: "Village Square"
+        description: "The village square hustles and bustles. No one really notices that you're are standing there. You see various shops and businesses along main street. There is a curious looking rock to one side. On every side the village is surrounded by deep dark forest."
+        template: "lotgd/module-village/village"
+    -
+        id: 2
+        title: "The Pond"
+        description: "A bit outside of the village, near the border to the dark deep forest, there is a place simply called «The Pond». It's name-giver, a small pond with a beautiful, blue-green colour, is in it's centre, enclosed by meadow. After seeing this place, everyone nows immediatly why this place is liked among lovers. A bit more separate, an old oak treestands mighty."
+        template: "lotgd/module-scene-bundle/pond/oak"
+    -
+        id: 3
+        title: "The old oak"
+        description: "The old oaken tree, the oldest tree inside of the village and one of the few that didn't fell victim to the woodcutter, has a lot of old and fresh hearts cut inside it's bork, witness to the numerous lover's that wanted their love to last as long as this tree does."
+        template: "lotgd/module-scene-bundle/pond/oak"
+paths:
+    -
+        scene_id: 1
+        child_scene_id: 2
+    -
+        scene_id: 2
+        child_scene_id: 3
