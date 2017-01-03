@@ -30,8 +30,8 @@ class ApiKeyTest extends WebTestCase
         $created2 = $created->add(DateInterval::createFromDateString("10 seconds"));
         
         $this->assertEquals(
-            $created2,
-            $expires
+            $created2->format("Ymd-His"),
+            $expires->format("Ymd-His")
         );
         
         $em->clear();
