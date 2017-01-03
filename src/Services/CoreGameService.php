@@ -13,30 +13,38 @@ use LotGD\Core\ {
 
 /**
  * A service to manage the lotgd/core procedure.
- * 
+ *
  * This service initiates the lotgd/core game object and provides
  * proxy methods as abbreviations to ease the typing effort.
  */
 class CoreGameService
 {
     public $game;
-    
+    protected static $_game;
+
     /**
      * Creates the lotgd/core game object and decides which cwd to use.
-     * 
+     *
      * If the cwd is /web instead of the crate's root directory, this method
      * changes the cwd which the core uses. (This is important to make a distinction
      * between test runs (cwd = /), console runs (cwd = /) and web runs (/web, via /web/app.php).
      */
     public function __construct()
     {
-        if (substr(getcwd(), -4) === "/web") { 
-            $this->game = Bootstrap::createGame(getcwd() . DIRECTORY_SEPARATOR . "..");
+        // Need to keep a static instance so that the game is the same over all instances of symfony.
+        if (self::$_game) {
+            $this->game = self::$_game;
         } else {
-            $this->game = Bootstrap::createGame(getcwd());
+            if (substr(getcwd(), -4) === "/web") {
+                $this->game = Bootstrap::createGame(getcwd() . DIRECTORY_SEPARATOR . "..");
+            } else {
+                $this->game = Bootstrap::createGame(getcwd());
+            }
+
+            self::$_game = $this->game;
         }
     }
-    
+
     /**
      * Returns the game instance
      * @return Game
@@ -45,7 +53,7 @@ class CoreGameService
     {
         return $this->game;
     }
-    
+
     /**
      * Returns the current game version
      * @return string
@@ -54,7 +62,7 @@ class CoreGameService
     {
         return $this->game->getVersion();
     }
-    
+
     /**
      * Returns the EntityManager used by the game
      * @return EntityManagerInterface
@@ -63,7 +71,7 @@ class CoreGameService
     {
         return $this->game->getEntityManager();
     }
-    
+
     /**
      * Returns the Module Manager used by the game
      * @return ModuleManager

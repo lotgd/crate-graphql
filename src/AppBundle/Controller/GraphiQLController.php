@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 class GraphiQLController extends Controller {
     /**
      * Main controller action.
-     * 
+     *
      * This method either displays a landing page informing the user that this is
      * a graphql interface or submits the query to the real controller that manages
      * graphql queries.

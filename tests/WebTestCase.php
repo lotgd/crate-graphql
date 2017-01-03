@@ -51,6 +51,8 @@ class WebTestCase extends BaseWebTestCase
                     }
                 }
             }
+
+            static::$em->clear();
         }
     }
 
