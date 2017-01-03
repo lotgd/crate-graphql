@@ -37,7 +37,6 @@ EOF;
 JSON;
 
         $answer = $this->getQueryResults($query, $variables);
-        var_dump($answer);
 
         $this->assertSame("avcd", $answer["data"]["authWithPassword"]["clientMutationId"]);
         $this->assertArrayHasKey("session", $answer["data"]["authWithPassword"]);
