@@ -23,47 +23,41 @@ class WebTestCase extends BaseWebTestCase
             static::$kernel->boot();
 
             static::$em = static::$kernel->getContainer()->get("lotgd.core.game")->getEntityManager();
+        }
+        
+        // get pdo connection
+        $pdo = static::$em->getConnection();
 
-            // get pdo connection
-            $pdo = static::$em->getConnection();
+        // empty tables
+        $tables = $pdo->query("SELECT name FROM sqlite_master WHERE type = 'table'")->fetchAll();
 
-            // empty tables
-            $tables = $pdo->query("SELECT name FROM sqlite_master WHERE type = 'table'")->fetchAll();
+        // get fixture
+        $fixture = Yaml::parse(file_get_contents("tests/fixture.yml"));
 
-            // get fixture
-            $fixture = Yaml::parse(file_get_contents("tests/fixture.yml"));
+        foreach ($tables as $table) {
+            $tablename = $table["name"];
 
-            foreach ($tables as $table) {
-                $tablename = $table["name"];
+            $pdo->query("DELETE FROM '{$tablename}'");
+            if (isset($fixture[$tablename])) {
+                foreach ($fixture[$tablename] as $row) {
+                    $fields = implode(",", array_keys($row));
+                    $fieldVariables = implode(
+                        ",",
+                        array_map(function($v) { return ":".$v; }, array_keys($row))
+                    );
 
-                $pdo->query("DELETE FROM '{$tablename}'");
-                if (isset($fixture[$tablename])) {
-                    foreach ($fixture[$tablename] as $row) {
-                        $fields = implode(",", array_keys($row));
-                        $fieldVariables = implode(
-                            ",",
-                            array_map(function($v) { return ":".$v; }, array_keys($row))
-                        );
-
-                        $query = "INSERT INTO '{$tablename}' ($fields) VALUES ($fieldVariables);";
-                        $stmt = $pdo->prepare($query);
-                        $stmt->execute($row);
-                    }
+                    $query = "INSERT INTO '{$tablename}' ($fields) VALUES ($fieldVariables);";
+                    $stmt = $pdo->prepare($query);
+                    $stmt->execute($row);
                 }
             }
-
-            static::$em->clear();
         }
+
+        static::$em->clear();
     }
 
     protected function tearDown()
     {
-        static::$em->clear();
-        static::$em->close();
-        static::$kernel->shutdown();
-
-        static::$em = null;
-        static::$kernel = null;
     }
 
     protected function getEntityManager(): EntityManagerInterface
