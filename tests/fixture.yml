@@ -49,3 +49,8 @@ paths:
     -
         scene_id: 2
         child_scene_id: 3
+event_subscriptions:
+    -
+        pattern: "/h\\/lotgd\\/core\\/default-scene/"
+        class: "LotGD\\Module\\Village\\Module"
+        library: "lotgd/module-village"
