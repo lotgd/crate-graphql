@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Overblog\GraphQLBundle\Definition\Argument;
 
 use LotGD\Crate\GraphQL\Services\BaseManagerService;
+use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\RealmType;
 
 class RealmResolver extends BaseManagerService implements ContainerAwareInterface
 {
@@ -24,8 +25,10 @@ class RealmResolver extends BaseManagerService implements ContainerAwareInterfac
     {
         $moduleManager = $this->container->get('lotgd.core.game')->getModuleManager();
         $modules = $moduleManager->getModules();
+        
+        return new RealmType($this->container->get("lotgd.core.game")->getGame());
 
-        $core = [
+        /*$core = [
             "name" => "Core",
             "version" => $this->container->get("lotgd.core.game")->getVersion(),
             "library" => "lotgd/core",
@@ -59,6 +62,6 @@ class RealmResolver extends BaseManagerService implements ContainerAwareInterfac
                 'crate' => $crate,
                 'modules' => $outputModules,
             ],
-        ];
+        ];*/
     }
 }
