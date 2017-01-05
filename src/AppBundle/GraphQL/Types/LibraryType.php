@@ -6,17 +6,28 @@ namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Types;
 use LotGD\Core\Game;
 
 /**
+ * Represents the Library type.
  */
 class LibraryType
 {
+    /** @var Game The game instance. */
     private $game;
     
+    /** @var closure Returns the name of the library */
     public $name;
+    /** @var closure Returns the version of the library */
     public $version;
+    /** @var closure Returns the package name of the library */
     public $library;
+    /** @var closure Returns the url of the library */
     public $url;
+    /** @var closure Returns the authors of the library */
     public $author;
     
+    /**
+     * @param Game $game
+     * @param string $library
+     */
     public function __construct(Game $game, string $library = null) {
         $this->game = $game;
         
@@ -24,7 +35,6 @@ class LibraryType
             $composerPackage = $game->getComposerManager()->getComposer()->getPackage();
         } else {
             $composerPackage = $game->getComposerManager()->getPackageForLibrary($library);
-            #\Doctrine\Common\Util\Debug::dump($game->getComposerManager()->getPackages());
         }
         
         $this->name = function() use ($composerPackage) { return $composerPackage->getPrettyName(); };
@@ -34,9 +44,22 @@ class LibraryType
         $this->author = function() use ($composerPackage) { return $this->formatAuthors($composerPackage->getAuthors()); };
     }
     
-    protected function formatAuthors(array $authors = null) {
+    /**
+     * Returns a string of a list of authors.
+     * @param array $authors
+     * @return array
+     */
+    protected function formatAuthors(array $authors = null): string
+    {
         if ($authors === null) {
-            return $authors;
+            return "unknown";
         }
+        
+        $list = "";
+        foreach ($authors as $author) {
+            $list .= "${author['name']} (${author['email']}), ";
+        }
+        
+        return substr($list, 0, -2);
     }
 }
