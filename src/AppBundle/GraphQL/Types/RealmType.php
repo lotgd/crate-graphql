@@ -8,7 +8,7 @@ use LotGD\Core\Game;
 /**
  * Represents the Realm type in graphql.
  */
-class RealmType
+class RealmType implements TypeInterface
 {
     /** @var Game The game instance. */
     private $game;

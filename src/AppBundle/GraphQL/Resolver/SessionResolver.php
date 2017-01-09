@@ -7,8 +7,11 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Overblog\GraphQLBundle\Definition\Argument;
 
-use LotGD\Crate\GraphQL\Services\BaseManagerService;
+use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\SessionType;
+use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\UserType;
 use LotGD\Crate\GraphQL\Models\User;
+use LotGD\Crate\GraphQL\Models\ApiKey;
+use LotGD\Crate\GraphQL\Services\BaseManagerService;
 
 
 class SessionResolver extends BaseManagerService implements ContainerAwareInterface
@@ -17,55 +20,29 @@ class SessionResolver extends BaseManagerService implements ContainerAwareInterf
 
     public function resolve(Argument $args = null)
     {
-        $return = [
-            "user" => $this->container->get('security.token_storage')->getToken()->getUser(),
-            "apiKey" => null,
-            "expiresAt" => null
-        ];
-
-        if ($return["user"] instanceof User) {
-            // User must have an api key or else he would not be authenticated.
-            $apiKey = $return["user"]->getApiKey();
-
-            $return["apiKey"] = $apiKey->getApiKey();
-            $return["expiresAt"] = $apiKey->getExpiresAtAsString();
-
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        $sessionType = new SessionType($this->getGame());
+        
+        if ($user instanceof User) {
+            $sessionType->setApiKey($user->getApiKey()->getApiKey());
+            $sessionType->setExpiresAt($$user->getApiKey()->getExpiresAtAsString());
+            
             $userResolver = $this->container->get('app.graph.resolver.user');
-            $argument = new Argument([
-                "name" => $return["user"]->getName()
-            ]);
-
-            $return["user"] = $userResolver->resolve($argument);
-
-            return $return;
-        }
-        else {
-            if (isset($args["apiKey"])) {
-                $em = $this->getEntityManager();
-                $apiKey = $em->getRepository(\LotGD\Crate\GraphQL\Models\ApiKey::class)
-                    ->findOneBy(["apiKey" => $args["apiKey"]]);
-
-                if ($apiKey !== null) {
-                    $user = $apiKey->getUser();
-
-                    $userResolver = $this->container->get('app.graph.resolver.user');
-                    $argument = new Argument([
-                        "name" => $user->getName()
-                    ]);
-
-                    return [
-                        "user" => $userResolver->resolve($argument),
-                        "apiKey" => $apiKey->getApiKey(),
-                        "expiresAt" => $apiKey->getExpiresAtAsString()
-                    ];
-                }
+            $sessionType->setUser(new UserType($this->getGame(), $user));
+        } elseif(isset($args["apiKey"])) {
+            $apiKey = $this->getEntityManager()
+                ->getRepository(ApiKey::class)
+                ->findOneBy(["apiKey" => $args["apiKey"]]);
+            
+            if ($apiKey !== null) {
+                $user = $apiKey->getUser();
+                
+                $sessionType->setUser(new UserType($this->getGame(), $user));
+                $sessionType->setApiKey($apiKey->getApiKey());
+                $sessionType->setExpiresAt($apiKey->getExpiresAtAsString());
             }
-
-            return [
-                "user" => null,
-                "apiKey" => null,
-                "expiresAt" => null
-            ];
         }
+        
+        return $sessionType;
     }
 }

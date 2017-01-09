@@ -8,7 +8,7 @@ use LotGD\Core\Game;
 /**
  * Represents the Realm's configuration in GraphQL
  */
-class ConfigurationType
+class ConfigurationType implements TypeInterface
 {
     /** @var Game The game instance. */
     private $game;

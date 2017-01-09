@@ -8,7 +8,7 @@ use LotGD\Core\Game;
 /**
  * Represents the Library type.
  */
-class LibraryType
+class LibraryType implements TypeInterface
 {
     /** @var Game The game instance. */
     private $game;
