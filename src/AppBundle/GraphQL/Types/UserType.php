@@ -18,7 +18,7 @@ class UserType implements TypeInterface
     
     /** @var closure Returns the a user type.. */
     public $id = null;
-    /** @var closure Returns the apiKey */
+    /** @var closure Returns the user name */
     public $name = null;
     
     public function __construct(Game $game, User $user = null)
