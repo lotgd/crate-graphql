@@ -14,6 +14,14 @@ characters:
         health: 10
         level: 1
         deletedAt:
+    -
+        id: 2
+        name: "One"
+        displayName: "The One And Only"
+        maxHealth: 1000
+        health: 1000
+        level: 100
+        deletedAt:
 modules:
     -
         library: "lotgd/module-village"

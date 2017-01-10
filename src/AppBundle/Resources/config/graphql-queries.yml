@@ -27,3 +27,10 @@ services:
             - [setCoreGameService, ["@lotgd.core.game"]]
         tags:
             - { name: overblog_graphql.resolver, alias: "viewpoint_resolver", method: "resolve" }
+            
+    app.graph.resolver.character:
+        class: LotGD\Crate\GraphQL\AppBundle\GraphQL\Resolver\CharacterResolver
+        calls:
+            - [setCoreGameService, ["@lotgd.core.game"]]
+        tags:
+            - { name: overblog_graphql.resolver, alias: "character_resolver", method: "resolve" }

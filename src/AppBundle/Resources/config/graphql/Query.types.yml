@@ -27,3 +27,14 @@ Query:
                         description: "The characterId of the character to display the viewpoint."
                         type: "String!"
                 resolve: "@=resolver('viewpoint_resolver', [args])"
+            character:
+                description: "A character."
+                type: "Character"
+                args:
+                    characterId:
+                        description: "Query by character id."
+                        type: "String"
+                    characterName:
+                        description: "Query by character name."
+                        type: "String"
+                resolve: "@=resolver('character_resolver', [args])"

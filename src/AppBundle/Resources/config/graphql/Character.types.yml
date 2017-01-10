@@ -1,0 +1,14 @@
+Character:
+    type: object
+    config:
+        description: "A character in this realm."
+        fields:
+            id:
+                type: "String!"
+                description: "Character Identifier"
+            name:
+                type: "String!"
+                description: "Unique name of the character without title or colour information."
+            displayName:
+                type: "String!"
+                description: "Complete name of the character including title, colour information and other things."
