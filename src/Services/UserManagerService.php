@@ -54,6 +54,16 @@ class UserManagerService extends BaseManagerService
     }
 
     /**
+     * Finds an user entity by it's id.
+     * @param int $id
+     * @return type
+     */
+    public function findById(int $id)
+    {
+        return $this->getOneById(User::class, $id);
+    }
+
+    /**
      * Finds an user entity by name.
      * @param string $name The name to search by.
      * @return User|null The found user entity or null.

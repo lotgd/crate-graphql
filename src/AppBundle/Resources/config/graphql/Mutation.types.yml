@@ -16,6 +16,13 @@ Mutation:
                     inputType: AuthWithPasswordInput
                     payloadType: AuthWithPasswordPayload
                     mutateAndGetPayload: "@=mutation('auth_with_password', [value['email'], value['password']])"
+            # Create a character
+            createCharacter:
+                builder: Mutation
+                builderConfig:
+                    inputType: CreateCharacterInput
+                    payloadType: CreateCharacterPayload
+                    mutateAndGetPayload: "@=mutation('create_character', [value['userId'], value['characterName']])"
             # Take an action
             takeAction:
                 builder: Mutation

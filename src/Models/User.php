@@ -18,7 +18,7 @@ use LotGD\Core\Models\Character;
 class User implements UserInterface, SaveableInterface
 {
     use Saveable;
-    
+
     /** @Id @Column(type="integer") @GeneratedValue */
     private $id;
     /** @Column(type="string", length=250, unique=True); */
@@ -29,7 +29,7 @@ class User implements UserInterface, SaveableInterface
     private $passwordHash = "";
     /** @OneToOne(targetEntity="ApiKey", mappedBy="user", cascade={"persist"}) */
     private $apiKey;
-    /** Unidirectional OneToMany association since we cannot modify the character 
+    /** Unidirectional OneToMany association since we cannot modify the character
      * model from the core. Instead, we use a join table to list all characters
      * associated to an user.
      * @ManyToMany(targetEntity="LotGD\Core\Models\Character")
@@ -39,7 +39,7 @@ class User implements UserInterface, SaveableInterface
      * )
      */
     private $characters;
-    
+
     /**
      * Constructs an user account with an email and a password.
      * @param string $email Email address
@@ -52,7 +52,7 @@ class User implements UserInterface, SaveableInterface
         $this->setPassword($password);
         $this->characters = new ArrayCollection();
     }
-    
+
     /**
      * @inheritDoc
      */
@@ -60,7 +60,7 @@ class User implements UserInterface, SaveableInterface
     {
         return $this->id;
     }
-    
+
     /**
      * Returns the user email address
      * @return string
@@ -69,7 +69,7 @@ class User implements UserInterface, SaveableInterface
     {
         return $this->name;
     }
-    
+
     /**
      * Returns the user email address
      * @return string
@@ -78,7 +78,7 @@ class User implements UserInterface, SaveableInterface
     {
         return $this->email;
     }
-    
+
     /**
      * @inheritDoc
      */
@@ -86,7 +86,7 @@ class User implements UserInterface, SaveableInterface
     {
         $this->passwordHash = password_hash($password, PASSWORD_DEFAULT);
     }
-    
+
     /**
      * @inheritDoc
      */
@@ -102,7 +102,7 @@ class User implements UserInterface, SaveableInterface
             return false;
         }
     }
-    
+
     /**
      * Sets an api key to belong to this user.
      * @param ApiKey $key
@@ -111,7 +111,7 @@ class User implements UserInterface, SaveableInterface
     {
         $this->apiKey = $key;
     }
-    
+
     /**
      * Returns true if a user has an api key.
      * @return bool
@@ -120,7 +120,7 @@ class User implements UserInterface, SaveableInterface
     {
         return !is_null($this->apiKey);
     }
-    
+
     /**
      * Returns the api key instance.
      * @return ApiKey
@@ -129,7 +129,7 @@ class User implements UserInterface, SaveableInterface
     {
         return $this->apiKey;
     }
-    
+
     /**
      * @inheritDoc
      */
@@ -137,14 +137,14 @@ class User implements UserInterface, SaveableInterface
     {
         return ['ROLE_USER'];
     }
-    
+
     /**
      * @inheritDoc
      */
     public function eraseCredentials()
     {
     }
-    
+
     /**
      * @inheritDoc
      */
@@ -152,7 +152,7 @@ class User implements UserInterface, SaveableInterface
     {
         return $this->getName();
     }
-    
+
     /**
      * @inheritDoc
      */
@@ -160,7 +160,7 @@ class User implements UserInterface, SaveableInterface
     {
         return "NaCl";
     }
-    
+
     /**
      * Returns the hashed password (including salt)
      * @return type
@@ -169,7 +169,7 @@ class User implements UserInterface, SaveableInterface
     {
         return $this->passwordHash;
     }
-    
+
     /**
      * Iterates through all characters.
      * @return \Generator
@@ -180,7 +180,7 @@ class User implements UserInterface, SaveableInterface
             yield $character;
         }
     }
-    
+
     /**
      * Returns true if the user has the passed character.
      * @param Character $character
@@ -189,5 +189,16 @@ class User implements UserInterface, SaveableInterface
     public function hasCharacter(Character $character): bool
     {
         return $this->characters->contains($character);
+    }
+
+    /**
+     * Adds a character to this user.
+     * @param Character $character
+     */
+    public function addCharacter(Character $character)
+    {
+        if ($this->hasCharacter($character) === false) {
+            $this->characters->add($character);
+        }
     }
 }

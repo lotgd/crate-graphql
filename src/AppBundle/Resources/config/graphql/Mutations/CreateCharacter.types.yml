@@ -1,0 +1,19 @@
+CreateCharacterInput:
+    type: relay-mutation-input
+    description: "Information needed to create a character for a given user.."
+    config:
+        fields:
+            userId:
+                description: "The owner of the character."
+                type: "String!"
+            characterName:
+                description: "The character's name."
+                type: "String!"
+
+CreateCharacterPayload:
+    type: relay-mutation-payload
+    description: "Payload to access information for a freshly created character."
+    config:
+        fields:
+            character:
+                type: "Character!"

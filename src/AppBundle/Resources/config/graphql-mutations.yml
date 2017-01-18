@@ -10,3 +10,9 @@ services:
             - [setCoreGameService, ["@lotgd.core.game"]]
         tags:
             - { name: overblog_graphql.mutation, alias: "take_action", method: "takeAction" }
+    lotgd.crate.graph.mutation.character:
+        class: LotGD\Crate\GraphQL\AppBundle\GraphQL\Mutation\CharacterMutation
+        calls:
+            - [setCoreGameService, ["@lotgd.core.game"]]
+        tags:
+            - { name: overblog_graphql.mutation, alias: "create_character", method: "createCharacter" }

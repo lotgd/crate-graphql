@@ -6,17 +6,35 @@ namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Mutation;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
 
+use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\CharacterType;
 use LotGD\Crate\GraphQL\Services\BaseManagerService;
 use LotGD\Crate\GraphQL\Tools\EntityManagerAwareInterface;
 use LotGD\Crate\GraphQL\Tools\EntityManagerAwareTrait;
 
-
 /**
  * Resolver for taking an action
  */
-class ViewpointMutation extends BaseManagerService implements EntityManagerAwareInterface
+class CharacterMutation extends BaseManagerService implements EntityManagerAwareInterface
 {
     use EntityManagerAwareTrait;
+
+    function createCharacter(string $userId, string $characterName)
+    {
+        // Get user
+        $user = $this->container->get("lotgd.crate.graphql.user_manager")->findById((int)$userId);
+
+        // @ToDo: Add check for amount of characters this user has.
+        try {
+            $character = $this->container->get("lotgd.crate.graphql.character_manager")->createNewCharacter($characterName);
+            $user->addCharacter($character);
+        } catch(Exception $e) {
+            throw new UserError($e->getMessage());
+        }
+
+        return [
+            "character" => new CharacterType($this->getGame(), $character)
+        ];
+    }
 
     function takeAction($characterId, $actionId)
     {
