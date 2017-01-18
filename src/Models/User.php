@@ -29,10 +29,11 @@ class User implements UserInterface, SaveableInterface
     private $passwordHash = "";
     /** @OneToOne(targetEntity="ApiKey", mappedBy="user", cascade={"persist"}) */
     private $apiKey;
-    /** Unidirectional OneToMany association since we cannot modify the character
+    /**
+     * Unidirectional OneToMany association since we cannot modify the character
      * model from the core. Instead, we use a join table to list all characters
      * associated to an user.
-     * @ManyToMany(targetEntity="LotGD\Core\Models\Character")
+     * @ManyToMany(targetEntity="LotGD\Core\Models\Character", cascade={"persist"})
      * @JoinTable("users_characters",
      *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@JoinColumn(name="character_id", referencedColumnName="id", unique=true)}

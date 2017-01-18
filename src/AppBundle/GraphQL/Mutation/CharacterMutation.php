@@ -11,6 +11,8 @@ use LotGD\Crate\GraphQL\Services\BaseManagerService;
 use LotGD\Crate\GraphQL\Tools\EntityManagerAwareInterface;
 use LotGD\Crate\GraphQL\Tools\EntityManagerAwareTrait;
 
+use LotGD\Crate\GraphQL\Exceptions\CharacterNameExistsException;
+
 /**
  * Resolver for taking an action
  */
@@ -27,9 +29,11 @@ class CharacterMutation extends BaseManagerService implements EntityManagerAware
         try {
             $character = $this->container->get("lotgd.crate.graphql.character_manager")->createNewCharacter($characterName);
             $user->addCharacter($character);
-        } catch(Exception $e) {
+        } catch(CharacterNameExistsException $e) {
             throw new UserError($e->getMessage());
         }
+
+        $this->game->getEntityManager()->flush();
 
         return [
             "character" => new CharacterType($this->getGame(), $character)

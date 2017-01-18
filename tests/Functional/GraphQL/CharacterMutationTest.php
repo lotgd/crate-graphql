@@ -14,6 +14,7 @@ class CharacterMutationTest extends GraphQLTestCase
 mutation createCharacterMutation($input: CreateCharacterInput!) {
     createCharacter(input: $input) {
         character {
+            id
             name
             displayName
         }
@@ -39,10 +40,14 @@ JSON;
     {
         $mutation = $this->getSimpleCreationMutation();
         $variables = $this->getSimpleCreationMutationInput(1, "New Player", "asd789g7");
+
+        $result = $this->getQueryResults($mutation, $variables);
+
         $expectedReturn = [
             "data" => [
                 "createCharacter" => [
                     "character" => [
+                        "id" => $result["data"]["createCharacter"]["character"]["id"],
                         "name" => "New Player",
                         "displayName" => "New Player"
                     ]
@@ -50,6 +55,33 @@ JSON;
             ]
         ];
 
-        $this->assertQuery($mutation, json_encode($expectedReturn), $variables);
+        $this->assertSame($expectedReturn, $result);
+    }
+
+    public function testIfCharacterCreationFailsIfNameIsAlreadyUsed()
+    {
+        $mutation = $this->getSimpleCreationMutation();
+        $variables = $this->getSimpleCreationMutationInput(1, "One", "asd789g7");
+
+        $answer = <<<JSON
+{
+    "data": {
+        "createCharacter": null
+    },
+    "errors": [
+        {
+            "message": "User with name One already taken.",
+            "locations": [
+                {
+                    "line": 2,
+                    "column": 5
+                }
+            ]
+        }
+    ]
+}
+JSON;
+
+        $this->assertQuery($mutation, $answer, $variables);
     }
 }

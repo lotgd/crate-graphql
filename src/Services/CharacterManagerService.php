@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace LotGD\Crate\GraphQL\Services;
 
 use LotGD\Core\Models\Character;
+use LotGD\Crate\GraphQL\Exceptions\CharacterNameExistsException;
 
 /**
  * Management class for everything user account related.
@@ -15,7 +16,7 @@ class CharacterManagerService extends BaseManagerService
         $character = $this->findByName($name);
 
         if ($character) {
-            throw new Exception("User with name {$name} already taken.");
+            throw new CharacterNameExistsException("User with name {$name} already taken.");
         }
 
         return Character::createAtFullHealth(["name" => $name]);
