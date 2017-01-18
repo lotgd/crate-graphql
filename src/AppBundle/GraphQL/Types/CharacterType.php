@@ -29,16 +29,16 @@ class CharacterType implements TypeInterface
     public static function fromId(Game $game, int $characterId)
     {
         $em = $game->getEntityManager();
-        $user = $em->getRepository(Character::class)->find($characterId);
+        $character = $em->getRepository(Character::class)->find($characterId);
         
-        return ($user ? new CharacterType($game, $user) : null);
+        return ($character ? new static($game, $character) : null);
     }
     
     public static function fromName(Game $game, string $characterName)
     {
         $em = $game->getEntityManager();
-        $user = $em->getRepository(Character::class)->findOneBy(["name" => $characterName]);
+        $character = $em->getRepository(Character::class)->findOneBy(["name" => $characterName]);
         
-        return ($user ? new CharacterType($game, $user) : null);
+        return ($character ? new static($game, $character) : null);
     }
 }

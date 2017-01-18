@@ -5,9 +5,11 @@ namespace LotGD\Crate\GraphQL\Models;
 
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
+use Doctrine\Common\Collections\ArrayCollection;
 
 use LotGD\Core\Models\SaveableInterface;
 use LotGD\Core\Tools\Model\Saveable;
+use LotGD\Core\Models\Character;
 
 /**
  * @Entity
@@ -27,6 +29,16 @@ class User implements UserInterface, SaveableInterface
     private $passwordHash = "";
     /** @OneToOne(targetEntity="ApiKey", mappedBy="user", cascade={"persist"}) */
     private $apiKey;
+    /** Unidirectional OneToMany association since we cannot modify the character 
+     * model from the core. Instead, we use a join table to list all characters
+     * associated to an user.
+     * @ManyToMany(targetEntity="LotGD\Core\Models\Character")
+     * @JoinTable("users_characters",
+     *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="character_id", referencedColumnName="id", unique=true)}
+     * )
+     */
+    private $characters;
     
     /**
      * Constructs an user account with an email and a password.
@@ -38,6 +50,7 @@ class User implements UserInterface, SaveableInterface
         $this->name = $name;
         $this->email = $email;
         $this->setPassword($password);
+        $this->characters = new ArrayCollection();
     }
     
     /**
@@ -155,5 +168,26 @@ class User implements UserInterface, SaveableInterface
     public function getPassword()
     {
         return $this->passwordHash;
+    }
+    
+    /**
+     * Iterates through all characters.
+     * @return \Generator
+     */
+    public function fetchCharacters(): \Generator
+    {
+        foreach ($this->characters as $character) {
+            yield $character;
+        }
+    }
+    
+    /**
+     * Returns true if the user has the passed character.
+     * @param Character $character
+     * @return bool
+     */
+    public function hasCharacter(Character $character): bool
+    {
+        return $this->characters->contains($character);
     }
 }

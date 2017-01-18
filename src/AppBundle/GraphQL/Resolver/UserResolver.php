@@ -18,17 +18,14 @@ class UserResolver extends BaseManagerService implements ContainerAwareInterface
 
     public function resolve(Argument $args = null)
     {
-        if (empty($args["name"])) {
-            return null;
+        $userType = null;
+        
+        if (isset($args["id"])) {
+            $userType = UserType::fromId($this->getGame(), (int)$args["id"]);
+        } elseif (isset($args["name"])) {
+            $userType = UserType::fromName($this->getGame(), $args["name"]);
         }
-
-        $user = $this->container->get("lotgd.crate.graphql.user_manager")->findByName($args["name"]);
-
-        if ($user instanceof User) {
-            return new UserType($this->getGame(), $user);
-        }
-        else {
-            return null;
-        }
+        
+        return $userType;
     }
 }

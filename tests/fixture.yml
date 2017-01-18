@@ -5,6 +5,11 @@ users:
         email: "admin"
         name: "admin"
         passwordHash: "$2y$10$5JBI.jWv5RKwvmDHatP3MuOLu//DtctwDHiSqiKhVwm.pP3wUVVB6"
+    -
+        id: 2
+        email: "test-user@example.com"
+        name: "test-user"
+        passwordHash: "passwordHash"
 characters:
     -
         id: 1
@@ -22,6 +27,13 @@ characters:
         health: 1000
         level: 100
         deletedAt:
+users_characters:
+    -
+        user_id: 1
+        character_id: 2
+    -
+        user_id: 2
+        character_id: 1
 modules:
     -
         library: "lotgd/module-village"

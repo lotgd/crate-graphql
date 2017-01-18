@@ -9,3 +9,6 @@ User:
             name:
                 type: "String!"
                 description: "Name of the user library."
+            characters:
+                type: "[Character]"
+                description: "Characters belonging to this user."

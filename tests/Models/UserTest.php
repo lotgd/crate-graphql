@@ -5,8 +5,9 @@ namespace LotGD\Crate\GraphQL\Tests;
 
 use LotGD\Crate\GraphQL\Models\User;
 use LotGD\Crate\GraphQL\Models\ApiKey;
+use LotGD\Core\Models\Character;
 
-class UserTest extends \PHPUnit\Framework\TestCase
+class UserTest extends WebTestCase
 {
     private $name = "test";
     private $mail = "mail@example.com";
@@ -64,5 +65,33 @@ class UserTest extends \PHPUnit\Framework\TestCase
         // Now test again
         $this->assertTrue($user->hasApiKey());
         $this->assertSame($apiKey, $user->getApiKey());
+    }
+    
+    public function testIfUsersListAllItsCharacters()
+    {
+        $user = $this->getEntityManager()->getRepository(User::class)->find(1);
+        
+        $i = 0;
+        foreach ($user->fetchCharacters() as $character) {
+            $this->assertInstanceOf(Character::class, $character);
+            $i++;
+        }
+        $this->assertSame(1, $i);
+    }
+    
+    public function testIfUserHasCharacterReturnsTrueWhenItShould()
+    {
+        $user = $this->getEntityManager()->getRepository(User::class)->find(1);
+        $character = $this->getEntityManager()->getRepository(Character::class)->find(2);
+        
+        $this->assertTrue($user->hasCharacter($character));
+    }
+    
+    public function testIfUserHasCharacterReturnsFalseWhenItShould()
+    {
+        $user = $this->getEntityManager()->getRepository(User::class)->find(1);
+        $character = $this->getEntityManager()->getRepository(Character::class)->find(1);
+        
+        $this->assertFalse($user->hasCharacter($character));
     }
 }
