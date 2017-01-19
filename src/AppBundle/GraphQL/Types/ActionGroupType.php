@@ -3,49 +3,66 @@ declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Types;
 
+use Generator;
+
 use LotGD\Core\Game;
 use LotGD\Core\ActionGroup;
 
 /**
  * GraphQL ActionGroup type.
  */
-class ActionGroupType
+class ActionGroupType extends BaseType
 {
-    /** @var Game The game instance. */
-    private $_game;
-    /** @var Viewpoint The viewpoint */
-    private $_actionGroup;
-    
-    /** @var closure Returns the ActionGroup id. */
-    public $id;
-    /** @var closure Returns the ActionGroup title. */
-    public $title;
-    /** @var closure Returns the ActionGroup sortKey. */
-    public $sortKey;
-    /** @var closure Yields a list of ActionType. */
-    public $actions;
-    
+    /** @var ActionGroup The action-group entity */
+    private $actionGroupEntity;
+
+    /**
+     * @param Game $game
+     * @param ActionGroup $actionGroup
+     */
     public function __construct(Game $game, ActionGroup $actionGroup = null)
     {
-        $this->_game = $game;
-        $this->_actionGroup = $actionGroup;
-        
-        $this->id = function() use ($actionGroup) { return $actionGroup->getId(); };
-        $this->title = function() use ($actionGroup) { return $actionGroup->getTitle(); };
-        $this->sortKey = function() use ($actionGroup) { return $actionGroup->getSortKey(); };
-        $this->actions = function() { return $this->getActions(); };
+        parent::__construct($game);
+        $this->actionGroupEntity = $actionGroup;
     }
-    
+
     /**
      * Yields a list of ActionTypes.
      * @yield ActionType
      */
-    public function getActions()
+    public function getActions(): Generator
     {
-        $actions = $this->_actionGroup->getActions();
-        
+        $actions = $this->actionGroupEntity->getActions();
+
         foreach ($actions as $action) {
-            yield new ActionType($this->_game, $action);
+            yield new ActionType($this->getGameObject(), $action);
         }
+    }
+
+    /**
+     * Returns the action-group id.
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->actionGroupEntity->getId();
+    }
+
+    /**
+     * Returns the action-group title.
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->actionGroupEntity->getTitle();
+    }
+
+    /**
+     * Returns the action-group sort key.
+     * @return int
+     */
+    public function getSortKey(): int
+    {
+        return $this->actionGroupEntity->getSortKey();
     }
 }

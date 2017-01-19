@@ -6,34 +6,44 @@ namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Types;
 use LotGD\Core\Game;
 
 /**
- * A session.
+ * Representation of the GraphQL "Session" type.
  */
-class SessionType implements TypeInterface
+class SessionType extends BaseType
 {
-    /** @var Game The game instance. */
-    private $game;
-    
-    /** @var closure Returns the a user type.. */
-    public $user = null;
-    /** @var closure Returns the apiKey */
-    public $apiKey = null;
-    /** @var closure Returns the expiration date of the session */
-    public $expiresAt = null;
-    
-    public function __construct(Game $game)
+    /** @var \LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\UserType The current user as UserType */
+    private $user = null;
+    /** @var string The apiKey */
+    private $apiKey = null;
+    /** @var string The expiration date of the session */
+    private $expiresAt = null;
+
+    /**
+     * Returns the current user.
+     * @return \LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\UserType|null
+     */
+    public function getUser()
     {
-        $this->game = $game;
+        return $this->user;
     }
-    
+
     /**
      * Sets the user field to a given value.
      * @param \LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\UserType $user
      */
     public function setUser(UserType $user)
     {
-        $this->user = function() use ($user) { return $user; };
+        $this->user = $user;
     }
-    
+
+    /**
+     * Returns the api key
+     * @return string|null
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+
     /**
      * Sets the api key to a given value.
      * @param string $apiKey
@@ -42,7 +52,16 @@ class SessionType implements TypeInterface
     {
         $this->apiKey = $apiKey;
     }
-    
+
+    /**
+     * Returns the expiration date of the session.
+     * @return string|null
+     */
+    public function getExpiresAt()
+    {
+        return $this->expiresAt;
+    }
+
     /**
      * Sets the expires-at to a given value.
      * @param string $expiresAt

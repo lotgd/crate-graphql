@@ -7,32 +7,23 @@ use LotGD\Core\Game;
 use LotGD\Crate\GraphQL\Models\User;
 
 /**
- * GraphQL User type.
+ * Representation of the GraphQL "User" type
  */
-class UserType implements TypeInterface
+class UserType extends BaseType
 {
-    /** @var Game The game instance. */
-    private $_game;
     /** @var User the user instance */
-    private $_user;
-    
-    /** @var closure Returns the a user type.. */
-    public $id = null;
-    /** @var closure Returns the user name */
-    public $name = null;
-    /** @var closue Yields a list of characters */
-    public $characters = null;
-    
-    public function __construct(Game $game, User $user = null)
+    private $userEntity;
+
+    /**
+     * @param Game $game Game object
+     * @param User $userEntity User entity
+     */
+    public function __construct(Game $game, User $userEntity = null)
     {
-        $this->_game = $game;
-        $this->_user = $user;
-        
-        $this->id = function() use ($user) { return (string)$user->getId(); };
-        $this->name = function() use ($user) { return $user->getName(); };
-        $this->characters = function() { return $this->listCharacters(); };
+        parent::__construct($game);
+        $this->userEntity = $userEntity;
     }
-    
+
     /**
      * Returns a UserType for an user with a given id.
      * @param Game $game
@@ -43,10 +34,10 @@ class UserType implements TypeInterface
     {
         $em = $game->getEntityManager();
         $user = $em->getRepository(User::class)->find($userId);
-        
+
         return ($user ? new static($game, $user) : null);
     }
-    
+
     /**
      * Returns a UserType with for an user with a given name.
      * @param Game $game
@@ -57,19 +48,37 @@ class UserType implements TypeInterface
     {
         $em = $game->getEntityManager();
         $user = $em->getRepository(User::class)->findOneBy(["name" => $userName]);
-        
+
         return ($user ? new static($game, $user) : null);
     }
-    
+
+    /**
+     * Returns the user id.
+     * @return string
+     */
+    public function getId(): string
+    {
+        return (string)$this->userEntity->getId();
+    }
+
+    /**
+     * Returns the user name.
+     * @return string
+     */
+    public function getName(): string
+    {
+        return (string)$this->userEntity->getName();
+    }
+
     /**
      * Returns a generator yielding a list of characters of this user.
      * @return \Generator
      * @yields CharacterType
      */
-    protected function listCharacters(): \Generator
+    public function getCharacters(): \Generator
     {
-        foreach ($this->_user->fetchCharacters() as $character) {
-            yield new CharacterType($this->_game, $character);
+        foreach ($this->userEntity->fetchCharacters() as $character) {
+            yield new CharacterType($this->getGameObject(), $character);
         }
     }
 }

@@ -8,36 +8,40 @@ use LotGD\Core\Action;
 use LotGD\Core\Models\Scene;
 
 /**
- * GraphQL ActionGroup type.
+ * GraphQL Action type.
  */
-class ActionType
+class ActionType extends BaseType
 {
-    /** @var Game The game instance. */
-    private $_game;
-    /** @var Viewpoint The viewpoint */
-    private $_action;
-    
-    /** @var closure Returns the Action id. */
-    public $id;
-    /** @var closure Returns the Action title. */
-    public $title;
-    
+    /** @var Action The action entity */
+    private $actionEntity;
+
     public function __construct(Game $game, Action $action = null)
     {
-        $this->_game = $game;
-        $this->_action = $action;
-        
-        $this->id = function() use ($action) { return $action->getId(); };
-        $this->title = function() { return $this->getTitle(); };
+        parent::__construct($game);
+        $this->actionEntity = $action;
     }
-    
+
     /**
-     * Returns title
+     * Returns the title of the action
      * @return string
      */
     public function getTitle(): string
     {
-        return $this->_game->getEntityManager()->getRepository(Scene::class)
-            ->find($this->_action->getDestinationSceneId())->getTitle();
+        return $this->getGameObject()
+            ->getEntityManager()
+            ->getRepository(Scene::class)
+            ->find(
+                $this->actionEntity->getDestinationSceneId()
+            )
+            ->getTitle();
+    }
+
+    /**
+     * Returns the id of the action
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->actionEntity->getId();
     }
 }

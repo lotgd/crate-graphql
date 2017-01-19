@@ -6,44 +6,72 @@ namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Types;
 use LotGD\Core\Game;
 
 /**
- * Represents the Library type.
+ * Represents the GraphQL Library type.
  */
-class LibraryType implements TypeInterface
+class LibraryType extends BaseType
 {
-    /** @var Game The game instance. */
-    private $game;
-    
-    /** @var closure Returns the name of the library */
-    public $name;
-    /** @var closure Returns the version of the library */
-    public $version;
-    /** @var closure Returns the package name of the library */
-    public $library;
-    /** @var closure Returns the url of the library */
-    public $url;
-    /** @var closure Returns the authors of the library */
-    public $author;
-    
+    /** @var Composer\Package\CompletePackageInterface */
+    private $composerPackage;
+
     /**
      * @param Game $game
      * @param string $library
      */
     public function __construct(Game $game, string $library = null) {
-        $this->game = $game;
-        
+        parent::__construct($game);
+
         if (empty($library)) {
-            $composerPackage = $game->getComposerManager()->getComposer()->getPackage();
+            $this->composerPackage = $game->getComposerManager()->getComposer()->getPackage();
         } else {
-            $composerPackage = $game->getComposerManager()->getPackageForLibrary($library);
+            $this->composerPackage = $game->getComposerManager()->getPackageForLibrary($library);
         }
-        
-        $this->name = function() use ($composerPackage) { return $composerPackage->getPrettyName(); };
-        $this->version = function() use ($composerPackage) { return $composerPackage->getPrettyVersion(); };
-        $this->library = function() use ($composerPackage) { return $composerPackage->getName(); };
-        $this->url = function() use ($composerPackage) { return $composerPackage-> getSourceUrl(); };
-        $this->author = function() use ($composerPackage) { return $this->formatAuthors($composerPackage->getAuthors()); };
     }
-    
+
+    /**
+     * Returns the human readable name of this library
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->composerPackage->getPrettyName()?:"";
+    }
+
+    /**
+     * Returns the version number.
+     * @return string
+     */
+    public function getVersion(): string
+    {
+        return $this->composerPackage->getPrettyVersion()?:"";
+    }
+
+    /**
+     * Returns the short package name (like lotgd/core).
+     * @return string
+     */
+    public function getLibrary(): string
+    {
+        return $this->composerPackage->getName()?:"";
+    }
+
+    /**
+     * Returns a url to read more about this package.
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return $this->composerPackage->getSourceUrl()?:"";
+    }
+
+    /**
+     * Returns the list of authors as a comma separated list, including e-mails.
+     * @return string
+     */
+    public function getAuthor(): string
+    {
+        return $this->formatAuthors($this->composerPackage->getAuthors());
+    }
+
     /**
      * Returns a string of a list of authors.
      * @param array $authors
@@ -54,12 +82,12 @@ class LibraryType implements TypeInterface
         if ($authors === null) {
             return "unknown";
         }
-        
+
         $list = "";
         foreach ($authors as $author) {
             $list .= "${author['name']} (${author['email']}), ";
         }
-        
+
         return substr($list, 0, -2);
     }
 }

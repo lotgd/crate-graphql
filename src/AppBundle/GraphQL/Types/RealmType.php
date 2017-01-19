@@ -6,34 +6,25 @@ namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Types;
 use LotGD\Core\Game;
 
 /**
- * Represents the Realm type in graphql.
+ * Represents the Realm type in GraphQL.
  */
-class RealmType implements TypeInterface
+class RealmType extends BaseType
 {
-    /** @var Game The game instance. */
-    private $game;
-    
-    /** @var string The Realm's name. */
-    public $name;
-    /** @var closure Returns the Realm's configuration if accessed. */
-    public $configuration;
-    
     /**
-     * @param Game $game The game instance
+     * Returns the name of this realm.
+     * @return string
      */
-    public function __construct(Game $game)
+    public function getName(): string
     {
-        $this->game = $game;
-        $this->name = "Test-Environment";
-        $this->configuration = function() { return $this->getConfiguration(); };
+        return "Test-Environment";
     }
-    
+
     /**
      * Returns the Realm's configuration as a ConfigurationType
      * @return \LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\ConfigurationType
      */
     public function getConfiguration(): ConfigurationType
     {
-        return new ConfigurationType($this->game);
+        return new ConfigurationType($this->getGameObject());
     }
 }
