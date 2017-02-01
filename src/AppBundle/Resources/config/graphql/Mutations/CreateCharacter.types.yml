@@ -17,3 +17,5 @@ CreateCharacterPayload:
         fields:
             character:
                 type: "Character!"
+            user:
+                type: "User!"

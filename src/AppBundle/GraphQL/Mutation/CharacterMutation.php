@@ -7,11 +7,13 @@ use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
 
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\CharacterType;
+use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\UserType;
 use LotGD\Crate\GraphQL\Services\BaseManagerService;
 use LotGD\Crate\GraphQL\Tools\EntityManagerAwareInterface;
 use LotGD\Crate\GraphQL\Tools\EntityManagerAwareTrait;
 
 use LotGD\Crate\GraphQL\Exceptions\CharacterNameExistsException;
+
 
 /**
  * Resolver for taking an action
@@ -36,7 +38,8 @@ class CharacterMutation extends BaseManagerService implements EntityManagerAware
         $this->game->getEntityManager()->flush();
 
         return [
-            "character" => new CharacterType($this->getGame(), $character)
+            "character" => new CharacterType($this->getGame(), $character),
+            "user" => new UserType($this->getGame(), $user),
         ];
     }
 
