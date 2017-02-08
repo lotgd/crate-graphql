@@ -12,6 +12,7 @@ use LotGD\Crate\GraphQL\Models\User;
 class UserType extends BaseType
 {
     /** @var User the user instance */
+<<<<<<< 403c98b757cd5e5a2ed68c71e6c6b99ab7823948
     private $userEntity;
 
     /**
@@ -70,15 +71,8 @@ class UserType extends BaseType
         return (string)$this->userEntity->getName();
     }
 
-    /**
-     * Returns a generator yielding a list of characters of this user.
-     * @return \Generator
-     * @yields CharacterType
-     */
-    public function getCharacters(): \Generator
+    public function getCharacters()
     {
-        foreach ($this->userEntity->fetchCharacters() as $character) {
-            yield new CharacterType($this->getGameObject(), $character);
-        }
+        return $this->_user->getCharacters();
     }
 }

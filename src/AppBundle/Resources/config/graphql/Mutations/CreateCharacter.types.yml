@@ -15,7 +15,7 @@ CreateCharacterPayload:
     description: "Payload to access information for a freshly created character."
     config:
         fields:
-            character:
-                type: "Character!"
             user:
                 type: "User!"
+            characterEdge:
+                type: "CharacterEdge!"

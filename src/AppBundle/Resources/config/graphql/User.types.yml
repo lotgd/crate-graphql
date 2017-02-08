@@ -4,11 +4,13 @@ User:
         description: "A user account."
         fields:
             id:
-                type: "String!"
+                type: "ID!"
                 description: "Unique ID of the user."
             name:
                 type: "String!"
                 description: "Name of the user library."
             characters:
-                type: "[Character]"
+                type: "CharacterConnection!"
+                argsBuilder: "Relay::Connection"
                 description: "Characters belonging to this user."
+                resolve: '@=resolver("character_connection_for_user", [value, args])'

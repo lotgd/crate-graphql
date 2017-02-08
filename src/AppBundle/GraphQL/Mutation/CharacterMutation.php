@@ -6,6 +6,7 @@ namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Mutation;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
 
+use LotGD\Crate\GraphQL\AppBundle\GraphQL\Connections\CharacterConnection;
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\CharacterType;
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\UserType;
 use LotGD\Crate\GraphQL\Services\BaseManagerService;
@@ -38,7 +39,7 @@ class CharacterMutation extends BaseManagerService implements EntityManagerAware
         $this->game->getEntityManager()->flush();
 
         return [
-            "character" => new CharacterType($this->getGame(), $character),
+            "characterEdge" => CharacterConnection::createEdgeFor($user, new CharacterType($this->getGame(), $character)),
             "user" => new UserType($this->getGame(), $user),
         ];
     }

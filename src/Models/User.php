@@ -173,6 +173,15 @@ class User implements UserInterface, SaveableInterface
 
     /**
      * Iterates through all characters.
+     * @return
+     */
+    public function getCharacters()
+    {
+        return $this->characters;
+    }
+
+    /**
+     * Iterates through all characters.
      * @return \Generator
      */
     public function fetchCharacters(): \Generator
