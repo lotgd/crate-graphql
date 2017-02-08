@@ -28,7 +28,7 @@ class CharacterConnection
     public function __construct($user, $args)
     {
         $this->setConnectionParameters(
-            ($user->characters)(),
+            $user->getCharacters(),
             $args
         );
 

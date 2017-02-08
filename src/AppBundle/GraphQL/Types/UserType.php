@@ -12,7 +12,6 @@ use LotGD\Crate\GraphQL\Models\User;
 class UserType extends BaseType
 {
     /** @var User the user instance */
-<<<<<<< 403c98b757cd5e5a2ed68c71e6c6b99ab7823948
     private $userEntity;
 
     /**
@@ -73,6 +72,6 @@ class UserType extends BaseType
 
     public function getCharacters()
     {
-        return $this->_user->getCharacters();
+        return $this->userEntity->getCharacters();
     }
 }
