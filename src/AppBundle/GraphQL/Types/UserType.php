@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Types;
 
+use Doctrine\Common\Collections\Collection;
+
 use LotGD\Core\Game;
 use LotGD\Crate\GraphQL\Models\User;
 
@@ -70,7 +72,11 @@ class UserType extends BaseType
         return (string)$this->userEntity->getName();
     }
 
-    public function getCharacters()
+    /**
+     * Returns the character collection.
+     * @return Collection
+     */
+    public function getCharacters(): Collection
     {
         return $this->userEntity->getCharacters();
     }

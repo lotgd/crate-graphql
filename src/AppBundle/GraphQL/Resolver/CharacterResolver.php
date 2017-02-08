@@ -30,18 +30,30 @@ class CharacterResolver extends BaseManagerService implements ContainerAwareInte
         return $characterType;
     }
 
-    public function getCharacterFromCursor($args = null)
+    /**
+     * Returns a graphql character type from a cursor.
+     * @param type $args Arguments array, as given by CharacterConnection->getEdges()
+     * @return CharacterType
+     */
+    public function getCharacterFromCursor($args = null): CharacterType
     {
         $cursor = $args["cursor"];
-        $user = $args["__user"];
+        $user = $args["__data"];
 
         $offset = CharacterConnection::decodeCursor($cursor);
 
-        return new CharacterType($this->game, array_values($user->getCharacters()->slice($offset, 1))[0]);/*
-        //echo "Connection\n\n";
-        //return CharacterType::fromId($this->game, (int)1);*/
+        return new CharacterType(
+            $this->game,
+            array_values($user->getCharacters()->slice($offset, 1))[0]
+        );
     }
 
+    /**
+     * Returns a character connection type.
+     * @param UserType $user
+     * @param Argument $args
+     * @return CharacterConnection
+     */
     public function getCharacterConnectionForUser(UserType $user, Argument $args)
     {
         return new CharacterConnection($user, $args);
