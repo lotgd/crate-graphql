@@ -32,6 +32,7 @@ class GraphiQLController extends Controller {
                 'versions' => [
                     'graphiql' => $this->getParameter('overblog_graphql.versions.graphiql'),
                     'react' => $this->getParameter('overblog_graphql.versions.react'),
+                    'fetch' => $this->getParameter('overblog_graphql.versions.fetch'),
                 ],
             ]
         );
