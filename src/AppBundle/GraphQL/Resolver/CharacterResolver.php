@@ -37,6 +37,7 @@ class CharacterResolver extends BaseManagerService implements ContainerAwareInte
      */
     public function getCharacterFromCursor($args = null): CharacterType
     {
+        #throw new \Exception(\Doctrine\Common\Util\Debug::dump($args, 2, true, false));
         $cursor = $args["cursor"];
         $user = $args["__data"];
 

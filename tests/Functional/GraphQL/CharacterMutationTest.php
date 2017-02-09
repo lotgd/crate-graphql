@@ -13,10 +13,16 @@ class CharacterMutationTest extends GraphQLTestCase
         return <<<'GraphQL'
 mutation createCharacterMutation($input: CreateCharacterInput!) {
     createCharacter(input: $input) {
-        character {
+        user {
             id
-            name
-            displayName
+        },
+        characterEdge {
+            cursor,
+            node {
+                id,
+                name,
+                displayName
+            }
         }
     }
 }
@@ -46,10 +52,16 @@ JSON;
         $expectedReturn = [
             "data" => [
                 "createCharacter" => [
-                    "character" => [
-                        "id" => $result["data"]["createCharacter"]["character"]["id"],
-                        "name" => "New Player",
-                        "displayName" => "New Player"
+                    "user" => [
+                        "id" => "1"
+                    ],
+                    "characterEdge" => [
+                        "cursor" => $result["data"]["createCharacter"]["characterEdge"]["cursor"],
+                        "node" => [
+                            "id" => $result["data"]["createCharacter"]["characterEdge"]["node"]["id"],
+                            "name" => "New Player",
+                            "displayName" => "New Player"
+                        ]
                     ]
                 ]
             ]
@@ -76,6 +88,9 @@ JSON;
                     "line": 2,
                     "column": 5
                 }
+            ],
+            "path": [
+                "createCharacter"
             ]
         }
     ]

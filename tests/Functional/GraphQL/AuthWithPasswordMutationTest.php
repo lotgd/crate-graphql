@@ -48,12 +48,14 @@ JSON;
           "line": 2,
           "column": 3
         }
+      ],
+      "path": [
+        "authWithPassword"
       ]
     }
   ]
 }
 JSON;
-
         $this->assertQuery($query, $answer, $variables);
     }
 

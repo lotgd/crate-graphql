@@ -2,7 +2,12 @@
 mv config/lotgd.yml config/lotgd-run.yml
 mv config/lotgd-test.yml config/lotgd.yml
 
-phpunit --stop-on-failure
+r=0
+a=$(phpunit --stop-on-failure)
+r=$?
 
 mv config/lotgd.yml config/lotgd-test.yml
 mv config/lotgd-run.yml config/lotgd.yml
+
+echo "$a"
+exit $r

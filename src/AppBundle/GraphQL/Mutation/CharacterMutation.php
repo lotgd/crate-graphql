@@ -23,12 +23,19 @@ class CharacterMutation extends BaseManagerService implements EntityManagerAware
 {
     use EntityManagerAwareTrait;
 
+    /**
+     * createCharacterMutation resolver - creates a character for a given user and a given name.
+     * @param string $userId Owner user id
+     * @param string $characterName Owner character name
+     * @return graphql createCharacterMutationPayload
+     * @throws UserError
+     */
     function createCharacter(string $userId, string $characterName)
     {
         // Get user
         $user = $this->container->get("lotgd.crate.graphql.user_manager")->findById((int)$userId);
 
-        // @ToDo: Add check for amount of characters this user has.
+        /** @ToDo: Add check for amount of characters this user has. */
         try {
             $character = $this->container->get("lotgd.crate.graphql.character_manager")->createNewCharacter($characterName);
             $user->addCharacter($character);

@@ -40,11 +40,11 @@ class CharacterConnection extends BaseConnection
      */
     public static function createEdgeFor(User $user, CharacterType $character)
     {
-        $offset = count($user->getCharacters());
+        $offset = count($user->getCharacters()) - 1;
 
         return [
             "cursor" => static::encodeCursor($offset),
-            "node" => $character,
+            "__data" => $user,
         ];
     }
 }

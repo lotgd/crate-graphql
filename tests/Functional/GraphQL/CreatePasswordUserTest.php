@@ -16,7 +16,7 @@ mutation CreatePasswordUserMutation($input: CreatePasswordUserInput!) {
   }
 }
 EOF;
-        
+
         $variables = <<<JSON
 {
   "input": {
@@ -27,7 +27,7 @@ EOF;
   }
 }
 JSON;
-        
+
         $answer = <<<JSON
 {
   "data": {
@@ -40,7 +40,7 @@ JSON;
 
         $this->assertQuery($query, $answer, $variables);
     }
-    
+
     public function testErrorIfUserNameIsAlreadyInUse()
     {
         $query = <<<'EOF'
@@ -50,7 +50,7 @@ mutation CreatePasswordUserMutation($input: CreatePasswordUserInput!) {
   }
 }
 EOF;
-        
+
         $variables1 = <<<JSON
 {
   "input": {
@@ -61,7 +61,7 @@ EOF;
   }
 }
 JSON;
-        
+
         $answer1 = <<<JSON
 {
   "data": {
@@ -71,7 +71,7 @@ JSON;
   }
 }
 JSON;
-        
+
         $variables2 = <<<JSON
 {
   "input": {
@@ -82,7 +82,7 @@ JSON;
   }
 }
 JSON;
-        
+
         $answer2 = <<<JSON
 {
   "data": {
@@ -96,6 +96,9 @@ JSON;
           "line": 2,
           "column": 3
         }
+      ],
+      "path": [
+          "createPasswordUser"
       ]
     }
   ]
@@ -105,7 +108,7 @@ JSON;
         $this->assertQuery($query, $answer1, $variables1);
         $this->assertQuery($query, $answer2, $variables2);
     }
-    
+
     public function testErrorIfEmailIsAlreadyInUse()
     {
         $query = <<<'EOF'
@@ -115,7 +118,7 @@ mutation CreatePasswordUserMutation($input: CreatePasswordUserInput!) {
   }
 }
 EOF;
-        
+
         $variables1 = <<<JSON
 {
   "input": {
@@ -126,7 +129,7 @@ EOF;
   }
 }
 JSON;
-        
+
         $answer1 = <<<JSON
 {
   "data": {
@@ -136,7 +139,7 @@ JSON;
   }
 }
 JSON;
-        
+
         $variables2 = <<<JSON
 {
   "input": {
@@ -147,7 +150,7 @@ JSON;
   }
 }
 JSON;
-        
+
         $answer2 = <<<JSON
 {
   "data": {
@@ -161,6 +164,9 @@ JSON;
           "line": 2,
           "column": 3
         }
+      ],
+      "path": [
+          "createPasswordUser"
       ]
     }
   ]
