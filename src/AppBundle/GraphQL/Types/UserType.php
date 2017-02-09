@@ -27,34 +27,6 @@ class UserType extends BaseType
     }
 
     /**
-     * Returns a UserType for an user with a given id.
-     * @param Game $game
-     * @param int $userId
-     * @return type
-     */
-    public static function fromId(Game $game, int $userId)
-    {
-        $em = $game->getEntityManager();
-        $user = $em->getRepository(User::class)->find($userId);
-
-        return ($user ? new static($game, $user) : null);
-    }
-
-    /**
-     * Returns a UserType with for an user with a given name.
-     * @param Game $game
-     * @param string $userName
-     * @return type
-     */
-    public static function fromName(Game $game, string $userName)
-    {
-        $em = $game->getEntityManager();
-        $user = $em->getRepository(User::class)->findOneBy(["name" => $userName]);
-
-        return ($user ? new static($game, $user) : null);
-    }
-
-    /**
      * Returns the user id.
      * @return string
      */
@@ -69,7 +41,7 @@ class UserType extends BaseType
      */
     public function getName(): string
     {
-        return (string)$this->userEntity->getName();
+        return $this->userEntity->getName();
     }
 
     /**

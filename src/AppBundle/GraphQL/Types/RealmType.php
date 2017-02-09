@@ -12,6 +12,7 @@ class RealmType extends BaseType
 {
     /**
      * Returns the name of this realm.
+     * @ToDo: Implement a real realm name query.
      * @return string
      */
     public function getName(): string

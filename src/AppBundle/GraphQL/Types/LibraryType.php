@@ -85,7 +85,15 @@ class LibraryType extends BaseType
 
         $list = "";
         foreach ($authors as $author) {
-            $list .= "${author['name']} (${author['email']}), ";
+            if (isset($author['email']) && isset($author["name"])) {
+                $list .= "${author['name']} (${author['email']}), ";
+            } elseif (isset($author["name"])) {
+                $list .= "${author['name']}, ";
+            } elseif (isset($author["email"])) {
+                $list .= "${author['email']}, ";
+            } else {
+                continue;
+            }
         }
 
         return substr($list, 0, -2);

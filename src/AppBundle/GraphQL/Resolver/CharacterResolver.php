@@ -22,9 +22,19 @@ class CharacterResolver extends BaseManagerService implements ContainerAwareInte
         $characterType = null;
 
         if (isset($args["characterId"])) {
-            $characterType = CharacterType::fromId($this->game, (int)$args["characterId"]);
+            $characterType = new CharacterType(
+                $this->game,
+                $this->container
+                    ->get("lotgd.crate.graphql.character_manager")
+                    ->findById((int)$args["characterId"])
+            );
         } elseif (isset($args["characterName"])) {
-            $characterType = CharacterType::fromName($this->game, $args["characterName"]);
+            $characterType = new CharacterType(
+                $this->game,
+                $this->container
+                    ->get("lotgd.crate.graphql.character_manager")
+                    ->findByName($args["characterName"])
+            );
         }
 
         return $characterType;

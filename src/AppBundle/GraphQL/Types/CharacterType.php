@@ -25,34 +25,6 @@ class CharacterType extends BaseType
     }
 
     /**
-     * Returns a CharacterType by a given id.
-     * @param Game $game
-     * @param int $characterId
-     * @return self|null Returns a CharacterType matching the parameter or null if not found.
-     */
-    public static function fromId(Game $game, int $characterId)
-    {
-        $em = $game->getEntityManager();
-        $character = $em->getRepository(Character::class)->find($characterId);
-
-        return ($character ? new static($game, $character) : null);
-    }
-
-    /**
-     * Returns a CharacterType by a given name.
-     * @param Game $game
-     * @param string $characterName
-     * @return self|null Returns a CharacterType matching the parameter or null if not found.
-     */
-    public static function fromName(Game $game, string $characterName)
-    {
-        $em = $game->getEntityManager();
-        $character = $em->getRepository(Character::class)->findOneBy(["name" => $characterName]);
-
-        return ($character ? new static($game, $character) : null);
-    }
-
-    /**
      * Returns the character id
      * @return string
      */
