@@ -3,7 +3,7 @@ mv config/lotgd.yml config/lotgd-run.yml
 mv config/lotgd-test.yml config/lotgd.yml
 
 r=0
-a=$(phpunit --stop-on-failure)
+a=$(phpunit --stop-on-failure --colors=always)
 r=$?
 
 mv config/lotgd.yml config/lotgd-test.yml

@@ -4,28 +4,28 @@ Mutation:
         fields:
             # Create an user entry with name/email/password
             createPasswordUser:
-                builder: Mutation
+                builder: Relay::Mutation
                 builderConfig:
                     inputType: CreatePasswordUserInput
                     payloadType: CreatePasswordUserPayload
                     mutateAndGetPayload: "@=mutation('create_password_user', [value['name'], value['email'], value['password']])"
             # Authenticate a password user with email/password
             authWithPassword:
-                builder: Mutation
+                builder: Relay::Mutation
                 builderConfig:
                     inputType: AuthWithPasswordInput
                     payloadType: AuthWithPasswordPayload
                     mutateAndGetPayload: "@=mutation('auth_with_password', [value['email'], value['password']])"
             # Create a character
             createCharacter:
-                builder: Mutation
+                builder: Relay::Mutation
                 builderConfig:
                     inputType: CreateCharacterInput
                     payloadType: CreateCharacterPayload
                     mutateAndGetPayload: "@=mutation('create_character', [value['userId'], value['characterName']])"
             # Take an action
             takeAction:
-                builder: Mutation
+                builder: Relay::Mutation
                 builderConfig:
                     inputType: TakeActionInput
                     payloadType: TakeActionPayload
