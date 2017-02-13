@@ -8,7 +8,7 @@ imports:
 parameters:
     locale: en
     db_dns: "sqlite:db/database.sqlite"
-    db_name: "root"
+    db_user: "root"
     db_password: ~
     db_name: "daenerys"
 
