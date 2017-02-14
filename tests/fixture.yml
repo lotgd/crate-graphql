@@ -10,6 +10,13 @@ users:
         email: "test-user@example.com"
         name: "test-user"
         passwordHash: "passwordHash"
+api_keys:
+    -
+        user_id: 2
+        apiKey: "c4fEAJLQlaV/47UZl52nAQ=="
+        created_at: "2017-01-01 00:00:00"
+        expires_at: "2999-12-31 23:59:59"
+        last_used_at: "2017-03-06 04:00:00"
 characters:
     -
         id: 1

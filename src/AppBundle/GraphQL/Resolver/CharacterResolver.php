@@ -6,10 +6,12 @@ namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Resolver;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Overblog\GraphQLBundle\Definition\Argument;
+use Overblog\GraphQLBundle\Error\UserError;
 
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Connections\CharacterConnection;
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\CharacterType;
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\UserType;
+use LotGD\Crate\GraphQL\Exceptions\InputException;
 use LotGD\Crate\GraphQL\Services\BaseManagerService;
 
 
@@ -19,44 +21,50 @@ class CharacterResolver extends BaseManagerService implements ContainerAwareInte
 
     public function resolve(Argument $args = null)
     {
-        $characterType = null;
+        $characterEntity = null;
 
         if (isset($args["characterId"])) {
-            $characterType = new CharacterType(
-                $this->game,
-                $this->container
-                    ->get("lotgd.crate.graphql.character_manager")
-                    ->findById((int)$args["characterId"])
-            );
+            $characterEntity = $this->container
+                ->get("lotgd.crate.graphql.character_manager")
+                ->findById((int)$args["characterId"]);
         } elseif (isset($args["characterName"])) {
-            $characterType = new CharacterType(
-                $this->game,
-                $this->container
-                    ->get("lotgd.crate.graphql.character_manager")
-                    ->findByName($args["characterName"])
-            );
+            $characterEntity = $this->container
+                ->get("lotgd.crate.graphql.character_manager")
+                ->findByName($args["characterName"]);
         }
 
-        return $characterType;
+        if ($characterEntity !== null) {
+            return new CharacterType($this->getGame(), $characterEntity);
+        } else {
+            return null;
+        }
     }
 
     /**
      * Returns a graphql character type from a cursor.
      * @param type $args Arguments array, as given by CharacterConnection->getEdges()
-     * @return CharacterType
+     * @return CharacterType|null
      */
-    public function getCharacterFromCursor($args = null): CharacterType
+    public function getCharacterFromCursor($args = null)
     {
-        #throw new \Exception(\Doctrine\Common\Util\Debug::dump($args, 2, true, false));
         $cursor = $args["cursor"];
         $user = $args["__data"];
 
-        $offset = CharacterConnection::decodeCursor($cursor);
+        try {
+            $offset = CharacterConnection::decodeCursor($cursor);
 
-        return new CharacterType(
-            $this->game,
-            array_values($user->getCharacters()->slice($offset, 1))[0]
-        );
+            $characterEntitySlice = array_values($user->getCharacters()->slice($offset, 1));
+            if (count($characterEntitySlice) == 1) {
+                    return new CharacterType(
+                    $this->getGame(),
+                    $characterEntitySlice[0]
+                );
+            } else {
+                return null;
+            }
+        } catch (InputException $e) {
+            throw new UserError($e->getMessage());
+        }
     }
 
     /**
@@ -65,7 +73,7 @@ class CharacterResolver extends BaseManagerService implements ContainerAwareInte
      * @param Argument $args
      * @return CharacterConnection
      */
-    public function getCharacterConnectionForUser(UserType $user, Argument $args)
+    public function getCharacterConnectionForUser(UserType $user, Argument $args): CharacterConnection
     {
         return new CharacterConnection($user, $args);
     }

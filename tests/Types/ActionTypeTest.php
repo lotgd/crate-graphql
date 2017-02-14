@@ -5,7 +5,6 @@ namespace LotGD\Crate\GraphQL\Tests;
 
 use LotGD\Core\Game;
 use LotGD\Core\Action;
-use LotGD\Core\ActionGroup;
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\ActionType;
 
 class ActionTypeTest extends WebTestCase

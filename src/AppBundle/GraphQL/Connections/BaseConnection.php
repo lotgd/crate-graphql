@@ -11,6 +11,7 @@ use Overblog\GraphQLBundle\Definition\Argument;
 use LotGD\Core\Game;
 use LotGD\Core\Models\Character;
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\CharacterType;
+use LotGD\Crate\GraphQL\Exceptions\InputException;
 use LotGD\Crate\GraphQL\Models\User;
 
 abstract class BaseConnection
@@ -23,6 +24,11 @@ abstract class BaseConnection
     public static function decodeCursor(string $encoded): int
     {
         $decoded = base64_decode($encoded);
+
+        if (strlen($decoded) < 17 || substr($decoded, 0, 17) !== "collectionOffset:") {
+            throw new InputException("The given cursor is not formatted correctly.");
+        }
+
         $offset = intval(substr($decoded, 17));
         return $offset;
     }

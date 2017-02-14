@@ -24,7 +24,7 @@ class WebTestCase extends BaseWebTestCase
 
             static::$em = static::$kernel->getContainer()->get("lotgd.core.game")->getEntityManager();
         }
-        
+
         // get pdo connection
         $pdo = static::$em->getConnection();
 
@@ -58,6 +58,21 @@ class WebTestCase extends BaseWebTestCase
 
     protected function tearDown()
     {
+    }
+
+    protected function startupService($service, $gameMock = null, $containerMock = null)
+    {
+        if ($containerMock !== null) {
+            $service->setContainer($containerMock);
+        } else {
+            $service->setContainer(static::$kernel->getContainer());
+        }
+
+        if ($gameMock !== null) {
+            $service->setCoreGameService($gameMock);
+        } else {
+            $service->setCoreGameService(static::$kernel->getContainer()->get("lotgd.core.game"));
+        }
     }
 
     protected function getEntityManager(): EntityManagerInterface

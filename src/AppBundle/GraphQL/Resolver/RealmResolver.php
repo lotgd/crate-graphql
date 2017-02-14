@@ -14,18 +14,8 @@ class RealmResolver extends BaseManagerService implements ContainerAwareInterfac
 {
     use ContainerAwareTrait;
 
-    public function resolveType($type)
+    public function resolve(): RealmType
     {
-        // Resolve the type for the object Type Realm (as defined in config/graphql/Realm.types.yml)
-        $typeResolver = $this->container->get('overblog_graphql.type_resolver');
-        return $typeResolver->resolve("Realm");
-    }
-
-    public function resolve(Argument $args = null)
-    {
-        $moduleManager = $this->container->get('lotgd.core.game')->getModuleManager();
-        $modules = $moduleManager->getModules();
-        
         return new RealmType($this->container->get("lotgd.core.game")->getGame());
     }
 }

@@ -22,27 +22,25 @@ class SessionResolver extends BaseManagerService implements ContainerAwareInterf
     {
         $user = $this->container->get('security.token_storage')->getToken()->getUser();
         $sessionType = new SessionType($this->getGame());
-        
+
         if ($user instanceof User) {
             $sessionType->setApiKey($user->getApiKey()->getApiKey());
-            $sessionType->setExpiresAt($$user->getApiKey()->getExpiresAtAsString());
-            
-            $userResolver = $this->container->get('app.graph.resolver.user');
+            $sessionType->setExpiresAt($user->getApiKey()->getExpiresAtAsString());
             $sessionType->setUser(new UserType($this->getGame(), $user));
         } elseif(isset($args["apiKey"])) {
             $apiKey = $this->getEntityManager()
                 ->getRepository(ApiKey::class)
                 ->findOneBy(["apiKey" => $args["apiKey"]]);
-            
+
             if ($apiKey !== null) {
                 $user = $apiKey->getUser();
-                
+
                 $sessionType->setUser(new UserType($this->getGame(), $user));
                 $sessionType->setApiKey($apiKey->getApiKey());
                 $sessionType->setExpiresAt($apiKey->getExpiresAtAsString());
             }
         }
-        
+
         return $sessionType;
     }
 }

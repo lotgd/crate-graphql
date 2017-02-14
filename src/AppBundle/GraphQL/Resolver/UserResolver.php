@@ -15,6 +15,11 @@ class UserResolver extends BaseManagerService implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
 
+    /**
+     * Resolves query for User with a given id user name, or returns null.
+     * @param Argument $args
+     * @return UserType
+     */
     public function resolve(Argument $args = null)
     {
         $userEntity = null;
