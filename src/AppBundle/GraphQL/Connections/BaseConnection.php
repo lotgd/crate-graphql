@@ -55,9 +55,17 @@ abstract class BaseConnection
             }
         } elseif (isset($args["last"])) {
             if (isset($args["before"])) {
-
+                $offsetCursor = static::decodeCursor($args["before"]);
+                $offset = $offsetCursor - $args["last"];
             } else {
+                $offset = $collectionLength - $args["last"];
+            }
 
+            if ($offset < 0) {
+                $limit = $args["last"] + $offset;
+                $offset = 0;
+            } else {
+                $limit = $args["last"];
             }
         } else {
             $limit = $collectionLength;
@@ -83,7 +91,7 @@ abstract class BaseConnection
     public function getPageInfo()
     {
         return [
-            "hasNextPage" => ($this->length > $this->offset + $this->limit == true),
+            "hasNextPage" => ($this->length - 1 > $this->offset + $this->limit == true),
             "hasPreviousPage" => ($this->offset > 0 == true),
             "startCursor" => static::encodeCursor($this->offset),
             "endCursor" => static::encodeCursor($this->offset + $this->limit - 1),

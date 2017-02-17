@@ -42,23 +42,6 @@ class ViewpointResolverTest extends WebTestCase
         return $resolver;
     }
 
-    protected function getMockedArgument(array $arguments): Argument
-    {
-        $args = $this->createMock(Argument::class);
-        $args->method("offsetGet")->will($this->returnCallback(
-            function ($key) use ($arguments) {
-                return $arguments[$key];
-            }
-        ));
-        $args->method("offsetExists")->will($this->returnCallback(
-            function ($key) use ($arguments) {
-                return isset($arguments[$key]);
-            }
-        ));
-
-        return $args;
-    }
-
     public function testIfViewpointResolverReturnsNullIfCharacterIdIsNotGiven()
     {
         $args = $this->getMockedArgument([]);

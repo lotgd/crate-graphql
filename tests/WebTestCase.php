@@ -3,9 +3,8 @@
 namespace LotGD\Crate\GraphQL\Tests;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Tools\SchemaTool;
 use Liip\FunctionalTestBundle\Test\WebTestCase as BaseWebTestCase;
-use PHPUnit_Extensions_Database_DataSet_YamlDataSet;
+use Overblog\GraphQLBundle\Definition\Argument;
 use Symfony\Component\Yaml\Yaml;
 
 class WebTestCase extends BaseWebTestCase
@@ -73,6 +72,23 @@ class WebTestCase extends BaseWebTestCase
         } else {
             $service->setCoreGameService(static::$kernel->getContainer()->get("lotgd.core.game"));
         }
+    }
+
+    protected function getMockedArgument(array $arguments): Argument
+    {
+        $args = $this->createMock(Argument::class);
+        $args->method("offsetGet")->will($this->returnCallback(
+            function ($key) use ($arguments) {
+                return $arguments[$key];
+            }
+        ));
+        $args->method("offsetExists")->will($this->returnCallback(
+            function ($key) use ($arguments) {
+                return isset($arguments[$key]);
+            }
+        ));
+
+        return $args;
     }
 
     protected function getEntityManager(): EntityManagerInterface
