@@ -80,4 +80,8 @@ class CoreGameService
     {
         return $this->game->getModuleManager();
     }
+
+    public function test() {
+        return false;
+    }
 }

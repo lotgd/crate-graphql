@@ -19,8 +19,8 @@ GraphQL;
 {
     "data": {
         "user": {
-            "id": "1",
-            "name": "admin"
+            "id": "2",
+            "name": "test-user"
         }
     }
 }
@@ -28,14 +28,14 @@ JSON;
 
         $jsonVariables = <<<JSON
 {
-    "name": "admin"
+    "name": "test-user"
 }
 JSON;
 
-        $this->assertQuery($query, $jsonExpected, $jsonVariables);
+        $this->assertQueryAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonExpected, $jsonVariables);
     }
 
-    public function testIfAnUnknownUserRetrievedByNameReturnsNull()
+    public function testIfKnownUserCannotBeRetrievedByNameWithoutProperAuthorization()
     {
         $query = <<<'GraphQL'
 query UserQuery($name: String!) {
@@ -48,9 +48,51 @@ GraphQL;
 
         $jsonExpected = <<<JSON
 {
-  "data": {
-    "user": null
-  }
+    "data": {
+        "user":null
+    },
+    "extensions": {
+        "warnings": [{
+            "message": "Access denied to this field.",
+            "locations": [{"line":2,"column":5}],
+            "path": ["user"]
+        }]
+    }
+}
+JSON;
+
+        $jsonVariables = <<<JSON
+{
+    "name": "admin"
+}
+JSON;
+
+        $this->assertQueryAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonExpected, $jsonVariables);
+    }
+
+    public function testIfAnUnknownUserRetrievedByNameReturnsStillAnAccessError()
+    {
+        $query = <<<'GraphQL'
+query UserQuery($name: String!) {
+    user(name: $name) {
+        id,
+        name
+    }
+}
+GraphQL;
+
+        $jsonExpected = <<<JSON
+{
+    "data": {
+        "user":null
+    },
+    "extensions": {
+        "warnings": [{
+            "message": "Access denied to this field.",
+            "locations": [{"line":2,"column":5}],
+            "path": ["user"]
+        }]
+    }
 }
 JSON;
 
@@ -60,7 +102,7 @@ JSON;
 }
 JSON;
 
-        $this->assertQuery($query, $jsonExpected, $jsonVariables);
+        $this->assertQueryAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonExpected, $jsonVariables);
     }
 
     public function testIfCharacterFieldsReturnAValidListOfCharacters()
@@ -81,7 +123,7 @@ GraphQL;
 
         $jsonVariables = <<<JSON
 {
-    "id": "1"
+    "id": "2"
 }
 JSON;
 
@@ -89,18 +131,18 @@ JSON;
 {
 	"data": {
 		"user": {
-			"id": "1",
-			"name": "admin",
+			"id": "2",
+			"name": "test-user",
 			"characters": [{
-                "id": "2",
-                "name": "One",
-                "displayName": "The One And Only"
+                "id": "1",
+                "name": "DB-Test",
+                "displayName": "Novice DB-Test"
 			}]
 		}
 	}
 }
 JSON;
 
-        $this->assertQuery($query, $jsonExpected, $jsonVariables);
+        $this->assertQueryAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonExpected, $jsonVariables);
     }
 }

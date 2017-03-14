@@ -51,7 +51,7 @@ JSON;
         "character": {
             "id": "1",
             "name": "DB-Test",
-            "displayName": "DB-Test"
+            "displayName": "Novice DB-Test"
         }
     }
 }

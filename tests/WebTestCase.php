@@ -137,23 +137,36 @@ class WebTestCase extends BaseWebTestCase
         }
     }
 
-
-    protected function queryHelper($query, $jsonVariables)
+    /*protected function queryHelper($query, $jsonVariables, $apiKey = null)
     {
         $client = static::makeClient();
         $path = $this->getUrl("lotgd_crate_graphql_app_graph_endpoint");
 
+        $headers = ['CONTENT_TYPE' => 'application/graphql'];
+        if ($apiKey) {
+            $headers["HTTP_TOKEN"] = $apiKey;
+        }
+
         $client->request(
-            'GET', $path, ['query' => $query, 'variables' => $jsonVariables], [], ['CONTENT_TYPE' => 'application/graphql']
+            'GET', $path, ['query' => $query, 'variables' => $jsonVariables], [], $headers
         );
         $result = $client->getResponse()->getContent();
 
         return [$result, $client];
-    }
+    }*/
 
-    protected function getQueryResults($query, $jsonVariables = '{}')
+    /*protected function getQueryResults($query, $jsonVariables = '{}')
     {
         list($result, $client) = $this->queryHelper($query, $jsonVariables);
+
+        $this->assertStatusCode(200, $client);
+
+        return json_decode($result, true);
+    }
+
+    protected function getQueryResultsAuthenticated($apiKey, $query, $jsonVariales = '{}')
+    {
+        list($result, $client) = $this->queryHelper($query, $jsonVariables, $apiKey);
 
         $this->assertStatusCode(200, $client);
 
@@ -168,7 +181,15 @@ class WebTestCase extends BaseWebTestCase
         $this->assertEquals(json_decode($jsonExpected, true), json_decode($result, true), $result);
     }
 
-    protected function assertArrayKeysInQuery($query, $subKey, $arrayKeys, $jsonVariables = "{}")
+    protected function assertQueryAuthenticated($apiKey, $query, $jsonExpected, $jsonVariables = '{}')
+    {
+        list($result, $client) = $this->queryHelper($query, $jsonVariables, $apiKey);
+
+        $this->assertStatusCode(200, $client);
+        $this->assertEquals(json_decode($jsonExpected, true), json_decode($result, true), $result);
+    }*/
+
+    /*protected function assertArrayKeysInQuery($query, $subKey, $arrayKeys, $jsonVariables = "{}")
     {
         list($result, $client) = $this->queryHelper($query, $jsonVariables);
 
@@ -181,5 +202,5 @@ class WebTestCase extends BaseWebTestCase
         foreach ($arrayKeys as $key) {
             $this->assertArrayHasKey($key, $resultArray["data"][$subKey]);
         }
-    }
+    }*/
 }

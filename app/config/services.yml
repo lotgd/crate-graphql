@@ -23,9 +23,18 @@ services:
         calls:
             - [setContainer, ["@service_container"]]
             - [setCoreGameService, ["@lotgd.core.game"]]
+
     # Authenticators
     lotgd.token_authenticator:
         class: LotGD\Crate\GraphQL\AppBundle\Security\TokenAuthenticator
+
+    # Authorizations
+    lotgd.authorization:
+        class: LotGD\Crate\GraphQL\Services\AuthorizationService
+        calls:
+            - [setContainer, ["@service_container"]]
+            - [setCoreGameService, ["@lotgd.core.game"]]
+
 
     # Events
     lotgd.listeners.authentificationFailure:
