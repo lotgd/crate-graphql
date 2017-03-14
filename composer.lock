@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a666fb7e86531d4e241acd845bf8fc78",
+    "content-hash": "f3ddcd556ee4522d0fb7b9bfa7eea22b",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1358,7 +1358,7 @@
         },
         {
             "name": "lotgd/core",
-            "version": "dev-master",
+            "version": "v0.2.0-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lotgd/core.git",
@@ -1400,28 +1400,28 @@
             ],
             "description": "Core functionality for Legend of the Green Dragon, a text-based RPG game.",
             "support": {
-                "source": "https://github.com/lotgd/core/tree/master",
+                "source": "https://github.com/lotgd/core/tree/revert-commit",
                 "issues": "https://github.com/lotgd/core/issues"
             },
-            "time": "2017-03-13 13:13:50"
+            "time": "2017-03-13T13:13:50+00:00"
         },
         {
             "name": "lotgd/module-scene-bundle",
-            "version": "dev-master",
+            "version": "v0.2.0-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lotgd/module-scene-bundle.git",
-                "reference": "8c219a1770f82e4799cc3369f850f577ef91cb32"
+                "reference": "b643b2fa75ec000138a79e77d0f8d7060ebd876b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lotgd/module-scene-bundle/zipball/8c219a1770f82e4799cc3369f850f577ef91cb32",
-                "reference": "8c219a1770f82e4799cc3369f850f577ef91cb32",
+                "url": "https://api.github.com/repos/lotgd/module-scene-bundle/zipball/b643b2fa75ec000138a79e77d0f8d7060ebd876b",
+                "reference": "b643b2fa75ec000138a79e77d0f8d7060ebd876b",
                 "shasum": ""
             },
             "require": {
-                "lotgd/core": "dev-master",
-                "lotgd/module-village": "dev-master"
+                "lotgd/core": "^0.2-alpha",
+                "lotgd/module-village": "^0.2-alpha"
             },
             "require-dev": {
                 "phpunit/dbunit": "*",
@@ -1448,27 +1448,27 @@
             ],
             "description": "A bundle of small scenes.",
             "support": {
-                "source": "https://github.com/lotgd/module-scene-bundle/tree/master",
+                "source": "https://github.com/lotgd/module-scene-bundle/tree/v0.2.0-alpha",
                 "issues": "https://github.com/lotgd/module-scene-bundle/issues"
             },
-            "time": "2017-03-13 17:31:04"
+            "time": "2017-03-14T07:48:00+00:00"
         },
         {
             "name": "lotgd/module-village",
-            "version": "dev-master",
+            "version": "v0.2.0-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lotgd/module-village.git",
-                "reference": "d99b48468e049f07d4d6a4fd9e9204d7639114b7"
+                "reference": "e14bb4bf6243f079022cc0432db8466f066f93db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lotgd/module-village/zipball/d99b48468e049f07d4d6a4fd9e9204d7639114b7",
-                "reference": "d99b48468e049f07d4d6a4fd9e9204d7639114b7",
+                "url": "https://api.github.com/repos/lotgd/module-village/zipball/e14bb4bf6243f079022cc0432db8466f066f93db",
+                "reference": "e14bb4bf6243f079022cc0432db8466f066f93db",
                 "shasum": ""
             },
             "require": {
-                "lotgd/core": "dev-master"
+                "lotgd/core": "^0.2-alpha"
             },
             "require-dev": {
                 "phpunit/dbunit": "^2.0"
@@ -1494,10 +1494,10 @@
             ],
             "description": "A basic village.",
             "support": {
-                "source": "https://github.com/lotgd/module-village/tree/master",
+                "source": "https://github.com/lotgd/module-village/tree/version/0.2",
                 "issues": "https://github.com/lotgd/module-village/issues"
             },
-            "time": "2017-03-13 14:43:11"
+            "time": "2017-03-14T07:41:49+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -4369,10 +4369,10 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "lotgd/core": 20,
+        "lotgd/core": 15,
         "overblog/graphql-bundle": 20,
-        "lotgd/module-village": 20,
-        "lotgd/module-scene-bundle": 20
+        "lotgd/module-village": 15,
+        "lotgd/module-scene-bundle": 15
     },
     "prefer-stable": false,
     "prefer-lowest": false,
