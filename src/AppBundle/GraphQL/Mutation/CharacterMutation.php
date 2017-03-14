@@ -46,7 +46,7 @@ class CharacterMutation extends BaseManagerService implements EntityManagerAware
         $this->game->getEntityManager()->flush();
 
         return [
-            "characterEdge" => CharacterConnection::createEdgeFor($user, new CharacterType($this->getGame(), $character)),
+            "character" => new CharacterType($this->getGame(), $character),
             "user" => new UserType($this->getGame(), $user),
         ];
     }

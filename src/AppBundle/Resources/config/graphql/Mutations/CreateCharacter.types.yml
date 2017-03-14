@@ -17,5 +17,5 @@ CreateCharacterPayload:
         fields:
             user:
                 type: "User!"
-            characterEdge:
-                type: "CharacterEdge!"
+            character:
+                type: "Character!"

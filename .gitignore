@@ -2,6 +2,7 @@
 /vendor/
 /web/bundles/
 /logs/lotgd*
+/.idea/
 
 /build/
 /var/*
@@ -15,3 +16,4 @@
 /var/sessions/*
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
+daenerys.db3.sqbpro

@@ -10,7 +10,5 @@ User:
                 type: "String!"
                 description: "Name of the user library."
             characters:
-                type: "CharacterConnection!"
-                argsBuilder: "Relay::Connection"
+                type: "[Character]!"
                 description: "Characters belonging to this user."
-                resolve: '@=resolver("character_connection_for_user", [value, args])'

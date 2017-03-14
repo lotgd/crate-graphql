@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Types;
 
+use Generator;
 use Doctrine\Common\Collections\Collection;
 
 use LotGD\Core\Game;
@@ -45,11 +46,13 @@ class UserType extends BaseType
     }
 
     /**
-     * Returns the character collection.
-     * @return Collection
+     *
+     * @return Generator
      */
-    public function getCharacters(): Collection
+    public function getCharacters(): Generator
     {
-        return $this->userEntity->getCharacters();
+        foreach ($this->userEntity->getCharacters() as $character) {
+            yield new CharacterType($this->getGameObject(), $character);
+        }
     }
 }

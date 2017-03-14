@@ -70,21 +70,10 @@ query UserQuery($id: String!) {
     user(id: $id) {
         id,
         name,
-        characters(first: 20) {
-            pageInfo {
-                hasNextPage,
-                hasPreviousPage,
-                startCursor,
-                endCursor
-            },
-            edges {
-                cursor,
-                node {
-                    id,
-                    name
-                    displayName
-                }
-            }
+        characters {
+            id,
+            name
+            displayName
         }
     }
 }
@@ -102,22 +91,11 @@ JSON;
 		"user": {
 			"id": "1",
 			"name": "admin",
-			"characters": {
-				"pageInfo": {
-					"hasNextPage": false,
-					"hasPreviousPage": false,
-					"startCursor": "Y29sbGVjdGlvbk9mZnNldDow",
-					"endCursor": "Y29sbGVjdGlvbk9mZnNldDow"
-				},
-				"edges": [{
-					"cursor": "Y29sbGVjdGlvbk9mZnNldDow",
-					"node": {
-						"id": "2",
-						"name": "One",
-						"displayName": "The One And Only"
-					}
-				}]
-			}
+			"characters": [{
+                "id": "2",
+                "name": "One",
+                "displayName": "The One And Only"
+			}]
 		}
 	}
 }

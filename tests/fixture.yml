@@ -69,13 +69,13 @@ scenes:
         title: "The old oak"
         description: "The old oaken tree, the oldest tree inside of the village and one of the few that didn't fell victim to the woodcutter, has a lot of old and fresh hearts cut inside it's bork, witness to the numerous lover's that wanted their love to last as long as this tree does."
         template: "lotgd/module-scene-bundle/pond/oak"
-paths:
+scene_connections:
     -
-        scene_id: 1
-        child_scene_id: 2
+        outgoingScene: 1
+        incomingScene: 2
     -
-        scene_id: 2
-        child_scene_id: 3
+        outgoingScene: 2
+        incomingScene: 3
 event_subscriptions:
     -
         pattern: "/h\\/lotgd\\/core\\/default-scene/"

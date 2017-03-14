@@ -12,9 +12,3 @@ Character:
             displayName:
                 type: "String!"
                 description: "Complete name of the character including title, colour information and other things."
-
-CharacterConnection:
-    type: relay-connection
-    config:
-        nodeType: Character
-        resolveNode: '@=resolver("resolver_character_from_cursor", [value])'

@@ -16,13 +16,10 @@ mutation createCharacterMutation($input: CreateCharacterInput!) {
         user {
             id
         },
-        characterEdge {
-            cursor,
-            node {
-                id,
-                name,
-                displayName
-            }
+        character {
+            id,
+            name,
+            displayName
         }
     }
 }
@@ -55,13 +52,10 @@ JSON;
                     "user" => [
                         "id" => "1"
                     ],
-                    "characterEdge" => [
-                        "cursor" => $result["data"]["createCharacter"]["characterEdge"]["cursor"],
-                        "node" => [
-                            "id" => $result["data"]["createCharacter"]["characterEdge"]["node"]["id"],
-                            "name" => "New Player",
-                            "displayName" => "New Player"
-                        ]
+                    "character" => [
+                        "id" => $result["data"]["createCharacter"]["character"]["id"],
+                        "name" => "New Player",
+                        "displayName" => "New Player"
                     ]
                 ]
             ]

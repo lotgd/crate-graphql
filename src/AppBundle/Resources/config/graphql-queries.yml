@@ -34,5 +34,3 @@ services:
             - [setCoreGameService, ["@lotgd.core.game"]]
         tags:
             - { name: overblog_graphql.resolver, alias: "character_resolver", method: "resolve" }
-            - { name: overblog_graphql.resolver, alias: "resolver_character_from_cursor", method: "getCharacterFromCursor" }
-            - { name: overblog_graphql.resolver, alias: "character_connection_for_user", method: "getCharacterConnectionForUser" }

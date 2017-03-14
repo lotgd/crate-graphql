@@ -45,12 +45,12 @@ class UserTypeTest extends WebTestCase
         $this->assertSame($name, $type->getName());
     }
 
-    public function testIfUserTypeReturnsCorrectCharacterCollection()
+    public function testIfUserTypeReturnsGenerator()
     {
         $collectionMock = $this->createMock(Collection::class);
         $userMock = $this->getUserMock(["getCharacters" => $collectionMock]);
         $type = new UserType($this->getGameMock(), $userMock);
 
-        $this->assertSame($collectionMock, $type->getCharacters());
+        $this->assertInstanceOf(\Generator::class, $type->getCharacters());
     }
 }
