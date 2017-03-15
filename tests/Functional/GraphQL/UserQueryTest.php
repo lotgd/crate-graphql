@@ -70,6 +70,37 @@ JSON;
         $this->assertQueryAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonExpected, $jsonVariables);
     }
 
+    public function testIfKnownUserCanBeRetrievedWithAdmin()
+    {
+        $query = <<<'GraphQL'
+query UserQuery($name: String!) {
+    user(name: $name) {
+        id,
+        name
+    }
+}
+GraphQL;
+
+        $jsonExpected = <<<JSON
+{
+    "data": {
+        "user": {
+            "id": "1",
+            "name": "admin"
+        }
+    }
+}
+JSON;
+
+        $jsonVariables = <<<JSON
+{
+    "name": "admin"
+}
+JSON;
+
+        $this->assertQueryAuthenticated("apiKeyForUser3", $query, $jsonExpected, $jsonVariables);
+    }
+
     public function testIfAnUnknownUserRetrievedByNameReturnsStillAnAccessError()
     {
         $query = <<<'GraphQL'

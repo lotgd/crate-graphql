@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\Services;
 
+use LotGD\Core\PermissionManager;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\UserType;
@@ -12,15 +13,31 @@ class AuthorizationService extends BaseManagerService
 {
     use ContainerAwareTrait;
 
+    private $permissionManager;
+    private $user = false;
+
+    protected function getPermissionManager(): PermissionManager
+    {
+        if (!$this->permissionManager) {
+            $permissionManager = new PermissionManager($this->getGame());
+        }
+
+        return $permissionManager;
+    }
+
     protected function getCurrentUser(): ?User
     {
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
+        if ($this->user === false) {
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
-        if ($user instanceof User) {
-            return $user;
-        } else {
-            return null;
+            if (!$user instanceof User) {
+                $user = null;
+            }
+
+            $this->user = $user;
         }
+
+        return $this->user;
     }
 
     public function isUser($object) {
@@ -39,5 +56,9 @@ class AuthorizationService extends BaseManagerService
         }
 
         return false;
+    }
+
+    public function isAllowed($permission) {
+        return $this->getPermissionManager()->isAllowed($this->getCurrentUser(), $permission);
     }
 }

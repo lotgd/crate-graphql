@@ -3,10 +3,13 @@ declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\Models;
 
+use Generator;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use LotGD\Core\Models\Actor;
 use LotGD\Core\Models\SaveableInterface;
 use LotGD\Core\Tools\Model\Saveable;
 use LotGD\Core\Models\Character;
@@ -15,7 +18,7 @@ use LotGD\Core\Models\Character;
  * @Entity
  * @Table(name="users")
  */
-class User implements UserInterface, SaveableInterface
+class User extends Actor implements UserInterface, SaveableInterface
 {
     use Saveable;
 
@@ -29,6 +32,8 @@ class User implements UserInterface, SaveableInterface
     private $passwordHash = "";
     /** @OneToOne(targetEntity="ApiKey", mappedBy="user", cascade={"persist"}) */
     private $apiKey;
+    /** @OneToMany(targetEntity="UserPermissionAssociation", mappedBy="owner", cascade={"persist", "remove"}, orphanRemoval=true) */
+    protected $permissions;
     /**
      * Unidirectional OneToMany association since we cannot modify the character
      * model from the core. Instead, we use a join table to list all characters
@@ -173,7 +178,7 @@ class User implements UserInterface, SaveableInterface
 
     /**
      * Iterates through all characters.
-     * @return
+     * @return Collection|null
      */
     public function getCharacters()
     {
@@ -209,6 +214,26 @@ class User implements UserInterface, SaveableInterface
     {
         if ($this->hasCharacter($character) === false) {
             $this->characters->add($character);
+        }
+    }
+
+    /**
+     * Returns FQCN of the Permission association class
+     * @return string
+     */
+    protected function getPermissionAssociationClass(): string
+    {
+        return UserPermissionAssociation::class;
+    }
+
+    /**
+     * Iterates through permissions.
+     * @return Generator
+     */
+    protected function getPermissionAssociations(): Generator
+    {
+        foreach ($this->permissions as $permission) {
+            yield $permission;
         }
     }
 }
