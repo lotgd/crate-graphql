@@ -51,13 +51,11 @@ GraphQL;
     "data": {
         "user":null
     },
-    "extensions": {
-        "warnings": [{
-            "message": "Access denied to this field.",
+    "errors": [{
+        "message": "Accessing this field with this parameters is not allowed.",
             "locations": [{"line":2,"column":5}],
             "path": ["user"]
-        }]
-    }
+    }]
 }
 JSON;
 
@@ -117,13 +115,11 @@ GraphQL;
     "data": {
         "user":null
     },
-    "extensions": {
-        "warnings": [{
-            "message": "Access denied to this field.",
-            "locations": [{"line":2,"column":5}],
-            "path": ["user"]
-        }]
-    }
+    "errors": [{
+        "message": "Accessing this field with this parameters is not allowed.",
+        "locations": [{"line":2,"column":5}],
+        "path": ["user"]
+    }]
 }
 JSON;
 

@@ -22,7 +22,6 @@ Query:
                         description: "Name of the user."
                         type: "String"
                 resolve: "@=resolver('user_resolver', [args])"
-                access: "@=service('lotgd.authorization').isUser(object) or service('lotgd.authorization').isAllowed('lotgd/core/superuser')"
             viewpoint:
                 description: "The viewpoint of a given character."
                 type: "Viewpoint"

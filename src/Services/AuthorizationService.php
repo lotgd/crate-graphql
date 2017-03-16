@@ -17,6 +17,10 @@ class AuthorizationService extends BaseManagerService
     private $permissionManager;
     private $user = false;
 
+    /**
+     * Internal use only. Gives and instantiates an instance of the Permission Manager.
+     * @return PermissionManager
+     */
     protected function getPermissionManager(): PermissionManager
     {
         if (!$this->permissionManager) {
@@ -26,6 +30,10 @@ class AuthorizationService extends BaseManagerService
         return $permissionManager;
     }
 
+    /**
+     * Returns the user associated with the current auth token. If it's not a user, this method returns null.
+     * @return User|null
+     */
     public function getCurrentUser(): ?User
     {
         if ($this->user === false) {
@@ -41,27 +49,13 @@ class AuthorizationService extends BaseManagerService
         return $this->user;
     }
 
+    /**
+     * Short method to check if a user is logged in or not.
+     * @return bool
+     */
     public function isLoggedin(): bool
     {
         return $this->getCurrentUser() === null ? false : true;
-    }
-
-    public function isUser($object) {
-        $user = $this->getCurrentUser();
-
-        if (!$user) {
-            return false;
-        }
-
-        if (!$object instanceof UserType) {
-            return false;
-        }
-
-        if ($object->getId() === (string)$user->getId()) {
-            return true;
-        }
-
-        return false;
     }
 
     public function isAllowed($permission)

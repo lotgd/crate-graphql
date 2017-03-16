@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace LotGD\Crate\GraphQL\Tests\Resolver;
 
 use Overblog\GraphQLBundle\Definition\Argument;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
+use LotGD\Crate\GraphQL\Services\AuthorizationService;
 use LotGD\Crate\GraphQL\Tests\WebTestCase;
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Resolver\UserResolver;
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\UserType;
@@ -14,7 +16,21 @@ class UserResolverTest extends WebTestCase
     protected function getResolver()
     {
         $resolver = new UserResolver();
-        $this->startupService($resolver);
+        $authServiceMock = $this->createMock(AuthorizationService::class);
+        $authServiceMock->method("isLoggedin")->willReturn(true);
+        $authServiceMock->method("isAllowed")->willReturn(true);
+        $authServiceMock->method("getCurrentUser")->willReturn(null);
+
+        $containerMock = $this->createMock(ContainerInterface::class);
+        $containerMock->method("get")->willReturnCallback(function($serviceName) use ($authServiceMock) {
+            if ($serviceName === "lotgd.authorization") {
+                return $authServiceMock;
+            } else {
+                return static::$kernel->getContainer()->get($serviceName);
+            }
+        });
+
+        $this->startupService($resolver, null, $containerMock);
 
         return $resolver;
     }
