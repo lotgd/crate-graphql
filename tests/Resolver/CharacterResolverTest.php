@@ -13,6 +13,7 @@ use LotGD\Crate\GraphQL\AppBundle\GraphQL\Connections\CharacterConnection;
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Resolver\CharacterResolver;
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\CharacterType;
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\UserType;
+use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\TypeGuardian;
 
 class CharacterResolverTest extends WebTestCase
 {
@@ -38,7 +39,8 @@ class CharacterResolverTest extends WebTestCase
 
         $return = $resolver->resolve($this->getMockedArgument(["characterId" => "1"]));
         $this->assertNotNull($return);
-        $this->assertInstanceOf(CharacterType::class, $return);
+        $this->assertInstanceOf(TypeGuardian::class, $return);
+        $this->assertTrue($return->isTypeOf(CharacterType::class));
         $this->assertSame("1", $return->getId());
     }
 
@@ -56,7 +58,8 @@ class CharacterResolverTest extends WebTestCase
 
         $return = $resolver->resolve($this->getMockedArgument(["characterName" => "One"]));
         $this->assertNotNull($return);
-        $this->assertInstanceOf(CharacterType::class, $return);
+        $this->assertInstanceOf(TypeGuardian::class, $return);
+        $this->assertTrue($return->isTypeOf(CharacterType::class));
         $this->assertSame("One", $return->getName());
     }
 

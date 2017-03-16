@@ -10,5 +10,4 @@ use LotGD\Core\Game;
  */
 interface TypeInterface
 {
-    public function __construct(Game $game);
 }

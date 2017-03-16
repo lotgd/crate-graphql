@@ -6,6 +6,7 @@ namespace LotGD\Crate\GraphQL\Services;
 use LotGD\Core\PermissionManager;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
+use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\TypeGuardian;
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\UserType;
 use LotGD\Crate\GraphQL\Models\User;
 
@@ -25,7 +26,7 @@ class AuthorizationService extends BaseManagerService
         return $permissionManager;
     }
 
-    protected function getCurrentUser(): ?User
+    public function getCurrentUser(): ?User
     {
         if ($this->user === false) {
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
@@ -38,6 +39,11 @@ class AuthorizationService extends BaseManagerService
         }
 
         return $this->user;
+    }
+
+    public function isLoggedin(): bool
+    {
+        return $this->getCurrentUser() === null ? false : true;
     }
 
     public function isUser($object) {
@@ -58,7 +64,13 @@ class AuthorizationService extends BaseManagerService
         return false;
     }
 
-    public function isAllowed($permission) {
+    public function isAllowed($permission)
+    {
         return $this->getPermissionManager()->isAllowed($this->getCurrentUser(), $permission);
+    }
+
+    public function guard($entity, array $whitelistedFields)
+    {
+        return new TypeGuardian($entity, $whitelistedFields);
     }
 }
