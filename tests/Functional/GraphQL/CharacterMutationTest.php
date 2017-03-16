@@ -39,18 +39,18 @@ GraphQL;
 JSON;
     }
 
-    public function testIfCharacterCreationWorks()
+    public function testIfCharacterCreationWorksIfAuthenticated()
     {
         $mutation = $this->getSimpleCreationMutation();
-        $variables = $this->getSimpleCreationMutationInput(1, "New Player", "asd789g7");
+        $variables = $this->getSimpleCreationMutationInput(2, "New Player", "asd789g7");
 
-        $result = $this->getQueryResults($mutation, $variables);
+        $result = $this->getQueryResultsAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $variables);
 
         $expectedReturn = [
             "data" => [
                 "createCharacter" => [
                     "user" => [
-                        "id" => "1"
+                        "id" => "2"
                     ],
                     "character" => [
                         "id" => $result["data"]["createCharacter"]["character"]["id"],
@@ -67,7 +67,7 @@ JSON;
     public function testIfCharacterCreationFailsIfNameIsAlreadyUsed()
     {
         $mutation = $this->getSimpleCreationMutation();
-        $variables = $this->getSimpleCreationMutationInput(1, "One", "asd789g7");
+        $variables = $this->getSimpleCreationMutationInput(2, "One", "asd789g7");
 
         $answer = <<<JSON
 {
@@ -91,6 +91,92 @@ JSON;
 }
 JSON;
 
+        $this->assertQueryAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $answer, $variables);
+    }
+
+    public function testIfCharacterCreationFailsIfUserIsNotLoggedIn()
+    {
+        $mutation = $this->getSimpleCreationMutation();
+        $variables = $this->getSimpleCreationMutationInput(2, "One", "asd789g7");
+
+        $answer = <<<JSON
+{
+    "data": {
+        "createCharacter": null
+    },
+    "errors": [
+        {
+            "message": "Access denied for this mutation.",
+            "locations": [
+                {
+                    "line": 2,
+                    "column": 5
+                }
+            ],
+            "path": [
+                "createCharacter"
+            ]
+        }
+    ]
+}
+JSON;
+
         $this->assertQuery($mutation, $answer, $variables);
+    }
+
+    public function testIfCharacterCreationFailsIfUserTriesToCreateOneForAnotherUser()
+    {
+        $mutation = $this->getSimpleCreationMutation();
+        $variables = $this->getSimpleCreationMutationInput(1, "Another New Character", "asd789g7");
+
+        $answer = <<<JSON
+{
+    "data": {
+        "createCharacter": null
+    },
+    "errors": [
+        {
+            "message": "Access denied for this mutation.",
+            "locations": [
+                {
+                    "line": 2,
+                    "column": 5
+                }
+            ],
+            "path": [
+                "createCharacter"
+            ]
+        }
+    ]
+}
+JSON;
+
+        $this->assertQueryAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $answer, $variables);
+
+    }
+
+    public function testIfCharacterCreationWorksIfUserTriesToCreateOneForAnotherUserButIsSuperuser()
+    {
+        $mutation = $this->getSimpleCreationMutation();
+        $variables = $this->getSimpleCreationMutationInput(1, "Another New Character", "asd789g7");
+
+        $result = $this->getQueryResultsAuthenticated("apiKeyForUser3", $mutation, $variables);
+
+        $expectedReturn = [
+            "data" => [
+                "createCharacter" => [
+                    "user" => [
+                        "id" => "1"
+                    ],
+                    "character" => [
+                        "id" => $result["data"]["createCharacter"]["character"]["id"],
+                        "name" => "Another New Character",
+                        "displayName" => "Another New Character"
+                    ]
+                ]
+            ]
+        ];
+
+        $this->assertSame($expectedReturn, $result);
     }
 }

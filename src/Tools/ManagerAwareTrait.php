@@ -15,16 +15,28 @@ use LotGD\Crate\GraphQL\Services\UserManagerService;
 
 trait ManagerAwareTrait
 {
+    /**
+     * Returns the service for managing user accounts
+     * @return UserManagerService
+     */
     public function getUserManager(): UserManagerService
     {
         return $this->container->get("lotgd.crate.graphql.user_manager");
     }
 
+    /**
+     * Returns the service for managing characters
+     * @return CharacterManagerService
+     */
     public function getCharacterManager(): CharacterManagerService
     {
         return $this->container->get("lotgd.crate.graphql.character_manager");
     }
 
+    /**
+     * Returns the service to check and control access rights.
+     * @return AuthorizationService
+     */
     public function getAuthorizationService(): AuthorizationService
     {
         return $this->container->get("lotgd.authorization");

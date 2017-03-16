@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Mutation;
 
+use LotGD\Core\PermissionManager;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
 
@@ -12,6 +13,7 @@ use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\UserType;
 use LotGD\Crate\GraphQL\Services\BaseManagerService;
 use LotGD\Crate\GraphQL\Tools\EntityManagerAwareInterface;
 use LotGD\Crate\GraphQL\Tools\EntityManagerAwareTrait;
+use LotGD\Crate\GraphQL\Tools\ManagerAwareTrait;
 
 use LotGD\Crate\GraphQL\Exceptions\CharacterNameExistsException;
 
@@ -22,6 +24,7 @@ use LotGD\Crate\GraphQL\Exceptions\CharacterNameExistsException;
 class CharacterMutation extends BaseManagerService implements EntityManagerAwareInterface
 {
     use EntityManagerAwareTrait;
+    use ManagerAwareTrait;
 
     /**
      * createCharacterMutation resolver - creates a character for a given user and a given name.
@@ -32,12 +35,25 @@ class CharacterMutation extends BaseManagerService implements EntityManagerAware
      */
     function createCharacter(string $userId, string $characterName)
     {
-        // Get user
-        $user = $this->container->get("lotgd.crate.graphql.user_manager")->findById((int)$userId);
+        // check if user is not logged in
+        if (!$this->getAuthorizationService()->isLoggedin()) {
+            throw new UserError("Access denied for this mutation.");
+        }
+
+        // Get the user given in the arguments
+        $user = $this->getUserManager()->findById((int)$userId);
+
+        // Check if the user is the current user - or the current user is superuser. If not, deny access.
+        if (
+            $user !== $this->getAuthorizationService()->getCurrentUser() and
+            $this->getAuthorizationService()->isAllowed(PermissionManager::Superuser) === false
+        ) {
+            throw new UserError("Access denied for this mutation.");
+        }
 
         /** @ToDo: Add check for amount of characters this user has. */
         try {
-            $character = $this->container->get("lotgd.crate.graphql.character_manager")->createNewCharacter($characterName);
+            $character = $this->getCharacterManager()->createNewCharacter($characterName);
             $user->addCharacter($character);
         } catch(CharacterNameExistsException $e) {
             throw new UserError($e->getMessage());
@@ -53,14 +69,26 @@ class CharacterMutation extends BaseManagerService implements EntityManagerAware
 
     function takeAction($characterId, $actionId)
     {
-        $character = $this->container->get("lotgd.crate.graphql.character_manager")->findById($characterId);
+        // check if user is not logged in
+        if (!$this->getAuthorizationService()->isLoggedin()) {
+            throw new UserError("Access denied for this mutation.");
+        }
+
+        $character = $this->getCharacterManager()->findById($characterId);
 
         // Return null if character has not been found.
         if (is_null($character)) {
             return null;
         }
 
-        // @ToDo: Access restriction.
+        // Check if the user own the character or the current user is superuser. If not, deny access.
+        if (
+            $this->getAuthorizationService()->getCurrentUser()->hasCharacter($character) === false and
+            $this->getAuthorizationService()->isAllowed(PermissionManager::Superuser) === false
+        ) {
+            throw new UserError("Access denied for this mutation.");
+        }
+
         $game = $this->getGame();
         $game->setCharacter($character);
 
