@@ -60,7 +60,7 @@ class AuthorizationService extends BaseManagerService
      * Short method to check if a user is logged in or not.
      * @return bool
      */
-    public function isLoggedin(): bool
+    public function isLoggedIn(): bool
     {
         return $this->getCurrentUser() === null ? false : true;
     }

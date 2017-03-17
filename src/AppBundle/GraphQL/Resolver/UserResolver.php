@@ -24,6 +24,7 @@ class UserResolver extends BaseManagerService implements ContainerAwareInterface
      * Resolves query for User with a given id user name, or returns null.
      * @param Argument $args
      * @return UserType
+     * @throws UserError
      */
     public function resolve(Argument $args = null)
     {
@@ -39,12 +40,12 @@ class UserResolver extends BaseManagerService implements ContainerAwareInterface
 
         // check access right. user node should only be accessible to current user or to administration.
         if ($this->getAuthorizationService()->isLoggedin() === false) {
-            throw new UserError("Accessing this field is not allowed for anonymous users.");
+            throw new UserError("Accessing this field with these parameters is not allowed.");
         } elseif (
             $userEntity !== $this->getAuthorizationService()->getCurrentUser() and
             $this->getAuthorizationService()->isAllowed(PermissionManager::Superuser) === false
         ) {
-            throw new UserError("Accessing this field with this parameters is not allowed.");
+            throw new UserError("Accessing this field with these parameters is not allowed.");
         }
 
         if ($userEntity !== null) {

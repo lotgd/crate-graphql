@@ -52,7 +52,7 @@ GraphQL;
         "user":null
     },
     "errors": [{
-        "message": "Accessing this field with this parameters is not allowed.",
+        "message": "Accessing this field with these parameters is not allowed.",
             "locations": [{"line":2,"column":5}],
             "path": ["user"]
     }]
@@ -116,7 +116,7 @@ GraphQL;
         "user":null
     },
     "errors": [{
-        "message": "Accessing this field with this parameters is not allowed.",
+        "message": "Accessing this field with these parameters is not allowed.",
         "locations": [{"line":2,"column":5}],
         "path": ["user"]
     }]

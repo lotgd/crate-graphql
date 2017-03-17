@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sauterb
- * Date: 15/03/17
- * Time: 09:38
- */
+declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\Models;
 
