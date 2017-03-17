@@ -56,7 +56,7 @@ class GraphQLTestCase extends WebTestCase
         return json_decode($result, true);
     }
 
-    protected function getQueryResultsAuthenticated($apiKey, $query, $jsonVariables = '{}')
+    protected function getQueryResultsAuthorized($apiKey, $query, $jsonVariables = '{}')
     {
         list($result, $client) = $this->queryHelper($query, $jsonVariables, $apiKey);
 
@@ -73,7 +73,7 @@ class GraphQLTestCase extends WebTestCase
         $this->assertEquals(json_decode($jsonExpected, true), json_decode($result, true), $result);
     }
 
-    protected function assertQueryAuthenticated($apiKey, $query, $jsonExpected, $jsonVariables = '{}')
+    protected function assertQueryAuthorized($apiKey, $query, $jsonExpected, $jsonVariables = '{}')
     {
         list($result, $client) = $this->queryHelper($query, $jsonVariables, $apiKey);
 

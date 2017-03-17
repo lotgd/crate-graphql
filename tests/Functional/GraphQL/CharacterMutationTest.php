@@ -44,7 +44,7 @@ JSON;
         $mutation = $this->getSimpleCreationMutation();
         $variables = $this->getSimpleCreationMutationInput(2, "New Player", "asd789g7");
 
-        $result = $this->getQueryResultsAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $variables);
+        $result = $this->getQueryResultsAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $variables);
 
         $expectedReturn = [
             "data" => [
@@ -91,7 +91,7 @@ JSON;
 }
 JSON;
 
-        $this->assertQueryAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $answer, $variables);
+        $this->assertQueryAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $answer, $variables);
     }
 
     public function testIfCharacterCreationFailsIfUserIsNotLoggedIn()
@@ -151,7 +151,7 @@ JSON;
 }
 JSON;
 
-        $this->assertQueryAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $answer, $variables);
+        $this->assertQueryAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $answer, $variables);
 
     }
 
@@ -160,7 +160,7 @@ JSON;
         $mutation = $this->getSimpleCreationMutation();
         $variables = $this->getSimpleCreationMutationInput(1, "Another New Character", "asd789g7");
 
-        $result = $this->getQueryResultsAuthenticated("apiKeyForUser3", $mutation, $variables);
+        $result = $this->getQueryResultsAuthorized("apiKeyForUser3", $mutation, $variables);
 
         $expectedReturn = [
             "data" => [

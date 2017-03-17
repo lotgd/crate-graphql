@@ -35,7 +35,7 @@ GraphQL;
 }
 JSON;
 
-        $results = $this->getQueryResultsAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonVariables);
+        $results = $this->getQueryResultsAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonVariables);
         $this->assertArrayHasKey("viewpoint", $results["data"]);
         $this->assertArrayHasKey("title", $results["data"]["viewpoint"]);
         $this->assertArrayHasKey("description", $results["data"]["viewpoint"]);

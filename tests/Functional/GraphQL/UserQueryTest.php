@@ -32,7 +32,7 @@ JSON;
 }
 JSON;
 
-        $this->assertQueryAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonExpected, $jsonVariables);
+        $this->assertQueryAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonExpected, $jsonVariables);
     }
 
     public function testIfKnownUserCannotBeRetrievedByNameWithoutProperAuthorization()
@@ -65,7 +65,7 @@ JSON;
 }
 JSON;
 
-        $this->assertQueryAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonExpected, $jsonVariables);
+        $this->assertQueryAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonExpected, $jsonVariables);
     }
 
     public function testIfKnownUserCanBeRetrievedWithAdmin()
@@ -96,7 +96,7 @@ JSON;
 }
 JSON;
 
-        $this->assertQueryAuthenticated("apiKeyForUser3", $query, $jsonExpected, $jsonVariables);
+        $this->assertQueryAuthorized("apiKeyForUser3", $query, $jsonExpected, $jsonVariables);
     }
 
     public function testIfAnUnknownUserRetrievedByNameReturnsStillAnAccessError()
@@ -129,7 +129,7 @@ JSON;
 }
 JSON;
 
-        $this->assertQueryAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonExpected, $jsonVariables);
+        $this->assertQueryAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonExpected, $jsonVariables);
     }
 
     public function testIfCharacterFieldsReturnAValidListOfCharacters()
@@ -170,6 +170,6 @@ JSON;
 }
 JSON;
 
-        $this->assertQueryAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonExpected, $jsonVariables);
+        $this->assertQueryAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonExpected, $jsonVariables);
     }
 }
