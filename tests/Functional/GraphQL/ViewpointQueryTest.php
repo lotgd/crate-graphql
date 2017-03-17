@@ -8,7 +8,7 @@ namespace LotGD\Crate\GraphQL\Tests\Functional\GraphQL;
  */
 class ViewpointQueryTest extends GraphQLTestCase
 {
-    public function testViewpointBasicQuery()
+    public function testIfViewpointQuerySuccedsIfUserOwnsCharacter()
     {
         $query = <<<'GraphQL'
 query ViewQuery($id: String!) {
@@ -35,7 +35,7 @@ GraphQL;
 }
 JSON;
 
-        $results = $this->getQueryResults($query, $jsonVariables);
+        $results = $this->getQueryResultsAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonVariables);
         $this->assertArrayHasKey("viewpoint", $results["data"]);
         $this->assertArrayHasKey("title", $results["data"]["viewpoint"]);
         $this->assertArrayHasKey("description", $results["data"]["viewpoint"]);

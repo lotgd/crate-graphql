@@ -2,6 +2,7 @@ services:
     app.graph.resolver.realm:
         class: LotGD\Crate\GraphQL\AppBundle\GraphQL\Resolver\RealmResolver
         calls:
+            - [setContainer, ["@service_container"]]
             - [setCoreGameService, ["@lotgd.core.game"]]
         tags:
             - { name: overblog_graphql.resolver, alias: "realm_resolver", method: "resolve" }
@@ -10,6 +11,7 @@ services:
     app.graph.resolver.session:
         class: LotGD\Crate\GraphQL\AppBundle\GraphQL\Resolver\SessionResolver
         calls:
+            - [setContainer, ["@service_container"]]
             - [setCoreGameService, ["@lotgd.core.game"]]
         tags:
             - { name: overblog_graphql.resolver, alias: "session_resolver", method: "resolve" }
@@ -17,6 +19,7 @@ services:
     app.graph.resolver.user:
         class: LotGD\Crate\GraphQL\AppBundle\GraphQL\Resolver\UserResolver
         calls:
+            - [setContainer, ["@service_container"]]
             - [setCoreGameService, ["@lotgd.core.game"]]
         tags:
             - { name: overblog_graphql.resolver, alias: "user_resolver", method: "resolve" }
@@ -24,6 +27,7 @@ services:
     app.graph.resolver.viewpoint:
         class: LotGD\Crate\GraphQL\AppBundle\GraphQL\Resolver\ViewpointResolver
         calls:
+            - [setContainer, ["@service_container"]]
             - [setCoreGameService, ["@lotgd.core.game"]]
         tags:
             - { name: overblog_graphql.resolver, alias: "viewpoint_resolver", method: "resolve" }
@@ -31,6 +35,7 @@ services:
     app.graph.resolver.character:
         class: LotGD\Crate\GraphQL\AppBundle\GraphQL\Resolver\CharacterResolver
         calls:
+            - [setContainer, ["@service_container"]]
             - [setCoreGameService, ["@lotgd.core.game"]]
         tags:
             - { name: overblog_graphql.resolver, alias: "character_resolver", method: "resolve" }

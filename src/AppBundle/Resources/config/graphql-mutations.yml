@@ -7,12 +7,14 @@ services:
     lotgd.crate.graph.mutation.viewpoint:
         class: LotGD\Crate\GraphQL\AppBundle\GraphQL\Mutation\ViewpointMutation
         calls:
+            - [setContainer, ["@service_container"]]
             - [setCoreGameService, ["@lotgd.core.game"]]
         tags:
             - { name: overblog_graphql.mutation, alias: "take_action", method: "takeAction" }
     lotgd.crate.graph.mutation.character:
         class: LotGD\Crate\GraphQL\AppBundle\GraphQL\Mutation\CharacterMutation
         calls:
+            - [setContainer, ["@service_container"]]
             - [setCoreGameService, ["@lotgd.core.game"]]
         tags:
             - { name: overblog_graphql.mutation, alias: "create_character", method: "createCharacter" }

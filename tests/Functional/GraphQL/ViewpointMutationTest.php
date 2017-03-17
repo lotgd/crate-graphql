@@ -36,7 +36,9 @@ GraphQL;
 }
 JSON;
 
-        $results = $this->getQueryResults($query, $jsonVariables);
+        $results = $this->getQueryResultsAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonVariables);
+        $this->assertArrayNotHasKey("errors", $results);
+
         $takeActionId = $results["data"]["viewpoint"]["actionGroups"][0]["actions"][0]["id"];
 
         // Then, mutate the current viewpoint by taking an action.
@@ -72,7 +74,9 @@ GraphQL;
 JSON;
 
         // We cannot assert the whole query since actionId is randomly generated.
-        $results2 = $this->getQueryResults($mutation, $mutationVariables);
+        $results2 = $this->getQueryResultsAuthenticated("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $mutationVariables);
+        $this->assertArrayNotHasKey("errors", $results2);
+
         $this->assertArrayHasKey("viewpoint", $results2["data"]["takeAction"]);
         $this->assertArrayHasKey("title", $results2["data"]["takeAction"]["viewpoint"]);
         $this->assertArrayHasKey("description", $results2["data"]["takeAction"]["viewpoint"]);
