@@ -15,6 +15,7 @@ use LotGD\Core\Tools\Model\Saveable;
 use LotGD\Core\Models\Character;
 
 /**
+ * Represents a User entity.
  * @Entity
  * @Table(name="users")
  */

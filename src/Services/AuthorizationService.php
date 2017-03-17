@@ -10,12 +10,18 @@ use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\TypeGuardian;
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\UserType;
 use LotGD\Crate\GraphQL\Models\User;
 
+/**
+ * Provides method to check user authorization.
+ * @package LotGD\Crate\GraphQL\Services
+ */
 class AuthorizationService extends BaseManagerService
 {
     use ContainerAwareTrait;
 
+    /** @var PermissionManager */
     private $permissionManager;
-    private $user = false;
+    /** @var null|User */
+    private $user = false; // false as standard value to check if it has already been set or not.
 
     /**
      * Internal use only. Gives and instantiates an instance of the Permission Manager.
@@ -39,6 +45,7 @@ class AuthorizationService extends BaseManagerService
         if ($this->user === false) {
             $user = $this->container->get('security.token_storage')->getToken()->getUser();
 
+            // user can also be "anonymous user" and not a real one.
             if (!$user instanceof User) {
                 $user = null;
             }
@@ -58,13 +65,25 @@ class AuthorizationService extends BaseManagerService
         return $this->getCurrentUser() === null ? false : true;
     }
 
+    /**
+     * Proxy method for PermissionManager->isAllowed
+     * @see PermissionManager->isAllowed()
+     * @param $permission
+     * @return bool
+     */
     public function isAllowed($permission)
     {
         return $this->getPermissionManager()->isAllowed($this->getCurrentUser(), $permission);
     }
 
-    public function guard($entity, array $whitelistedFields)
+    /**
+     * Guards a type by adding the TypeGuardian wrapper class around it.
+     * @param $type The Type to be protected
+     * @param array $whitelistedFields A list of field that are accessible through TypeGuardian. Everything else will return null.
+     * @return TypeGuardian
+     */
+    public function guard($type, array $whitelistedFields): TypeGuardian
     {
-        return new TypeGuardian($entity, $whitelistedFields);
+        return new TypeGuardian($type, $whitelistedFields);
     }
 }

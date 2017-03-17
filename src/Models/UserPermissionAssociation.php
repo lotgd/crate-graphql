@@ -13,6 +13,7 @@ use LotGD\Core\Tools\Model\PermissionAssociationable;
 
 
 /**
+ * Associates users with permissions
  * @Entity
  * @Table("user_permission_associations")
  */

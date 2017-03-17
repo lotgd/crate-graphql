@@ -8,11 +8,16 @@
 
 namespace LotGD\Crate\GraphQL\Tools;
 
-use LotGD\Crate\GraphQL\Models\User;
 use LotGD\Crate\GraphQL\Services\AuthorizationService;
 use LotGD\Crate\GraphQL\Services\CharacterManagerService;
 use LotGD\Crate\GraphQL\Services\UserManagerService;
 
+/**
+ * This trait gives easier access to certain game managing services.
+ *
+ * The Service using this trait must be container aware!
+ * @package LotGD\Crate\GraphQL\Tools
+ */
 trait ManagerAwareTrait
 {
     /**

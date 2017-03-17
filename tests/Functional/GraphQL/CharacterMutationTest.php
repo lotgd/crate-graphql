@@ -76,7 +76,7 @@ JSON;
     },
     "errors": [
         {
-            "message": "User with name One already taken.",
+            "message": "Character with name One already taken.",
             "locations": [
                 {
                     "line": 2,
