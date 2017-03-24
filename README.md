@@ -1,12 +1,36 @@
-# crate-www
+# GraphQL API Crate for LotGD
 
-[![Build Status](https://travis-ci.org/lotgd/crate-graphql.svg?branch=master)](https://travis-ci.org/lotgd/crate-www)
+[![Build Status](https://travis-ci.org/lotgd/crate-graphql.svg?branch=master)](https://travis-ci.org/lotgd/crate-graphql)
 
-This is a basic wrapper around the Legend of the Green Dragon [core](https://github.com/lotgd/crate), a so-called crate. It provides a modern interface for clients utilizing GraphQL.
+This is a basic wrapper (called a crate) around the Legend of the Green Dragon [core](https://github.com/lotgd/core). It provides a modern interface for clients utilizing [GraphQL](http://graphql.org/).
+
+## Getting Started
+To create a compatible development environment, follow the Vagrant setup instructions in the [core README](https://github.com/lotgd/core).
+
+Once you have the VM setup, start the server like any other Symfony application:
+```
+php bin/console server:run
+```
+
+By default, this binds the server to 127.0.0.1, the local loopback IP. If you're using some kind
+of VM setup (like Vagrant) you'll want to have it bind to 0.0.0.0:
+
+```
+php bin/console server:run 0.0.0.0:8000
+```
+
+In this case, I've explicitly specified port 8000 and that port would need to be forwarded
+to your host machine to access it here.
+
+To test it out, visit http://localhost:8000/graphiql/ on your local machine.
+
+## Usage
+
+To send a GraphQL query to the server, use the endpoint at `/`, instead of the typical `/graphql`. For example, if you started the server on `locahost` port 8000, then `POST` queries directly to `http://localhost:8000'.
 
 ## General GraphQL Schema
 
-While this is not a working schema as graphql describes it, it is a human-readable version of it.
+While this is not a working schema as GraphQL describes it, it is a human-readable version of it.
 
 ### Types
 ```
