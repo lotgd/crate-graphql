@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace LotGD\Crate\GraphQL\Tests\Resolver;
 
 use Overblog\GraphQLBundle\Definition\Argument;
+use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use LotGD\Crate\GraphQL\Services\AuthorizationService;
@@ -37,6 +38,7 @@ class UserResolverTest extends WebTestCase
 
     public function testIfUserResolverReturnsNullWithoutArguments()
     {
+        $this->expectException(UserError::class);
         $type = $this->getResolver()->resolve();
 
         $this->assertNull($type);

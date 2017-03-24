@@ -36,6 +36,8 @@ class UserResolver extends BaseManagerService implements ContainerAwareInterface
         } elseif (isset($args["name"])) {
             $userEntity = $this->getUserManager()
                 ->findByName($args["name"]);
+        } else {
+          throw new UserError("You must specify a user id or name.");
         }
 
         // check access right. user node should only be accessible to current user or to administration.
