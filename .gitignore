@@ -17,3 +17,4 @@
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
 daenerys.db3.sqbpro
+.*~
