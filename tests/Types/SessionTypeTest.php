@@ -36,9 +36,9 @@ class SessionTypeTest extends WebTestCase
         $type = new SessionType($this->getGameMock());
         $apiKey = "asdasdasde2q3sfds";
 
-        $this->assertNull($type->getApiKey());
-        $type->setApiKey($apiKey);
-        $this->assertSame($apiKey, $type->getApiKey());
+        $this->assertNull($type->getAuthToken());
+        $type->setAuthToken($apiKey);
+        $this->assertSame($apiKey, $type->getAuthToken());
     }
 
     public function testSetAndGetExpirationDate()

@@ -14,7 +14,7 @@ class AuthWithSessionAuthenticationTokenTest extends GraphQLTestCase
 mutation AuthWithPasswordMutation($input: AuthWithPasswordInput!) {
   authWithPassword(input: $input) {
     session {
-        apiKey,
+        authToken,
         expiresAt,
         user {
             id,
@@ -41,7 +41,7 @@ JSON;
         $this->assertSame("avcd", $answer["data"]["authWithPassword"]["clientMutationId"]);
         $this->assertArrayHasKey("session", $answer["data"]["authWithPassword"]);
 
-        $apiKey = $answer["data"]["authWithPassword"]["session"]["apiKey"];
+        $apiKey = $answer["data"]["authWithPassword"]["session"]["authToken"];
 
         $query = <<<GraphQL
 query RealmQuery {
@@ -103,7 +103,7 @@ GraphQL;
 mutation AuthWithPasswordMutation($input: AuthWithPasswordInput!) {
   authWithPassword(input: $input) {
     session {
-        apiKey,
+        authToken,
         expiresAt,
         user {
             id,

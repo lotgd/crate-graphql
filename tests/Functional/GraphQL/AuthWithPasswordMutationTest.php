@@ -13,7 +13,7 @@ class AuthWithPasswordMutationTest extends GraphQLTestCase
 mutation AuthWithPasswordMutation($input: AuthWithPasswordInput!) {
   authWithPassword(input: $input) {
     session {
-        apiKey,
+        authToken,
         expiresAt,
         user {
             id,
@@ -65,7 +65,7 @@ JSON;
 mutation AuthWithPasswordMutation($input: AuthWithPasswordInput!) {
   authWithPassword(input: $input) {
     session {
-        apiKey,
+        authToken,
         expiresAt,
         user {
             id,
@@ -94,7 +94,7 @@ JSON;
         $this->assertArrayHasKey("clientMutationId", $result["data"]["authWithPassword"]);
         $this->assertArrayHasKey("session", $result["data"]["authWithPassword"]);
 
-        $this->assertArrayHasKey("apiKey", $result["data"]["authWithPassword"]["session"]);
+        $this->assertArrayHasKey("authToken", $result["data"]["authWithPassword"]["session"]);
         $this->assertArrayHasKey("expiresAt", $result["data"]["authWithPassword"]["session"]);
         $this->assertArrayHasKey("user", $result["data"]["authWithPassword"]["session"]);
         $this->assertArrayHasKey("id", $result["data"]["authWithPassword"]["session"]["user"]);
@@ -112,7 +112,7 @@ JSON;
 mutation AuthWithPasswordMutation($input: AuthWithPasswordInput!) {
   authWithPassword(input: $input) {
     session {
-        apiKey,
+        authToken,
         expiresAt,
         user {
             id,

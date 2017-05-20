@@ -24,7 +24,7 @@ class SessionResolver extends BaseManagerService implements ContainerAwareInterf
         $sessionType = new SessionType($this->getGame());
 
         if ($user instanceof User) {
-            $sessionType->setApiKey($user->getApiKey()->getApiKey());
+            $sessionType->setAuthToken($user->getApiKey()->getApiKey());
             $sessionType->setExpiresAt($user->getApiKey()->getExpiresAtAsString());
             $sessionType->setUser(new UserType($this->getGame(), $user));
         } elseif(isset($args["apiKey"])) {
@@ -36,7 +36,7 @@ class SessionResolver extends BaseManagerService implements ContainerAwareInterf
                 $user = $apiKey->getUser();
 
                 $sessionType->setUser(new UserType($this->getGame(), $user));
-                $sessionType->setApiKey($apiKey->getApiKey());
+                $sessionType->setAuthToken($apiKey->getApiKey());
                 $sessionType->setExpiresAt($apiKey->getExpiresAtAsString());
             }
         }

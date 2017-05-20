@@ -39,7 +39,7 @@ class SessionType extends BaseType
      * Returns the api key
      * @return string|null
      */
-    public function getApiKey()
+    public function getAuthToken()
     {
         return $this->apiKey;
     }
@@ -48,7 +48,7 @@ class SessionType extends BaseType
      * Sets the api key to a given value.
      * @param string $apiKey
      */
-    public function setApiKey(string $apiKey)
+    public function setAuthToken(string $apiKey)
     {
         $this->apiKey = $apiKey;
     }

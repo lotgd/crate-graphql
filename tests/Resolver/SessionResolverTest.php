@@ -53,7 +53,7 @@ class SessionResolverTest extends WebTestCase
 
         $this->assertInstanceOf(SessionType::class, $type);
         $this->assertNull($type->getUser());
-        $this->assertNull($type->getApiKey());
+        $this->assertNull($type->getAuthToken());
         $this->assertNull($type->getExpiresAt());
     }
 
@@ -70,7 +70,7 @@ class SessionResolverTest extends WebTestCase
         $type = $resolver->resolve();
 
         $this->assertInstanceOf(SessionType::class, $type);
-        $this->assertEquals("apiKey", $type->getApiKey());
+        $this->assertEquals("apiKey", $type->getAuthToken());
         $this->assertEquals("Expires In 2017", $type->getExpiresAt());
         $this->assertEquals(12345, $type->getUser()->getId());
     }
@@ -84,7 +84,7 @@ class SessionResolverTest extends WebTestCase
         $type = $resolver->resolve($args);
 
         $this->assertInstanceOf(SessionType::class, $type);
-        $this->assertEquals("c4fEAJLQlaV/47UZl52nAQ==", $type->getApiKey());
+        $this->assertEquals("c4fEAJLQlaV/47UZl52nAQ==", $type->getAuthToken());
         $this->assertEquals("2999-12-31T23:59:59+00:00", $type->getExpiresAt());
         $this->assertEquals(2, $type->getUser()->getId());
     }

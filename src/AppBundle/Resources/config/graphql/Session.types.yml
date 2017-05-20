@@ -3,9 +3,9 @@ Session:
     config:
         description: "Information about the current session."
         fields:
-            apiKey:
+            authToken:
                 type: "String"
-                description: "ApiKey to this realm."
+                description: "Authentification Token to this realm."
             expiresAt:
                 type: "String"
                 description: "Date this session expires at."
