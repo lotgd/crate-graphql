@@ -27,7 +27,7 @@ class TokenAuthenticator implements SimplePreAuthenticatorInterface
     public function createToken(Request $request, $providerKey)
     {
         // look for a token in
-        $apiKey = $request->headers->get('token');
+        $apiKey = $request->headers->get('x-lotgd-auth-token');
 
         // no api key means still access to the page.
         if (!$apiKey) {
@@ -77,7 +77,7 @@ class TokenAuthenticator implements SimplePreAuthenticatorInterface
         if ($user === null) {
             // User not found, throw exception
             throw new AuthenticationException(
-                sprintf('API Key "%s" does not exist.', $apiKey)
+                sprintf('Session Authentication Token "%s" does not exist.', $apiKey)
             );
         }
 

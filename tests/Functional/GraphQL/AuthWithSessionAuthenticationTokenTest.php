@@ -5,7 +5,7 @@ namespace LotGD\Crate\GraphQL\Tests\Functional\GraphQL;
 
 use LotGD\Crate\GraphQL\Models\User;
 
-class AuthWithApiKeyTest extends GraphQLTestCase
+class AuthWithSessionAuthenticationTokenTest extends GraphQLTestCase
 {
     public function testWithValidAuthData()
     {
@@ -75,7 +75,7 @@ GraphQL;
             ],
             "server" => [
                 "CONTENT_TYPE" => "application/graphql",
-                "HTTP_TOKEN" => $apiKey,
+                "HTTP_X_LOTGD_AUTH_TOKEN" => $apiKey,
             ]
         ]);
 
@@ -163,11 +163,11 @@ GraphQL;
             ],
             "server" => [
                 "CONTENT_TYPE" => "application/graphql",
-                "HTTP_TOKEN" => $apiKey,
+                "HTTP_X_LOTGD_AUTH_TOKEN" => $apiKey,
             ]
         ]);
 
         $this->assertStatusCode(401, $client);
-        $this->assertJsonStringEqualsJsonString('{"error":["API Key \u0022HuLaLa\u0022 does not exist."]}', $client->getResponse()->getContent());
+        $this->assertJsonStringEqualsJsonString('{"error":["Session Authentication Token \u0022HuLaLa\u0022 does not exist."]}', $client->getResponse()->getContent());
     }
 }

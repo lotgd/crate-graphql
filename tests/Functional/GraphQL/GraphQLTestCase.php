@@ -36,7 +36,7 @@ class GraphQLTestCase extends WebTestCase
 
         $headers = ['CONTENT_TYPE' => 'application/graphql'];
         if ($apiKey) {
-            $headers["HTTP_TOKEN"] = $apiKey;
+            $headers["HTTP_X_LOTGD_AUTH_TOKEN"] = $apiKey;
         }
 
         $client->request(
