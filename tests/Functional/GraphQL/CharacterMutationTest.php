@@ -94,6 +94,27 @@ JSON;
         $this->assertQueryAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $answer, $variables);
     }
 
+    public function testIfCharacterCreationFailsIfNameIsInvalid()
+    {
+        $mutation = $this->getSimpleCreationMutation();
+
+        $variables = $this->getSimpleCreationMutationInput(2, "", "asd789g7");
+        $answer = $this->getQueryResultsAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $variables);
+        $this->assertSame("Character name must not be empty.", $answer["errors"][0]["message"]);
+
+        $variables = $this->getSimpleCreationMutationInput(2, "** Bin der beste ***", "asd789g7");
+        $answer = $this->getQueryResultsAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $variables);
+        $this->assertSame("Character name must only contain letters and spaces.", $answer["errors"][0]["message"]);
+
+        $variables = $this->getSimpleCreationMutationInput(2, "L33ker", "asd789g7");
+        $answer = $this->getQueryResultsAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $variables);
+        $this->assertSame("Character name must only contain letters and spaces.", $answer["errors"][0]["message"]);
+
+        $variables = $this->getSimpleCreationMutationInput(2, ".matic", "asd789g7");
+        $answer = $this->getQueryResultsAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $variables);
+        $this->assertSame("Character name must only contain letters and spaces.", $answer["errors"][0]["message"]);
+    }
+
     public function testIfCharacterCreationFailsIfUserIsNotLoggedIn()
     {
         $mutation = $this->getSimpleCreationMutation();

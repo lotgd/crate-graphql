@@ -6,6 +6,7 @@ namespace LotGD\Crate\GraphQL\Services;
 use Exception;
 use Doctrine\DBAL\DBALException;
 
+use LotGD\Core\Exceptions\ArgumentException;
 use LotGD\Core\Models\Character;
 use LotGD\Crate\GraphQL\Exceptions\CharacterNameExistsException;
 use LotGD\Crate\GraphQL\Exceptions\CrateException;
@@ -16,14 +17,29 @@ use LotGD\Crate\GraphQL\Exceptions\CrateException;
 class CharacterManagerService extends BaseManagerService
 {
     /**
-     * Creates a new character
+     * Creates a new character.
      * @param string $name
      * @return Character
+     * @throws ArgumentException If character name is invalid
      * @throws CharacterNameExistsException If character is already taken
-     * @throws CrateException If some unknown character occured during saving.
+     * @throws CrateException If some unknown character occured during saving
      */
     public function createNewCharacter(string $name): Character
     {
+        // Remove whitespace
+        $name = trim($name);
+
+        if (empty($name)) {
+            throw new ArgumentException("Character name must not be empty.");
+        }
+
+        // Remove special characters and check if it is still the same name
+        $name_sanitized = preg_replace("/[^\\p{L} ]/u", "", $name);
+
+        if ($name != $name_sanitized) {
+            throw new ArgumentException("Character name must only contain letters and spaces.");
+        }
+
         $character = $this->findByName($name);
 
         if ($character) {

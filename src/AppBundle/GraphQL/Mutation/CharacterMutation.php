@@ -3,19 +3,19 @@ declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Mutation;
 
-use LotGD\Core\PermissionManager;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
 
+use LotGD\Core\PermissionManager;
+use LotGD\Core\Exceptions\ArgumentException;
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Connections\CharacterConnection;
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\CharacterType;
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\UserType;
+use LotGD\Crate\GraphQL\Exceptions\CharacterNameExistsException;
 use LotGD\Crate\GraphQL\Services\BaseManagerService;
 use LotGD\Crate\GraphQL\Tools\EntityManagerAwareInterface;
 use LotGD\Crate\GraphQL\Tools\EntityManagerAwareTrait;
 use LotGD\Crate\GraphQL\Tools\ManagerAwareTrait;
-
-use LotGD\Crate\GraphQL\Exceptions\CharacterNameExistsException;
 
 
 /**
@@ -55,7 +55,7 @@ class CharacterMutation extends BaseManagerService implements EntityManagerAware
         try {
             $character = $this->getCharacterManager()->createNewCharacter($characterName);
             $user->addCharacter($character);
-        } catch(CharacterNameExistsException $e) {
+        } catch(CharacterNameExistsException | ArgumentException $e) {
             throw new UserError($e->getMessage());
         }
 
