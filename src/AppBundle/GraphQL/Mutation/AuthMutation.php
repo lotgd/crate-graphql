@@ -97,6 +97,7 @@ class AuthMutation implements EntityManagerAwareInterface
             throw new UserError("An unknown exception occured: " . $ex->getMessage());
         }
 
-        return [];
+        // @ToDo add check to only return session if server settings allow this without email validation.
+        return $this->authWithPassword($email, $password);
     }
 }

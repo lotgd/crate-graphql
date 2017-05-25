@@ -176,4 +176,36 @@ JSON;
         $this->assertQuery($query, $answer1, $variables1);
         $this->assertQuery($query, $answer2, $variables2);
     }
+
+    public function testIfCharacterCreationReturnsSession()
+    {
+        $query = <<<'EOF'
+mutation CreatePasswordUserMutation($input: CreatePasswordUserInput!) {
+  createPasswordUser(input: $input) {
+    clientMutationId,
+    session {
+        authToken
+    }
+  }
+}
+EOF;
+
+        $variables = <<<JSON
+{
+  "input": {
+    "name": "test",
+    "email": "email@example.com",
+    "password": "test",
+    "clientMutationId": "ijhdioasd"
+  }
+}
+JSON;
+
+        $answer = $this->getQueryResults($query, $variables);
+
+        $this->assertSame("ijhdioasd", $answer["data"]["createPasswordUser"]["clientMutationId"]);
+        $this->assertNotEmpty($answer["data"]["createPasswordUser"]["session"]);
+        $this->assertArrayHasKey("authToken", $answer["data"]["createPasswordUser"]["session"]);
+        $this->assertNotEmpty($answer["data"]["createPasswordUser"]["session"]["authToken"]);
+    }
 }
