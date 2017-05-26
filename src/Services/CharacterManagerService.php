@@ -34,7 +34,7 @@ class CharacterManagerService extends BaseManagerService
         }
 
         // Remove special characters and check if it is still the same name
-        $name_sanitized = preg_replace("/[^\\p{L} ]/u", "", $name);
+        $name_sanitized = preg_replace("/[\\p{C}]/u", "", $name);
 
         if ($name != $name_sanitized) {
             throw new ArgumentException("Character name must only contain letters and spaces.");

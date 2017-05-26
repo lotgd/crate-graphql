@@ -102,17 +102,31 @@ JSON;
         $answer = $this->getQueryResultsAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $variables);
         $this->assertSame("Character name must not be empty.", $answer["errors"][0]["message"]);
 
-        $variables = $this->getSimpleCreationMutationInput(2, "** Bin der beste ***", "asd789g7");
-        $answer = $this->getQueryResultsAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $variables);
-        $this->assertSame("Character name must only contain letters and spaces.", $answer["errors"][0]["message"]);
+        // List of names that must not pass
+        $list = [
+            "A\\rB",
+            "Danny\\n O' Melly",
+            "Tab\\t McTabby",
+        ];
 
-        $variables = $this->getSimpleCreationMutationInput(2, "L33ker", "asd789g7");
-        $answer = $this->getQueryResultsAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $variables);
-        $this->assertSame("Character name must only contain letters and spaces.", $answer["errors"][0]["message"]);
+        foreach ($list as $name) {
+            $variables = $this->getSimpleCreationMutationInput(2, $name, "asd789g7");
+            $answer = $this->getQueryResultsAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $variables);
+            $this->assertSame("Character name must only contain letters and spaces.", $answer["errors"][0]["message"]);
+        }
 
-        $variables = $this->getSimpleCreationMutationInput(2, ".matic", "asd789g7");
-        $answer = $this->getQueryResultsAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $variables);
-        $this->assertSame("Character name must only contain letters and spaces.", $answer["errors"][0]["message"]);
+        // List of names that must pass
+        $pass = [
+            "Danny O' Melly",
+            "L337 Hack0rz",
+            "David",
+        ];
+
+        foreach ($pass as $name) {
+            $variables = $this->getSimpleCreationMutationInput(2, $name, "asd789g7");
+            $answer = $this->getQueryResultsAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $mutation, $variables);
+            $this->assertArrayNotHasKey("errors", $answer);
+        }
     }
 
     public function testIfCharacterCreationFailsIfUserIsNotLoggedIn()
