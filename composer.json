@@ -39,7 +39,7 @@
         "incenteev/composer-parameter-handler": "^2.0",
 
         "lotgd/core": "^0.3.1-alpha",
-        "overblog/graphql-bundle": "dev-master",
+        "overblog/graphql-bundle": "^0.8.0",
 
         "lotgd/module-village": "^0.3.0-alpha",
         "lotgd/module-scene-bundle": "^0.3.0-alpha"
