@@ -50,11 +50,11 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
 
-        "lotgd/core": "dev-master",
-        "overblog/graphql-bundle": "dev-master",
+        "lotgd/core": "^0.3.0-alpha",
+        "overblog/graphql-bundle": "^0.8.0",
 
-        "lotgd/module-village": "dev-master",
-        "lotgd/module-scene-bundle": "dev-master"
+        "lotgd/module-village": "^0.3.0-alpha",
+        "lotgd/module-scene-bundle": "^0.3.0-alpha"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
