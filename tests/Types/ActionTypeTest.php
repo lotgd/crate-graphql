@@ -72,4 +72,24 @@ class ActionTypeTest extends WebTestCase
         );
         $this->assertSame("mockTitle", $type->getTitle());
     }
+
+    public function testIfActionReturnsTitleIfTitleIsSet()
+    {
+        $type = new ActionType(
+            $this->getGameMock(),
+            $this->getActionMock(["getTitle" => "Not mock title"])
+        );
+
+        $this->assertSame("Not mock title", $type->getTitle());
+    }
+
+    public function testIfActionReturnsTitleIfTitleIsNull()
+    {
+        $type = new ActionType(
+            $this->getGameMock(),
+            $this->getActionMock(["getTitle" => null, "getDestinationSceneId" => 1])
+        );
+
+        $this->assertSame("mockTitle", $type->getTitle());
+    }
 }

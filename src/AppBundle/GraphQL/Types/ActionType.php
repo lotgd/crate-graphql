@@ -27,13 +27,13 @@ class ActionType extends BaseType
      */
     public function getTitle(): string
     {
-        return $this->getGameObject()
+        return $this->actionEntity->getTitle() === null ? $this->getGameObject()
             ->getEntityManager()
             ->getRepository(Scene::class)
             ->find(
                 $this->actionEntity->getDestinationSceneId()
             )
-            ->getTitle();
+            ->getTitle() : $this->actionEntity->getTitle();
     }
 
     /**
