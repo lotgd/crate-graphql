@@ -50,7 +50,7 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
 
-        "lotgd/core": "dev-feature/action-params as dev-master",
+        "lotgd/core": "dev-master",
         "overblog/graphql-bundle": "dev-master",
 
         "lotgd/module-village": "dev-master",
