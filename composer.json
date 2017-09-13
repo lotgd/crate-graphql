@@ -22,20 +22,8 @@
     },
     "repositories": [
         {
-            "type": "vcs",
-            "url": "https://github.com/lotgd/core.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/lotgd/module-village.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/lotgd/module-scene-bundle.git"
-        },
-        {
             "type": "composer",
-            "url": "http://code.lot.gd"
+            "url": "https://code.lot.gd"
         }
     ],
     "require": {
@@ -50,18 +38,21 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
 
-        "lotgd/core": "dev-master",
+        "lotgd/core": "^0.3.1-alpha",
         "overblog/graphql-bundle": "dev-master",
 
-        "lotgd/module-village": "dev-master",
-        "lotgd/module-scene-bundle": "dev-master"
+        "lotgd/module-village": "^0.3.0-alpha",
+        "lotgd/module-scene-bundle": "^0.3.0-alpha"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
         "phpunit/phpunit": "^4.1|^5.1",
         "phpunit/dbunit": "*",
-        "liip/functional-test-bundle": "^1.5"
+        "liip/functional-test-bundle": "^1.5",
+
+        "lotgd/module-new-day": "^0.3.1-alpha",
+        "lotgd/module-gender": "^0.3.0-alpha"
     },
     "scripts": {
         "post-install-cmd": [
@@ -91,9 +82,5 @@
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         }
-    },
-
-    "config": {
-        "secure-http": false
     }
 }
