@@ -12,9 +12,9 @@ Viewpoint:
             template:
                 type: "String"
                 description: "A template this scene is based on."
-            attachements:
+            attachments:
                 type: "[String]"
-                description: "A list of attachements."
+                description: "A list of attachments."
             actionGroups:
                 type: "[ActionGroup]"
                 description: "A list of action groups."

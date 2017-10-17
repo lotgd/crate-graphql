@@ -77,7 +77,7 @@ Viewpoint {
     title           String!         Scene title
     description     String!         Scene text
     template        String          Template this scene is based on
-    attachements    [String]        A list of attachments.
+    attachments     [String]         A list of attachments.
     actionGroups    [ActionGroup]   A list of actions groups.
 }
 
