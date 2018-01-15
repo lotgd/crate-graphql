@@ -1,6 +1,7 @@
 services:
   lotgd.crate.graph.mutation.auth:
     class: LotGD\Crate\GraphQL\AppBundle\GraphQL\Mutation\AuthMutation
+    public: true
     calls:
       - [setContainer, ["@service_container"]]
       - [setCoreGameService, ["@lotgd.core.game"]]
@@ -9,6 +10,7 @@ services:
       - { name: overblog_graphql.mutation, alias: "create_password_user", method: "createPasswordUser" }
   lotgd.crate.graph.mutation.viewpoint:
     class: LotGD\Crate\GraphQL\AppBundle\GraphQL\Mutation\ViewpointMutation
+    public: true
     calls:
       - [setContainer, ["@service_container"]]
       - [setCoreGameService, ["@lotgd.core.game"]]
@@ -16,6 +18,7 @@ services:
       - { name: overblog_graphql.mutation, alias: "take_action", method: "takeAction" }
   lotgd.crate.graph.mutation.character:
     class: LotGD\Crate\GraphQL\AppBundle\GraphQL\Mutation\CharacterMutation
+    public: true
     calls:
       - [setContainer, ["@service_container"]]
       - [setCoreGameService, ["@lotgd.core.game"]]

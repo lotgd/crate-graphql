@@ -7,19 +7,23 @@ services:
     # Core service
     lotgd.core.game:
         class: LotGD\Crate\GraphQL\Services\CoreGameService
+        public: true
     # Manager services
     lotgd.crate.graphql.user_manager:
         class: LotGD\Crate\GraphQL\Services\UserManagerService
+        public: true
         calls:
             - [setCoreGameService, ["@lotgd.core.game"]]
     lotgd.crate.graphql.character_manager:
         class: LotGD\Crate\GraphQL\Services\CharacterManagerService
+        public: true
         calls:
             - [setCoreGameService, ["@lotgd.core.game"]]
 
     # User providers
     lotgd.api_key_provider:
         class: LotGD\Crate\GraphQL\AppBundle\Security\ApiKeyProvider
+        public: true
         calls:
             - [setContainer, ["@service_container"]]
             - [setCoreGameService, ["@lotgd.core.game"]]
@@ -27,10 +31,12 @@ services:
     # Authenticators
     lotgd.token_authenticator:
         class: LotGD\Crate\GraphQL\AppBundle\Security\TokenAuthenticator
+        public: true
 
     # Authorizations
     lotgd.authorization:
         class: LotGD\Crate\GraphQL\Services\AuthorizationService
+        public: true
         calls:
             - [setContainer, ["@service_container"]]
             - [setCoreGameService, ["@lotgd.core.game"]]
@@ -39,6 +45,7 @@ services:
     # Events
     lotgd.listeners.authentificationFailure:
         class: LotGD\Crate\GraphQL\SymfonyEventListeners\AuthentificationFailureListener
+        public: true
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
 #    service_name:
