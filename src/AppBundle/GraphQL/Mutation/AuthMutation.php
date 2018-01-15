@@ -10,19 +10,14 @@ use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
 
 use LotGD\Crate\GraphQL\{
-    Exceptions\UserEmailExistsException,
-    Exceptions\UserNameExistsException,
-    Models\User,
-    Models\ApiKey,
-    Tools\EntityManagerAwareInterface,
-    Tools\EntityManagerAwareTrait
+    Exceptions\UserEmailExistsException, Exceptions\UserNameExistsException, Models\User, Models\ApiKey, Services\BaseManagerService, Tools\EntityManagerAwareInterface, Tools\EntityManagerAwareTrait
 };
 
 
 /**
  * Resolver for authentication mutations
  */
-class AuthMutation implements EntityManagerAwareInterface
+class AuthMutation extends BaseManagerService implements EntityManagerAwareInterface
 {
     use EntityManagerAwareTrait;
 
