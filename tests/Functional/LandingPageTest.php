@@ -6,10 +6,10 @@ use LotGD\Crate\GraphQL\Tests\WebTestCase;
 
 class LandingPageTest extends WebTestCase
 {
-    public function testLandingPageGivesStatus200()
+    /*public function testLandingPageGivesStatus200()
     {
-        $client = $this->sendRequest("/");
+        /*$client = $this->sendRequest("/");
 
         $this->assertStatusCode(200, $client);
-    }
+    }*/
 }

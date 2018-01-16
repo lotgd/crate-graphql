@@ -19,7 +19,7 @@ class GraphQLTestCase extends WebTestCase
         
         $client->request(
             $method, 
-            $this->getUrl("lotgd_crate_graphql_app_graph_endpoint"), 
+            $this->getUrl("overblog_graphql_endpoint"),
             $query, 
             $files, 
             $server, 
@@ -32,7 +32,7 @@ class GraphQLTestCase extends WebTestCase
     protected function queryHelper($query, $jsonVariables, $apiKey = null)
     {
         $client = static::makeClient();
-        $path = $this->getUrl("lotgd_crate_graphql_app_graph_endpoint");
+        $path = $this->getUrl("overblog_graphql_endpoint");
 
         $headers = ['CONTENT_TYPE' => 'application/graphql'];
         if ($apiKey) {

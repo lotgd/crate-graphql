@@ -7,6 +7,9 @@ use DateTime;
 
 use Overblog\GraphQLBundle\Controller\GraphController as OverblogGraphController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\ControllerTrait;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\HttpFoundation\ {
     JsonResponse,
     Request
@@ -18,8 +21,10 @@ use LotGD\Crate\GraphQL\Models\UserInterface;
 /**
  * Controller for the GraphQL endpoint and the default landing page.
  */
-class GraphController extends OverblogGraphController
+class GraphController extends OverblogGraphController implements ContainerAwareInterface
 {
+    use ContainerAwareTrait;
+
     /**
      * Main controller action.
      * 
@@ -31,8 +36,10 @@ class GraphController extends OverblogGraphController
      * @return type
      */
     public function endpointAction(Request $request, $schemaName = null)
-    {        
-        if ($request->isMethod("GET")) {
+    {
+        return parent::endpointAction($request, $schemaName);
+
+        /*if ($request->isMethod("GET")) {
             $check = "query";
         }
         else {
@@ -51,9 +58,9 @@ class GraphController extends OverblogGraphController
             return parent::endpointAction($request, $schemaName);
         }
         else {
-            return $this->render('default/index.html.twig', [
+            return $this->container->get("twig")->render('default/index.html.twig', [
                 'base_url' => $request->getUri(),
             ]);
-        }
+        }*/
     }
 }

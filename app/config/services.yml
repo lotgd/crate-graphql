@@ -41,13 +41,25 @@ services:
             - [setContainer, ["@service_container"]]
             - [setCoreGameService, ["@lotgd.core.game"]]
 
-
     # Events
     lotgd.listeners.authentificationFailure:
         class: LotGD\Crate\GraphQL\SymfonyEventListeners\AuthentificationFailureListener
         public: true
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
+
+    # Controllers
+    lotgd.controller.graphql:
+        class: LotGD\Crate\GraphQL\AppBundle\Controller\GraphController
+        public: true
+        calls:
+            - [setContainer, ["@service_container"]]
+        arguments:
+            - "@overblog_graphql.request_batch_parser"
+            - "@overblog_graphql.request_executor"
+            - "@overblog_graphql.request_parser"
+            - "%overblog_graphql.handle_cors%"
+            - "%overblog_graphql.batching_method%"
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]

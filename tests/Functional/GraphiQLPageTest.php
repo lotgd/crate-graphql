@@ -8,7 +8,7 @@ class GraphiQLPageTest extends WebTestCase
 {
     public function testGraphiQLInterfaceGivesStatusOK()
     {
-        $client = $this->sendRequest("/graphiql/");
+        $client = $this->sendRequest("/graphiql");
 
         $this->assertStatusCode(200, $client);
     }
