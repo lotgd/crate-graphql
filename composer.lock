@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "835e6e031190df81500de430885cf563",
-    "content-hash": "f7f5a6f3032183925ba64c698c23bfde",
+    "hash": "2abcf746c1d6cfef8be8916a8d802595",
+    "content-hash": "47da38e943538875c6ca647434a7c01f",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1471,100 +1471,6 @@
             "time": "2018-01-10 07:27:56"
         },
         {
-            "name": "lotgd/module-scene-bundle",
-            "version": "v0.4.0-alpha",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lotgd/module-scene-bundle.git",
-                "reference": "c6157216355042db2c4f9d1c14022c2543dc9d48"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lotgd/module-scene-bundle/zipball/c6157216355042db2c4f9d1c14022c2543dc9d48",
-                "reference": "c6157216355042db2c4f9d1c14022c2543dc9d48",
-                "shasum": ""
-            },
-            "require": {
-                "lotgd/core": "^0.4.0-alpha",
-                "lotgd/module-village": "^0.4.0-alpha"
-            },
-            "require-dev": {
-                "phpunit/dbunit": "*",
-                "phpunit/phpunit": "^4.1|^5.1"
-            },
-            "type": "lotgd-module",
-            "autoload": {
-                "psr-4": {
-                    "LotGD\\Module\\SceneBundle\\": "src/"
-                }
-            },
-            "license": [
-                "AGPL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Basilius Sauter",
-                    "email": "basilius.sauter@gmail.com"
-                },
-                {
-                    "name": "Austen McDonald",
-                    "email": "austen.mcdonald@gmail.com"
-                }
-            ],
-            "description": "A bundle of small scenes.",
-            "support": {
-                "source": "https://github.com/lotgd/module-scene-bundle/tree/master",
-                "issues": "https://github.com/lotgd/module-scene-bundle/issues"
-            },
-            "time": "2018-01-14 15:39:14"
-        },
-        {
-            "name": "lotgd/module-village",
-            "version": "v0.4.0-alpha",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lotgd/module-village.git",
-                "reference": "6d917f9c7cedf58468ebba4deec045cf8d53b68e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lotgd/module-village/zipball/6d917f9c7cedf58468ebba4deec045cf8d53b68e",
-                "reference": "6d917f9c7cedf58468ebba4deec045cf8d53b68e",
-                "shasum": ""
-            },
-            "require": {
-                "lotgd/core": "^0.4.0-alpha"
-            },
-            "require-dev": {
-                "phpunit/dbunit": "^2.0"
-            },
-            "type": "lotgd-module",
-            "autoload": {
-                "psr-4": {
-                    "LotGD\\Module\\Village\\": "src/"
-                }
-            },
-            "license": [
-                "AGPL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Basilius Sauter",
-                    "email": "basilius.sauter@gmail.com"
-                },
-                {
-                    "name": "Austen McDonald",
-                    "email": "austen.mcdonald@gmail.com"
-                }
-            ],
-            "description": "A basic village.",
-            "support": {
-                "source": "https://github.com/lotgd/module-village/tree/version/0.4",
-                "issues": "https://github.com/lotgd/module-village/issues"
-            },
-            "time": "2018-01-14 14:29:00"
-        },
-        {
             "name": "monolog/monolog",
             "version": "1.23.0",
             "source": {
@@ -2201,58 +2107,6 @@
             "time": "2015-10-13 18:44:15"
         },
         {
-            "name": "sensio/distribution-bundle",
-            "version": "v5.0.21",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "eb6266b3b472e4002538610b28a0a04bcf94891a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/eb6266b3b472e4002538610b28a0a04bcf94891a",
-                "reference": "eb6266b3b472e4002538610b28a0a04bcf94891a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.9",
-                "sensiolabs/security-checker": "~3.0|~4.0",
-                "symfony/class-loader": "~2.3|~3.0",
-                "symfony/config": "~2.3|~3.0",
-                "symfony/dependency-injection": "~2.3|~3.0",
-                "symfony/filesystem": "~2.3|~3.0",
-                "symfony/http-kernel": "~2.3|~3.0",
-                "symfony/process": "~2.3|~3.0"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "5.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Sensio\\Bundle\\DistributionBundle\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                }
-            ],
-            "description": "Base bundle for Symfony Distributions",
-            "keywords": [
-                "configuration",
-                "distribution"
-            ],
-            "time": "2017-08-25 16:55:44"
-        },
-        {
             "name": "sensio/framework-extra-bundle",
             "version": "v3.0.29",
             "source": {
@@ -2321,51 +2175,6 @@
                 "controllers"
             ],
             "time": "2017-12-14 19:03:23"
-        },
-        {
-            "name": "sensiolabs/security-checker",
-            "version": "v4.1.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sensiolabs/security-checker.git",
-                "reference": "d539ccba2b4dce515de04f16b7ed7ae5b9eeb434"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/d539ccba2b4dce515de04f16b7ed7ae5b9eeb434",
-                "reference": "d539ccba2b4dce515de04f16b7ed7ae5b9eeb434",
-                "shasum": ""
-            },
-            "require": {
-                "composer/ca-bundle": "^1.0",
-                "symfony/console": "~2.7|~3.0|~4.0"
-            },
-            "bin": [
-                "security-checker"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "SensioLabs\\Security": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien.potencier@gmail.com"
-                }
-            ],
-            "description": "A security checker for your composer.lock",
-            "time": "2018-01-11 05:54:03"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3465,6 +3274,54 @@
             "time": "2018-01-14 14:43:26"
         },
         {
+            "name": "lotgd/module-scene-bundle",
+            "version": "v0.4.0-alpha",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lotgd/module-scene-bundle.git",
+                "reference": "c6157216355042db2c4f9d1c14022c2543dc9d48"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lotgd/module-scene-bundle/zipball/c6157216355042db2c4f9d1c14022c2543dc9d48",
+                "reference": "c6157216355042db2c4f9d1c14022c2543dc9d48",
+                "shasum": ""
+            },
+            "require": {
+                "lotgd/core": "^0.4.0-alpha",
+                "lotgd/module-village": "^0.4.0-alpha"
+            },
+            "require-dev": {
+                "phpunit/dbunit": "*",
+                "phpunit/phpunit": "^4.1|^5.1"
+            },
+            "type": "lotgd-module",
+            "autoload": {
+                "psr-4": {
+                    "LotGD\\Module\\SceneBundle\\": "src/"
+                }
+            },
+            "license": [
+                "AGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Basilius Sauter",
+                    "email": "basilius.sauter@gmail.com"
+                },
+                {
+                    "name": "Austen McDonald",
+                    "email": "austen.mcdonald@gmail.com"
+                }
+            ],
+            "description": "A bundle of small scenes.",
+            "support": {
+                "source": "https://github.com/lotgd/module-scene-bundle/tree/master",
+                "issues": "https://github.com/lotgd/module-scene-bundle/issues"
+            },
+            "time": "2018-01-14 15:39:14"
+        },
+        {
             "name": "lotgd/module-training",
             "version": "v0.4.0",
             "source": {
@@ -3510,6 +3367,52 @@
                 "issues": "https://github.com/lotgd/module-training/issues"
             },
             "time": "2018-01-14 15:14:02"
+        },
+        {
+            "name": "lotgd/module-village",
+            "version": "v0.4.0-alpha",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lotgd/module-village.git",
+                "reference": "6d917f9c7cedf58468ebba4deec045cf8d53b68e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lotgd/module-village/zipball/6d917f9c7cedf58468ebba4deec045cf8d53b68e",
+                "reference": "6d917f9c7cedf58468ebba4deec045cf8d53b68e",
+                "shasum": ""
+            },
+            "require": {
+                "lotgd/core": "^0.4.0-alpha"
+            },
+            "require-dev": {
+                "phpunit/dbunit": "^2.0"
+            },
+            "type": "lotgd-module",
+            "autoload": {
+                "psr-4": {
+                    "LotGD\\Module\\Village\\": "src/"
+                }
+            },
+            "license": [
+                "AGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Basilius Sauter",
+                    "email": "basilius.sauter@gmail.com"
+                },
+                {
+                    "name": "Austen McDonald",
+                    "email": "austen.mcdonald@gmail.com"
+                }
+            ],
+            "description": "A basic village.",
+            "support": {
+                "source": "https://github.com/lotgd/module-village/tree/version/0.4",
+                "issues": "https://github.com/lotgd/module-village/issues"
+            },
+            "time": "2018-01-14 14:29:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -4730,6 +4633,58 @@
             "time": "2016-10-03 07:35:21"
         },
         {
+            "name": "sensio/distribution-bundle",
+            "version": "v5.0.21",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
+                "reference": "eb6266b3b472e4002538610b28a0a04bcf94891a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/eb6266b3b472e4002538610b28a0a04bcf94891a",
+                "reference": "eb6266b3b472e4002538610b28a0a04bcf94891a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9",
+                "sensiolabs/security-checker": "~3.0|~4.0",
+                "symfony/class-loader": "~2.3|~3.0",
+                "symfony/config": "~2.3|~3.0",
+                "symfony/dependency-injection": "~2.3|~3.0",
+                "symfony/filesystem": "~2.3|~3.0",
+                "symfony/http-kernel": "~2.3|~3.0",
+                "symfony/process": "~2.3|~3.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sensio\\Bundle\\DistributionBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Base bundle for Symfony Distributions",
+            "keywords": [
+                "configuration",
+                "distribution"
+            ],
+            "time": "2017-08-25 16:55:44"
+        },
+        {
             "name": "sensio/generator-bundle",
             "version": "v3.1.7",
             "source": {
@@ -4782,6 +4737,51 @@
             ],
             "description": "This bundle generates code for you",
             "time": "2017-12-07 15:36:41"
+        },
+        {
+            "name": "sensiolabs/security-checker",
+            "version": "v4.1.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sensiolabs/security-checker.git",
+                "reference": "d539ccba2b4dce515de04f16b7ed7ae5b9eeb434"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/d539ccba2b4dce515de04f16b7ed7ae5b9eeb434",
+                "reference": "d539ccba2b4dce515de04f16b7ed7ae5b9eeb434",
+                "shasum": ""
+            },
+            "require": {
+                "composer/ca-bundle": "^1.0",
+                "symfony/console": "~2.7|~3.0|~4.0"
+            },
+            "bin": [
+                "security-checker"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "SensioLabs\\Security": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien.potencier@gmail.com"
+                }
+            ],
+            "description": "A security checker for your composer.lock",
+            "time": "2018-01-11 05:54:03"
         },
         {
             "name": "symfony/phpunit-bridge",

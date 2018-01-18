@@ -12,7 +12,7 @@ $autoloader = __DIR__.'/../vendor/autoload.php';
 if (file_exists($autoloader)) {
     $loader = require $autoloader;
 } else {
-    $loader = require getcwd() . "/vendor/autoload.php";
+    $loader = require __DIR__ . "/../../../autoload.php";
 }
 
 AnnotationRegistry::registerLoader([$loader, 'loadClass']);

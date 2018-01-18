@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
+            new Symfony\Bundle\WebServerBundle\WebServerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Overblog\GraphQLBundle\OverblogGraphQLBundle(),
@@ -35,7 +36,6 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             //$bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
             $bundles[] = new Liip\FunctionalTestBundle\LiipFunctionalTestBundle();
-            $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
         }
 
         return $bundles;
