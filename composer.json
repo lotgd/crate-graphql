@@ -3,6 +3,9 @@
     "description": "Adapts the lotgd/core engine and provides a public API for playing the game",
     "license": "AGPL-3.0",
     "type": "lotgd-crate",
+    "bin": [
+        "bin/console"
+    ],
 
     "autoload": {
         "psr-4": {
@@ -27,7 +30,7 @@
         }
     ],
     "require": {
-        "symfony/symfony": "^3.4.0",
+        "symfony/symfony": "^3.3.0",
         "doctrine/orm": "^2.5",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-cache-bundle": "^1.2",
