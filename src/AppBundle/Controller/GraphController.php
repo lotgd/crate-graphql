@@ -10,9 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\ControllerTrait;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\HttpFoundation\ {
-    JsonResponse,
-    Request
+use Symfony\Component\HttpFoundation\{
+    JsonResponse, Request, Response
 };
 
 use LotGD\Crate\GraphQL\Models\ApiKey;
@@ -33,34 +32,14 @@ class GraphController extends OverblogGraphController implements ContainerAwareI
      * graphql queries.
      * @Route("/")
      * @param Request $request
-     * @return type
+     * @return Response
      */
-    public function endpointAction(Request $request, $schemaName = null)
+    public function endpointAction(Request $request, $schemaName = null): Response
     {
-        return parent::endpointAction($request, $schemaName);
+        $response = parent::endpointAction($request, $schemaName);
+        $response->headers->set("Access-Control-Allow-Headers", "Content-Type, X-Lotgd-Auth-Token");
+        $response->headers->set("Access-Control-Allow-Origin", "*");
 
-        /*if ($request->isMethod("GET")) {
-            $check = "query";
-        }
-        else {
-            $check = "request";
-        }
-        
-        if ($request->$check->has("query")) {
-            // Work-around for empty incorrect graphql variables
-            if ($request->$check->has("variables") && $request->$check->get("variables") === "") {
-                $request->$check->set("variables", "{}");
-            }
-            
-            return parent::endpointAction($request, $schemaName);
-        }
-        elseif (strlen($request->getContent()) > 0) {
-            return parent::endpointAction($request, $schemaName);
-        }
-        else {
-            return $this->container->get("twig")->render('default/index.html.twig', [
-                'base_url' => $request->getUri(),
-            ]);
-        }*/
+        return $response;
     }
 }
