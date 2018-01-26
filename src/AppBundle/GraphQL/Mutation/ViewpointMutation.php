@@ -20,7 +20,7 @@ class ViewpointMutation extends BaseManagerService implements EntityManagerAware
 
     function takeAction($characterId, $actionId)
     {
-        $character = $this->container->get("lotgd.crate.graphql.character_manager")->findById($characterId);
+        $character = $this->container->get("lotgd.crate.graphql.character_manager")->findById((int)$characterId);
 
         // Return null if character has not been found.
         if (is_null($character)) {

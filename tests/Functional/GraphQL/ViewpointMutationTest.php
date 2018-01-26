@@ -73,7 +73,7 @@ GraphQL;
 {
     "input": {
         "clientMutationId": "mutationId",
-        "characterId": 1,
+        "characterId": "1",
         "actionId": "$takeActionId"
     }
 }
@@ -122,7 +122,7 @@ GraphQL;
 {
     "input": {
         "clientMutationId": "mutationId",
-        "characterId": 1,
+        "characterId": "1",
         "actionId": "$takeActionId"
     }
 }
@@ -174,7 +174,7 @@ GraphQL;
 {
     "input": {
         "clientMutationId": "mutationId",
-        "characterId": 2,
+        "characterId": "2",
         "actionId": "$takeActionId"
     }
 }
@@ -226,7 +226,7 @@ GraphQL;
 {
     "input": {
         "clientMutationId": "mutationId",
-        "characterId": 1,
+        "characterId": "1",
         "actionId": "$takeActionId"
     }
 }

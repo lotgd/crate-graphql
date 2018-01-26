@@ -5,7 +5,7 @@ TakeActionInput:
         fields:
             characterId:
                 description: "The character's id."
-                type: "Int!"
+                type: "String!"
             actionId:
                 description: "The user's name."
                 type: "String!"
