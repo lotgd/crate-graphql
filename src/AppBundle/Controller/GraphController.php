@@ -36,8 +36,14 @@ class GraphController extends OverblogGraphController implements ContainerAwareI
      */
     public function endpointAction(Request $request, $schemaName = null): Response
     {
-        $response = parent::endpointAction($request, $schemaName);
-        $response->headers->set("Access-Control-Allow-Headers", "Content-Type, X-Lotgd-Auth-Token");
+        if ($request->getMethod() == "OPTIONS") {
+            $response = new JsonResponse();
+        } else {
+            $response = parent::endpointAction($request, $schemaName);
+        }
+
+        $response->headers->set("Access-Control-Allow-Method", "GET, POST, OPTIONS");
+        $response->headers->set("Access-Control-Allow-Headers", "Content-Type, X-Lotgd-Auth-Token, x_lotgd_auth_token");
         $response->headers->set("Access-Control-Allow-Origin", "*");
 
         return $response;
