@@ -40,7 +40,8 @@
 
         "overblog/graphql-bundle": "dev-master",
 
-        "lotgd/core": "^0.3.2-alpha"
+        "lotgd/core": "^0.3.2-alpha",
+        "lotgd/module-forms": "^0.1.0-alpha"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

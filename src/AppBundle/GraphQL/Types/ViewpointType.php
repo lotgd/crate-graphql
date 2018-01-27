@@ -3,8 +3,11 @@ declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Types;
 
+use Generator;
+
 use LotGD\Core\Game;
 use LotGD\Core\Models\Viewpoint;
+use LotGD\ModuleForms\Form;
 
 /**
  * Representation of the GraphQL "Viewpoint" type.
@@ -52,7 +55,7 @@ class ViewpointType extends BaseType
     }
 
     /**
-     * Yields a list of ActionGroupTypes
+     * Yields a list of ActionGroupTypes.
      * @yield ActionGroupType
      */
     public function getActionGroups()
@@ -61,6 +64,24 @@ class ViewpointType extends BaseType
 
         foreach ($actionGroups as $actionGroup) {
             yield new ActionGroupType($this->getGameObject(), $actionGroup);
+        }
+    }
+
+    /**
+     * Yields a list of supported Attachments. Unsupported attachments are not
+     * returned.
+     * @yield Attachments
+     */
+    public function getAttachments(): Generator
+    {
+        foreach ($this->viewpointEntity->getAttachments() as $a) {
+            switch ($a->getType()) {
+                case Form::AttachmentType:
+                    yield new FormType($this->getGameObject(), $a);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

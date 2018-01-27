@@ -1,0 +1,20 @@
+FormElement:
+    type: object
+    config:
+        description: "An element in a form."
+        fields:
+            key:
+                type: "String!"
+                description: "A non-unique identifier for this form element."
+            type:
+                type: "FormElementType"
+                description: "The type of this form element."
+            label:
+                type: "String"
+                description: "The label shown to this user."
+            value:
+                type: "String"
+                description: "The value, possibly including a default value, of this element, encoded as a JSON string."
+            options:
+                type: "[FormElementOption]"
+                description: "Options applied to this form element."

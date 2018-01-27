@@ -1,0 +1,11 @@
+Attachment:
+    type: interface
+    config:
+        description: "A flexible attachment to a viewpoint."
+        fields:
+            id:
+                type: "String!"
+                description: "Unique identifier for this attachment."
+            type:
+                type: "String!"
+                description: "The type of this attachment, in vendor/module/type format."

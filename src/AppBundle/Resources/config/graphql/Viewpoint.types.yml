@@ -13,8 +13,8 @@ Viewpoint:
                 type: "String"
                 description: "A template this scene is based on."
             attachments:
-                type: "[String]"
-                description: "A list of attachments."
+                type: "[Attachment]"
+                description: "A list of supported attachments. Attachments not supported by this crate are ignored not returned."
             actionGroups:
                 type: "[ActionGroup]"
                 description: "A list of action groups."

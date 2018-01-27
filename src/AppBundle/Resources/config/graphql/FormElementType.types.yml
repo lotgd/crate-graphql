@@ -1,0 +1,11 @@
+FormElementType:
+    type: enum
+    config:
+        description: "The type of a form element."
+        values:
+            INPUT:
+                value: 0
+                description: "Text-based input field."
+            BUTTON:
+                value: 1
+                description: "A selectable option."

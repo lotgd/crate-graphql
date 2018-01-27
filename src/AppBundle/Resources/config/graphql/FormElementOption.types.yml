@@ -1,0 +1,8 @@
+FormElementOption:
+    type: enum
+    config:
+        description: ""
+        values:
+            DISABLED:
+                value: 1
+                description: "Don't allow the user to interact with this option."

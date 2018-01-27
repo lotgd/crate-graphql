@@ -1,0 +1,21 @@
+Form:
+    type: object
+    config:
+        description: "A Form attachment, from lotgd/module-forms."
+        fields:
+            id:
+                type: "String!"
+                description: "Unique identifier for this attachment."
+            type:
+                type: "String!"
+                description: "The type of attachment, in this case lotgd/module-forms/form."
+            elements:
+                type: "[FormElement]"
+                description: "A list of FormElement objects representing the form."
+            submitText:
+                type: "String"
+                description: "Text to show on a submit button for this form."
+            action:
+                type: "Action"
+                description: "Action to take on form submission."
+        interface: "[Attachment]"
