@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Types;
 
+use LotGD\Core\Events\EventContextData;
 use LotGD\Core\Game;
 use LotGD\Core\Models\Character;
 
@@ -49,5 +50,47 @@ class CharacterType extends BaseType
     public function getDisplayName(): string
     {
         return $this->characterEntity->getDisplayName();
+    }
+
+    /**
+     * Returns public stats
+     * @return array
+     */
+    public function getPublicStats(): array
+    {
+        $stats = [
+            new CharacterStatInt("lotgd/core/level", "Level", $this->characterEntity->getLevel()),
+            new CharacterStatInt("lotgd/core/attack", "Attack", $this->characterEntity->getAttack()),
+            new CharacterStatInt("lotgd/core/defense", "Defense", $this->characterEntity->getDefense()),
+            new CharacterStatRangeType("lotgd/core/health", "Health", $this->characterEntity->getHealth(), $this->characterEntity->getMaxHealth()),
+        ];
+
+        $eventData = $this->getGameObject()->getEventManager()->publish(
+            "h/lotgd/crate-graphql/characterStats/public",
+            EventContextData::create(["character" => $this->characterEntity, "value" => $stats])
+        );
+
+        $stats = $eventData->get("value");
+
+        return $stats;
+    }
+
+    /**
+     * Returns public and private stats.
+     * @return array
+     */
+    public function getPrivateStats(): array
+    {
+        $publicStats = $this->getPublicStats();
+        $privateStats = [];
+
+        $eventData = $this->getGameObject()->getEventManager()->publish(
+            "h/lotgd/crate-graphql/characterStats/private",
+            EventContextData::create(["character" => $this->characterEntity, "value" => $privateStats])
+        );
+
+        $privateStats = $eventData->get("value");
+
+        return array_combine($publicStats, $privateStats);
     }
 }

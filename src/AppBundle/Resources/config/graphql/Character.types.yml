@@ -12,3 +12,9 @@ Character:
             displayName:
                 type: "String!"
                 description: "Complete name of the character including title, colour information and other things."
+            publicStats:
+                type: "[CharacterStat]"
+                description: "A public list of character stats"
+            privateStats:
+                type: "[CharacterStat]"
+                description: "A private list of character stats, only for the owner's eyes."

@@ -1,0 +1,8 @@
+CharacterStatRange:
+  type: object
+  inherits: [CharacterStat]
+  config:
+    interfaces: [CharacterStat]
+    fields:
+      currentValue: {type: Int!}
+      maxValue: {type: Int!}

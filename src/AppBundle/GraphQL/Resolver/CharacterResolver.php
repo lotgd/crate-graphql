@@ -45,10 +45,11 @@ class CharacterResolver extends BaseManagerService implements ContainerAwareInte
         ) {
             $callback = function($e) { return $e; };
         } else {
+            // The character does not belong to the current user - we must protect the sensitive data.
             $callback = function($e) {
                 return $this->getAuthorizationService()->guard(
                     $e,
-                    ["id", "name", "displayName"]
+                    ["id", "name", "displayName", "publicStats"]
                 );
             };
         }
@@ -63,5 +64,10 @@ class CharacterResolver extends BaseManagerService implements ContainerAwareInte
         } else {
             return null;
         }
+    }
+
+    public function resolveCharacterStat(string $type)
+    {
+        return $type;
     }
 }

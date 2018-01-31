@@ -1,0 +1,7 @@
+CharacterStatInt:
+  type: object
+  inherits: [CharacterStat]
+  config:
+    interfaces: [CharacterStat]
+    fields:
+      value: {type: Int!}

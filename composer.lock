@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2abcf746c1d6cfef8be8916a8d802595",
-    "content-hash": "47da38e943538875c6ca647434a7c01f",
+    "hash": "9e56f96fe4b8ce6cf9fd1b01bd1d434f",
+    "content-hash": "663c4d6a2b7f246f2baea5088b24a782",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1423,16 +1423,16 @@
         },
         {
             "name": "lotgd/core",
-            "version": "v0.4.0-alpha",
+            "version": "0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lotgd/core.git",
-                "reference": "efb333d08ab0d05d93e6819b82faa53d003061b5"
+                "reference": "04a5b59ea2187e857ced84fb8b5259aad2cfd554"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lotgd/core/zipball/efb333d08ab0d05d93e6819b82faa53d003061b5",
-                "reference": "efb333d08ab0d05d93e6819b82faa53d003061b5",
+                "url": "https://api.github.com/repos/lotgd/core/zipball/04a5b59ea2187e857ced84fb8b5259aad2cfd554",
+                "reference": "04a5b59ea2187e857ced84fb8b5259aad2cfd554",
                 "shasum": ""
             },
             "require": {
@@ -1465,10 +1465,10 @@
             ],
             "description": "Core functionality for Legend of the Green Dragon, a text-based RPG game.",
             "support": {
-                "source": "https://github.com/lotgd/core/tree/feature/updated-models",
+                "source": "https://github.com/lotgd/core/tree/version/0.4",
                 "issues": "https://github.com/lotgd/core/issues"
             },
-            "time": "2018-01-10 07:27:56"
+            "time": "2018-01-26 15:21:53"
         },
         {
             "name": "monolog/monolog",
@@ -1550,33 +1550,35 @@
         },
         {
             "name": "overblog/graphql-bundle",
-            "version": "v0.10.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overblog/GraphQLBundle.git",
-                "reference": "c96e89b310edd4678430ba35dfc1935cf4371017"
+                "reference": "4b752f1b1ba2535ec115aeea92c181d64668c9a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overblog/GraphQLBundle/zipball/c96e89b310edd4678430ba35dfc1935cf4371017",
-                "reference": "c96e89b310edd4678430ba35dfc1935cf4371017",
+                "url": "https://api.github.com/repos/overblog/GraphQLBundle/zipball/4b752f1b1ba2535ec115aeea92c181d64668c9a5",
+                "reference": "4b752f1b1ba2535ec115aeea92c181d64668c9a5",
                 "shasum": ""
             },
             "require": {
                 "doctrine/doctrine-cache-bundle": "^1.2",
-                "overblog/graphql-php-generator": "^0.6.0",
+                "overblog/graphql-php-generator": "^0.7.0",
                 "php": ">=5.6",
                 "symfony/cache": "^3.1 || ^4.0",
                 "symfony/config": "^3.1 || ^4.0",
                 "symfony/dependency-injection": "^3.1 || ^4.0",
+                "symfony/event-dispatcher": "^3.1 || ^4.0",
                 "symfony/expression-language": "^3.1 || ^4.0",
                 "symfony/framework-bundle": "^3.1 || ^4.0",
                 "symfony/options-resolver": "^3.1 || ^4.0",
                 "symfony/property-access": "^3.1 || ^4.0",
-                "webonyx/graphql-php": "^0.10.0 || ^0.11.0"
+                "webonyx/graphql-php": "^0.11.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5.5 || ^6.0",
+                "phpunit/phpunit": "^5.7.26 || ^6.0",
+                "psr/log": "^1.0",
                 "react/promise": "^2.5",
                 "sensio/framework-extra-bundle": "^3.0",
                 "symfony/asset": "^3.1 || ^4.0",
@@ -1593,13 +1595,13 @@
             },
             "suggest": {
                 "nelmio/cors-bundle": "For more flexibility when using CORS prefight",
-                "react/promise": "To use ReactPHP promise adapter",
-                "twig/twig": "If you want to use graphiQL."
+                "overblog/graphiql-bundle": "If you want to use graphiQL.",
+                "react/promise": "To use ReactPHP promise adapter"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.10-dev"
+                    "dev-master": "0.11-dev"
                 }
             },
             "autoload": {
@@ -1625,34 +1627,34 @@
                 "Relay",
                 "graphql"
             ],
-            "time": "2018-01-04 08:05:57"
+            "time": "2018-01-29 16:12:56"
         },
         {
             "name": "overblog/graphql-php-generator",
-            "version": "v0.6.0",
+            "version": "v0.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/overblog/GraphQLPhpGenerator.git",
-                "reference": "e6d006a81fb7512d8b1b1fac816373f5df48a3f4"
+                "reference": "f6881be5b469213b4d55be947ce2ce6fe946107b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/overblog/GraphQLPhpGenerator/zipball/e6d006a81fb7512d8b1b1fac816373f5df48a3f4",
-                "reference": "e6d006a81fb7512d8b1b1fac816373f5df48a3f4",
+                "url": "https://api.github.com/repos/overblog/GraphQLPhpGenerator/zipball/f6881be5b469213b4d55be947ce2ce6fe946107b",
+                "reference": "f6881be5b469213b4d55be947ce2ce6fe946107b",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.4|~7.0",
-                "webonyx/graphql-php": "^0.10.0 || ^0.11.0"
+                "webonyx/graphql-php": "^0.11.2"
             },
             "require-dev": {
                 "fabpot/php-cs-fixer": "^1.11",
                 "phpunit/phpunit": "^4.1|^5.1",
                 "sllh/php-cs-fixer-styleci-bridge": "^1.5",
-                "symfony/expression-language": "^2.7|^3.0",
-                "symfony/filesystem": "^2.7|^3.0",
-                "symfony/process": "^2.7|^3.0",
-                "symfony/yaml": "^2.7|^3.0"
+                "symfony/expression-language": "^3.3",
+                "symfony/filesystem": "^3.3",
+                "symfony/process": "^3.3",
+                "symfony/yaml": "^3.3"
             },
             "type": "library",
             "autoload": {
@@ -1676,7 +1678,7 @@
                 "graphql",
                 "type"
             ],
-            "time": "2017-11-06 10:25:29"
+            "time": "2017-12-29 15:15:43"
         },
         {
             "name": "paragonie/random_compat",
@@ -2015,16 +2017,16 @@
         },
         {
             "name": "seld/jsonlint",
-            "version": "1.7.0",
+            "version": "1.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/jsonlint.git",
-                "reference": "9b355654ea99460397b89c132b5c1087b6bf4473"
+                "reference": "d15f59a67ff805a44c50ea0516d2341740f81a38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/jsonlint/zipball/9b355654ea99460397b89c132b5c1087b6bf4473",
-                "reference": "9b355654ea99460397b89c132b5c1087b6bf4473",
+                "url": "https://api.github.com/repos/Seldaek/jsonlint/zipball/d15f59a67ff805a44c50ea0516d2341740f81a38",
+                "reference": "d15f59a67ff805a44c50ea0516d2341740f81a38",
                 "shasum": ""
             },
             "require": {
@@ -2060,7 +2062,7 @@
                 "parser",
                 "validator"
             ],
-            "time": "2018-01-03 12:13:57"
+            "time": "2018-01-24 12:46:19"
         },
         {
             "name": "seld/phar-utils",
@@ -2178,16 +2180,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.8",
+            "version": "v5.4.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "9a06dc570a0367850280eefd3f1dc2da45aef517"
+                "reference": "7ffc1ea296ed14bf8260b6ef11b80208dbadba91"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/9a06dc570a0367850280eefd3f1dc2da45aef517",
-                "reference": "9a06dc570a0367850280eefd3f1dc2da45aef517",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/7ffc1ea296ed14bf8260b6ef11b80208dbadba91",
+                "reference": "7ffc1ea296ed14bf8260b6ef11b80208dbadba91",
                 "shasum": ""
             },
             "require": {
@@ -2222,13 +2224,13 @@
                 }
             ],
             "description": "Swiftmailer, free feature-rich PHP mailer",
-            "homepage": "http://swiftmailer.org",
+            "homepage": "https://swiftmailer.symfony.com",
             "keywords": [
                 "email",
                 "mail",
                 "mailer"
             ],
-            "time": "2017-05-01 15:54:03"
+            "time": "2018-01-23 07:37:21"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -2691,16 +2693,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v3.4.3",
+            "version": "v3.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "21abeae69baf64d689b04ca33663b4354be1a226"
+                "reference": "5220b6f9fcdee261c6fdd3e096f3b204fba5d906"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/21abeae69baf64d689b04ca33663b4354be1a226",
-                "reference": "21abeae69baf64d689b04ca33663b4354be1a226",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/5220b6f9fcdee261c6fdd3e096f3b204fba5d906",
+                "reference": "5220b6f9fcdee261c6fdd3e096f3b204fba5d906",
                 "shasum": ""
             },
             "require": {
@@ -2718,7 +2720,6 @@
                 "symfony/polyfill-mbstring": "~1.0",
                 "symfony/polyfill-php56": "~1.0",
                 "symfony/polyfill-php70": "~1.6",
-                "symfony/polyfill-util": "~1.0",
                 "twig/twig": "^1.35|^2.4.4"
             },
             "conflict": {
@@ -2842,7 +2843,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2018-01-05 08:33:31"
+            "time": "2018-01-29 12:30:04"
         },
         {
             "name": "twig/twig",
@@ -3229,16 +3230,16 @@
         },
         {
             "name": "lotgd/module-res-fight",
-            "version": "v0.4.0-alpha",
+            "version": "v0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lotgd/module-res-fight.git",
-                "reference": "eb20c9aae9f6d64904bd47f51fc75555787d30c6"
+                "reference": "0d4cad90955d9d95d6c9c962d49e03f568f98b73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lotgd/module-res-fight/zipball/eb20c9aae9f6d64904bd47f51fc75555787d30c6",
-                "reference": "eb20c9aae9f6d64904bd47f51fc75555787d30c6",
+                "url": "https://api.github.com/repos/lotgd/module-res-fight/zipball/0d4cad90955d9d95d6c9c962d49e03f568f98b73",
+                "reference": "0d4cad90955d9d95d6c9c962d49e03f568f98b73",
                 "shasum": ""
             },
             "require": {
@@ -3271,7 +3272,7 @@
                 "source": "https://github.com/lotgd/module-res-fight/tree/version/0.4",
                 "issues": "https://github.com/lotgd/module-res-fight/issues"
             },
-            "time": "2018-01-14 14:43:26"
+            "time": "2018-01-27 16:13:23"
         },
         {
             "name": "lotgd/module-scene-bundle",
@@ -3323,16 +3324,16 @@
         },
         {
             "name": "lotgd/module-training",
-            "version": "v0.4.0",
+            "version": "v0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lotgd/module-training.git",
-                "reference": "f456e58579cde84a500d343eb887bf3d4b2eb72d"
+                "reference": "79ad607677b9b27479d064bbfd36aed047748552"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lotgd/module-training/zipball/f456e58579cde84a500d343eb887bf3d4b2eb72d",
-                "reference": "f456e58579cde84a500d343eb887bf3d4b2eb72d",
+                "url": "https://api.github.com/repos/lotgd/module-training/zipball/79ad607677b9b27479d064bbfd36aed047748552",
+                "reference": "79ad607677b9b27479d064bbfd36aed047748552",
                 "shasum": ""
             },
             "require": {
@@ -3366,7 +3367,7 @@
                 "source": "https://github.com/lotgd/module-training/tree/version/0.4",
                 "issues": "https://github.com/lotgd/module-training/issues"
             },
-            "time": "2018-01-14 15:14:02"
+            "time": "2018-01-27 16:35:57"
         },
         {
             "name": "lotgd/module-village",
@@ -3515,16 +3516,16 @@
         },
         {
             "name": "phpdocumentor/reflection-docblock",
-            "version": "4.2.0",
+            "version": "4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "66465776cfc249844bde6d117abff1d22e06c2da"
+                "reference": "94fd0001232e47129dd3504189fa1c7225010d08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/66465776cfc249844bde6d117abff1d22e06c2da",
-                "reference": "66465776cfc249844bde6d117abff1d22e06c2da",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/94fd0001232e47129dd3504189fa1c7225010d08",
+                "reference": "94fd0001232e47129dd3504189fa1c7225010d08",
                 "shasum": ""
             },
             "require": {
@@ -3562,7 +3563,7 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2017-11-27 17:38:31"
+            "time": "2017-11-30 07:14:17"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -4785,16 +4786,16 @@
         },
         {
             "name": "symfony/phpunit-bridge",
-            "version": "v3.4.3",
+            "version": "v3.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "24ffb71a115c25f5ee56cbfd38e56ed2cdbeb0a9"
+                "reference": "6a65b09b666f975dd70ec2bb9e9b1a87dbb02aca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/24ffb71a115c25f5ee56cbfd38e56ed2cdbeb0a9",
-                "reference": "24ffb71a115c25f5ee56cbfd38e56ed2cdbeb0a9",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/6a65b09b666f975dd70ec2bb9e9b1a87dbb02aca",
+                "reference": "6a65b09b666f975dd70ec2bb9e9b1a87dbb02aca",
                 "shasum": ""
             },
             "require": {
@@ -4847,20 +4848,20 @@
             ],
             "description": "Symfony PHPUnit Bridge",
             "homepage": "https://symfony.com",
-            "time": "2018-01-04 17:19:23"
+            "time": "2018-01-21 19:05:02"
         },
         {
             "name": "webmozart/assert",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f"
+                "reference": "0df1908962e7a3071564e857d86874dad1ef204a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/2db61e59ff05fe5126d152bd0655c9ea113e550f",
-                "reference": "2db61e59ff05fe5126d152bd0655c9ea113e550f",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/0df1908962e7a3071564e857d86874dad1ef204a",
+                "reference": "0df1908962e7a3071564e857d86874dad1ef204a",
                 "shasum": ""
             },
             "require": {
@@ -4897,13 +4898,14 @@
                 "check",
                 "validate"
             ],
-            "time": "2016-11-23 20:04:58"
+            "time": "2018-01-29 19:49:41"
         }
     ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "lotgd/core": 15,
+        "overblog/graphql-bundle": 20,
         "lotgd/module-village": 15,
         "lotgd/module-scene-bundle": 15,
         "lotgd/module-new-day": 15,
