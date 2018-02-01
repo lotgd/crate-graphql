@@ -56,3 +56,8 @@ overblog_graphql:
         schema:
             query: Query
             mutation: Mutation
+    errors_handler:
+        internal_error_message: ~
+        map_exceptions_to_parent: ~
+        exceptions: ~
+        debug: false

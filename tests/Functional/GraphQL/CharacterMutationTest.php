@@ -85,7 +85,8 @@ JSON;
             ],
             "path": [
                 "createCharacter"
-            ]
+            ],
+            "category": "user"
         }
     ]
 }
@@ -150,7 +151,8 @@ JSON;
             ],
             "path": [
                 "createCharacter"
-            ]
+            ],
+            "category": "user"
         }
     ]
 }
@@ -180,7 +182,8 @@ JSON;
             ],
             "path": [
                 "createCharacter"
-            ]
+            ],
+            "category": "user"
         }
     ]
 }

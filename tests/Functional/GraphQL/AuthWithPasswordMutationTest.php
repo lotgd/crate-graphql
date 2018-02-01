@@ -51,7 +51,8 @@ JSON;
       ],
       "path": [
         "authWithPassword"
-      ]
+      ],
+      "category": "user"
     }
   ]
 }

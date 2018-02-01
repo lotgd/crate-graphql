@@ -136,7 +136,8 @@ JSON;
     "errors": [{
         "message": "Access denied.",
         "locations": [{"line":2,"column":3}],
-        "path":["takeAction"]
+        "path":["takeAction"],
+        "category": "user"
     }]
 }
 JSON;
@@ -188,7 +189,8 @@ JSON;
     "errors": [{
         "message": "Access denied.",
         "locations": [{"line":2,"column":3}],
-        "path":["takeAction"]
+        "path":["takeAction"],
+        "category": "user"
     }]
 }
 JSON;

@@ -53,8 +53,9 @@ GraphQL;
     },
     "errors": [{
         "message": "Accessing this field with these parameters is not allowed.",
-            "locations": [{"line":2,"column":5}],
-            "path": ["user"]
+        "locations": [{"line":2,"column":5}],
+        "path": ["user"],
+        "category": "user"
     }]
 }
 JSON;
@@ -118,7 +119,8 @@ GraphQL;
     "errors": [{
         "message": "Accessing this field with these parameters is not allowed.",
         "locations": [{"line":2,"column":5}],
-        "path": ["user"]
+        "path": ["user"],
+        "category": "user"
     }]
 }
 JSON;

@@ -19,7 +19,7 @@ security:
         endpoint:
             pattern: ^/
             anonymous: ~
-            stateless: true  
+            stateless: true
             simple_preauth:
                 authenticator: lotgd.token_authenticator
             provider: endpoint

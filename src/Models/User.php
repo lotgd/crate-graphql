@@ -202,8 +202,12 @@ class User extends Actor implements UserInterface, SaveableInterface
      * @param Character $character
      * @return bool
      */
-    public function hasCharacter(Character $character): bool
+    public function hasCharacter(?Character $character): bool
     {
+        if ($character === null) {
+            return false;
+        }
+
         return $this->characters->contains($character);
     }
 

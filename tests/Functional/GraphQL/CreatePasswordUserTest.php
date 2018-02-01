@@ -99,7 +99,8 @@ JSON;
       ],
       "path": [
           "createPasswordUser"
-      ]
+      ],
+      "category": "user"
     }
   ]
 }
@@ -167,7 +168,8 @@ JSON;
       ],
       "path": [
           "createPasswordUser"
-      ]
+      ],
+      "category": "user"
     }
   ]
 }
