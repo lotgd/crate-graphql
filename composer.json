@@ -58,6 +58,7 @@
         "lotgd/module-gender": "^0.4.0-alpha",
         "lotgd/module-res-fight": "^0.4.0-alpha",
         "lotgd/module-forest": "^0.4.0-alpha",
+
         "lotgd/module-dragon-kills": "^0.4.0-alpha",
         "lotgd/module-training": "^0.4.0-alpha"
     },
