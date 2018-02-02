@@ -17,8 +17,6 @@ class WebTestCase extends BaseWebTestCase
 
     public function setUp()
     {
-        error_reporting(E_ALL ^ E_DEPRECATED ^ E_USER_DEPRECATED);
-
         if (static::$em === null) {
             static::$kernel = static::createKernel();
             static::$kernel->boot();
