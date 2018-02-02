@@ -52,32 +52,32 @@ class CharacterType extends BaseType
         return $this->characterEntity->getDisplayName();
     }
 
+    private function returnBaseStats(): array
+    {
+        $stats = [
+            new CharacterStatIntType("lotgd/core/level", "Level", $this->characterEntity->getLevel()),
+            new CharacterStatIntType("lotgd/core/attack", "Attack", $this->characterEntity->getAttack()),
+            new CharacterStatIntType("lotgd/core/defense", "Defense", $this->characterEntity->getDefense()),
+            new CharacterStatRangeType("lotgd/core/health", "Health", $this->characterEntity->getHealth(), $this->characterEntity->getMaxHealth()),
+        ];
+
+        $eventData = $this->getGameObject()->getEventManager()->publish(
+            "h/lotgd/crate-graphql/characterStats/public",
+            EventContextData::create(["character" => $this->characterEntity, "value" => $stats])
+        );
+
+        $stats = $eventData->get("value");
+
+        return $stats;
+    }
+
     /**
      * Returns public stats
      * @return array
      */
     public function getPublicStats(): array
     {
-        try{
-            $stats = [
-                new CharacterStatIntType("lotgd/core/level", "Level", $this->characterEntity->getLevel()),
-                new CharacterStatIntType("lotgd/core/attack", "Attack", $this->characterEntity->getAttack()),
-                new CharacterStatIntType("lotgd/core/defense", "Defense", $this->characterEntity->getDefense()),
-                new CharacterStatRangeType("lotgd/core/health", "Health", $this->characterEntity->getHealth(), $this->characterEntity->getMaxHealth()),
-            ];
-
-            $eventData = $this->getGameObject()->getEventManager()->publish(
-                "h/lotgd/crate-graphql/characterStats/public",
-                EventContextData::create(["character" => $this->characterEntity, "value" => $stats])
-            );
-
-            $stats = $eventData->get("value");
-        } catch (\Exception $e) {
-            var_dump($e->getMessage());
-            var_dump($e->getTraceAsString());
-        }
-
-
+        $stats = $this->returnBaseStats();
         return $stats;
     }
 
@@ -87,7 +87,7 @@ class CharacterType extends BaseType
      */
     public function getPrivateStats(): array
     {
-        $publicStats = $this->getPublicStats();
+        $publicStats = $this->returnBaseStats();
         $privateStats = [];
 
         $eventData = $this->getGameObject()->getEventManager()->publish(

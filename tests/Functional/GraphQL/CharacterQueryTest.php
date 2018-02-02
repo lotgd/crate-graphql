@@ -159,4 +159,49 @@ JSON;
         $results = $this->getQueryResults($query, $jsonVariables);
         $this->assertQuery($query, $jsonExpected, $jsonVariables);
     }
+
+    public function testIfQueryOnPrivateCharacterStatsReturnsNothingIfNotAuthenticated()
+    {
+        $query = <<<'EOF'
+query CharacterQuery($name: String) {
+    character(characterName: $name) {
+        id
+        privateStats {
+            id
+            name
+            type
+            
+            ... on CharacterStatInt {
+                value
+            }
+            
+            ... on CharacterStatRange {
+                currentValue
+                maxValue
+            }
+        }
+    }
+}
+EOF;
+
+        $jsonVariables = <<<JSON
+{
+    "name": "One"
+}
+JSON;
+
+        $jsonExpected = <<<JSON
+{
+    "data": {
+        "character": {
+            "id": "2",
+            "privateStats": null
+        }
+    }
+}
+JSON;
+
+        $results = $this->getQueryResults($query, $jsonVariables);
+        $this->assertQuery($query, $jsonExpected, $jsonVariables);
+    }
 }
