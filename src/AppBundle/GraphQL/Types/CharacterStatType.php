@@ -8,13 +8,11 @@ abstract class CharacterStatType
 {
     private $id;
     private $name;
-    private $value;
 
     public function __construct(string $id, string $name)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->value = (string)$value;
     }
 
     public function getId(): string

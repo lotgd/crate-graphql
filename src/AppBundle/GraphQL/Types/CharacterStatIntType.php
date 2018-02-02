@@ -7,11 +7,10 @@ namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Types;
 class CharacterStatIntType extends CharacterStatType
 {
     private $current;
-    private $max;
 
     public function __construct(string $id, string $name, int $value = null)
     {
-        parent::__construct($id, $name, (string)$value);
+        parent::__construct($id, $name);
         $this->current = (int)$value;
     }
 

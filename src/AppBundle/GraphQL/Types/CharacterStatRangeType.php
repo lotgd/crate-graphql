@@ -9,9 +9,9 @@ class CharacterStatRangeType extends CharacterStatType
     private $current;
     private $max;
 
-    public function __construct(string $id, string $name, int $value = null)
+    public function __construct(string $id, string $name, int $value, int $max)
     {
-        parent::__construct($id, $name, (string)$value);
+        parent::__construct($id, $name);
         $this->current = (int)$value;
         $this->max = $max;
     }

@@ -2,7 +2,7 @@ CharacterStat:
   type: interface
   config:
     description: "One statistic describing this character."
-    resolveType: "@=resolver('character_stat_resolver', value.type)"
+    resolveType: "@=resolver('character_stat_resolver', [value])"
     fields:
       id: {type: String!}
       name: {type: String!}

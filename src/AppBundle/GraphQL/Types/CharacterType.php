@@ -58,19 +58,25 @@ class CharacterType extends BaseType
      */
     public function getPublicStats(): array
     {
-        $stats = [
-            new CharacterStatInt("lotgd/core/level", "Level", $this->characterEntity->getLevel()),
-            new CharacterStatInt("lotgd/core/attack", "Attack", $this->characterEntity->getAttack()),
-            new CharacterStatInt("lotgd/core/defense", "Defense", $this->characterEntity->getDefense()),
-            new CharacterStatRangeType("lotgd/core/health", "Health", $this->characterEntity->getHealth(), $this->characterEntity->getMaxHealth()),
-        ];
+        try{
+            $stats = [
+                new CharacterStatIntType("lotgd/core/level", "Level", $this->characterEntity->getLevel()),
+                new CharacterStatIntType("lotgd/core/attack", "Attack", $this->characterEntity->getAttack()),
+                new CharacterStatIntType("lotgd/core/defense", "Defense", $this->characterEntity->getDefense()),
+                new CharacterStatRangeType("lotgd/core/health", "Health", $this->characterEntity->getHealth(), $this->characterEntity->getMaxHealth()),
+            ];
 
-        $eventData = $this->getGameObject()->getEventManager()->publish(
-            "h/lotgd/crate-graphql/characterStats/public",
-            EventContextData::create(["character" => $this->characterEntity, "value" => $stats])
-        );
+            $eventData = $this->getGameObject()->getEventManager()->publish(
+                "h/lotgd/crate-graphql/characterStats/public",
+                EventContextData::create(["character" => $this->characterEntity, "value" => $stats])
+            );
 
-        $stats = $eventData->get("value");
+            $stats = $eventData->get("value");
+        } catch (\Exception $e) {
+            var_dump($e->getMessage());
+            var_dump($e->getTraceAsString());
+        }
+
 
         return $stats;
     }

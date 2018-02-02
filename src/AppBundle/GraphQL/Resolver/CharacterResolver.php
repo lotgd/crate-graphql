@@ -5,6 +5,7 @@ namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Resolver;
 
 use LotGD\Core\Models\Permission;
 use LotGD\Core\PermissionManager;
+use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\CharacterStatType;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Overblog\GraphQLBundle\Definition\Argument;
@@ -66,8 +67,8 @@ class CharacterResolver extends BaseManagerService implements ContainerAwareInte
         }
     }
 
-    public function resolveCharacterStat(string $type)
+    public function resolveCharacterStat(CharacterStatType $type)
     {
-        return $type;
+        return $type->getType();
     }
 }

@@ -7,7 +7,6 @@ services:
             - [setCoreGameService, ["@lotgd.core.game"]]
         tags:
             - { name: overblog_graphql.resolver, alias: "realm_resolver", method: "resolve" }
-            - { name: overblog_graphql.resolver, alias: "realm_type", method: "resolveType" }
 
     app.graph.resolver.session:
         class: LotGD\Crate\GraphQL\AppBundle\GraphQL\Resolver\SessionResolver
