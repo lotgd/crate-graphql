@@ -1,0 +1,11 @@
+Fighter:
+    type: interface
+    config:
+        description: "A character in this realm."
+        resolveType: "@=resolver('fighter_type_resolver', [value])"
+        fields:
+            id: {type: String!}
+            displayName: {type: String!}
+            level: {type: Int!}
+            health: {type: Int!}
+            maxHealth: {type: Int!}

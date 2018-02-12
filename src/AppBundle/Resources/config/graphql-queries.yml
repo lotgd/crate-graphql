@@ -35,6 +35,16 @@ services:
         tags:
             - { name: overblog_graphql.resolver, alias: "viewpoint_resolver", method: "resolve" }
 
+    app.graph.resolver.fighter:
+        class: LotGD\Crate\GraphQL\AppBundle\GraphQ\Resolver\FighterResolver
+        public: true
+        calls:
+            - [setContainer, ["@service_container"]]
+            - [setCoreGameService, ["@lotgd.core.game"]]
+        tags:
+            - { name: overblog_graphql.resolver, alias: "type_resolver", method: "resolveType" }
+
+
     app.graph.resolver.character:
         class: LotGD\Crate\GraphQL\AppBundle\GraphQL\Resolver\CharacterResolver
         public: true

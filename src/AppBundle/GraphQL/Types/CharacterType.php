@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Types;
 
+use Doctrine\Common\Util\Debug;
 use LotGD\Core\Events\EventContextData;
 use LotGD\Core\Game;
 use LotGD\Core\Models\Character;
@@ -23,6 +24,11 @@ class CharacterType extends BaseType
     {
         parent::__construct($game);
         $this->characterEntity = $character;
+    }
+
+    public function getType()
+    {
+        return "Character";
     }
 
     /**

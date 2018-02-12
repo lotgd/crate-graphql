@@ -1,20 +1,10 @@
 Character:
-    type: object
-    config:
-        description: "A character in this realm."
-        fields:
-            id:
-                type: "String!"
-                description: "Character Identifier"
-            name:
-                type: "String!"
-                description: "Unique name of the character without title or colour information."
-            displayName:
-                type: "String!"
-                description: "Complete name of the character including title, colour information and other things."
-            publicStats:
-                type: "[CharacterStat]"
-                description: "A public list of character stats"
-            privateStats:
-                type: "[CharacterStat]"
-                description: "A private list of character stats, only for the owner's eyes."
+  type: object
+  inherits: [Fighter]
+  config:
+    interfaces: [Fighter]
+    description: "A character in this realm."
+    fields:
+      name: {type: "String!", description: "Unique name of the character without colour information."}
+      publicStats: {type: "[CharacterStat]", description: "Publicly available details about the character."}
+      privateStats: {type: "[CharacterStat]", description: "Publicly available details about the character, as well as private information."}
