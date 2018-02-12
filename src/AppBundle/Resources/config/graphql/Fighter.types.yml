@@ -6,6 +6,8 @@ Fighter:
         fields:
             id: {type: String!}
             displayName: {type: String!}
-            level: {type: Int!}
-            health: {type: Int!}
-            maxHealth: {type: Int!}
+            level: {type: Int}
+            attack: {type: Int}
+            defense: {type: Int}
+            health: {type: Int}
+            maxHealth: {type: Int}

@@ -10,6 +10,7 @@ use Symfony\Component\Yaml\Yaml;
 class WebTestCase extends BaseWebTestCase
 {
     static $em;
+    static $game;
 
     public function testNothing() {
         $this->assertTrue(true);
@@ -21,6 +22,7 @@ class WebTestCase extends BaseWebTestCase
             static::$kernel = static::createKernel();
             static::$kernel->boot();
 
+            static::$game = static::$kernel->getContainer()->get("lotgd.core.game")->getGame();
             static::$em = static::$kernel->getContainer()->get("lotgd.core.game")->getEntityManager();
         }
 

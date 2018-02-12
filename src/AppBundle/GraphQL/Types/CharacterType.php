@@ -58,13 +58,59 @@ class CharacterType extends BaseType
         return $this->characterEntity->getDisplayName();
     }
 
+    /**
+     * Get character level
+     * @return int
+     */
+    public function getLevel(): int
+    {
+        return $this->characterEntity->getLevel();
+    }
+
+    /**
+     * Get character attack
+     * @return int
+     */
+    public function getAttack(): int
+    {
+        return $this->characterEntity->getAttack();
+    }
+
+    /**
+     * Get character defense
+     * @return int
+     */
+    public function getDefense(): int
+    {
+        return $this->characterEntity->getDefense();
+    }
+
+    /**
+     * Gets current health
+     * @return int
+     */
+    public function getHealth(): int
+    {
+        return $this->characterEntity->getHealth();
+    }
+
+    /**
+     * Gets maximum health
+     * @return int
+     */
+    public function getMaxHealth(): int
+    {
+        return $this->characterEntity->getMaxHealth();
+    }
+
+
+    /**
+     * Returns base stats
+     * @return array
+     */
     private function returnBaseStats(): array
     {
         $stats = [
-            new CharacterStatIntType("lotgd/core/level", "Level", $this->characterEntity->getLevel()),
-            new CharacterStatIntType("lotgd/core/attack", "Attack", $this->characterEntity->getAttack()),
-            new CharacterStatIntType("lotgd/core/defense", "Defense", $this->characterEntity->getDefense()),
-            new CharacterStatRangeType("lotgd/core/health", "Health", $this->characterEntity->getHealth(), $this->characterEntity->getMaxHealth()),
         ];
 
         $eventData = $this->getGameObject()->getEventManager()->publish(

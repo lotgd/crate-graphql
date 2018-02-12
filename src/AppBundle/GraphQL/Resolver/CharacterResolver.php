@@ -50,7 +50,7 @@ class CharacterResolver extends BaseManagerService implements ContainerAwareInte
             $callback = function($e) {
                 return $this->getAuthorizationService()->guard(
                     $e,
-                    ["id", "name", "displayName", "publicStats"]
+                    ["id", "name", "displayName", "level", "attack", "defense", "health", "maxHealth", "publicStats"]
                 );
             };
         }
