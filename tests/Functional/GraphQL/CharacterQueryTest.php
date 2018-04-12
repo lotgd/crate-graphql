@@ -203,7 +203,7 @@ JSON;
         $game->getEventManager()->subscribe("#h/lotgd/crate-graphql/characterStats/public#", TestEventProvider::class, "lotgd/test");
 
         $results = $this->getQueryResults($query, $jsonVariables);
-        $this->assertQuery($query, $jsonExpected, $jsonVariables);
+        $this->assertQueryResult($jsonExpected, $results);
 
         $game->getEventManager()->unsubscribe("#h/lotgd/crate-graphql/characterStats/public#", TestEventProvider::class, "lotgd/test");
     }
@@ -254,12 +254,84 @@ JSON;
         $game->getEventManager()->subscribe("#h/lotgd/crate-graphql/characterStats/public#", TestEventProvider::class, "lotgd/test");
 
         $results = $this->getQueryResults($query, $jsonVariables);
-        $this->assertQuery($query, $jsonExpected, $jsonVariables);
+        $this->assertQueryResult($jsonExpected, $results);
 
         $game->getEventManager()->unsubscribe("#h/lotgd/crate-graphql/characterStats/public#", TestEventProvider::class, "lotgd/test");
     }
 
     public function testIfQueryOnPrivateCharacterStatsReturnsPublicStatsIfProperlyAuthenticated()
+    {
+        $query = <<<'EOF'
+query CharacterQuery($name: String) {
+    character(characterName: $name) {
+        id
+        publicStats {
+            id
+            name
+            type
+            
+            ... on CharacterStatInt {
+                value
+            }
+            
+            ... on CharacterStatRange {
+                currentValue
+                maxValue
+            }
+        }
+    }
+}
+EOF;
+
+        $jsonVariables = <<<JSON
+{
+    "name": "DB-Test"
+}
+JSON;
+
+        $jsonExpected = <<<JSON
+{
+    "data": {
+        "character": {
+            "id": "1",
+            "publicStats": [{
+                "id":"lotgd\/core\/level",
+                "name":"Level", 
+                "type":"CharacterStatInt",
+                "value":1
+            }, {
+                "id":"lotgd\/core\/attack",
+                "name":"Attack",
+                "type":"CharacterStatInt",
+                "value":1
+            }, {
+                "id":"lotgd\/core\/defense",
+                "name":"Defense",
+                "type":"CharacterStatInt",
+                "value":1
+            },{
+                "id":"lotgd\/core\/health",
+                "name":"Health",
+                "type":"CharacterStatRange",
+                "currentValue":10,
+                "maxValue":10
+            }]
+        }
+    }
+}
+JSON;
+
+        /** @var Game $game */
+        $game = self::$game;
+        $game->getEventManager()->subscribe("#h/lotgd/crate-graphql/characterStats/public#", TestEventProvider::class, "lotgd/test");
+
+        $results = $this->getQueryResultsAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonVariables);
+        $this->assertQueryResult($jsonExpected, $results);
+
+        $game->getEventManager()->unsubscribe("#h/lotgd/crate-graphql/characterStats/public#", TestEventProvider::class, "lotgd/test");
+    }
+
+    public function testIfQueryOnPrivateCharacterStatsReturnPrivateStatsIfProperlyAuthenticated()
     {
         $query = <<<'EOF'
 query CharacterQuery($name: String) {
@@ -285,7 +357,7 @@ EOF;
 
         $jsonVariables = <<<JSON
 {
-    "name": "One"
+    "name": "DB-Test"
 }
 JSON;
 
@@ -293,8 +365,29 @@ JSON;
 {
     "data": {
         "character": {
-            "id": "2",
-            "privateStats": null
+            "id": "1",
+            "privateStats": [{
+                "id":"lotgd\/core\/level",
+                "name":"Level", 
+                "type":"CharacterStatInt",
+                "value":1
+            }, {
+                "id":"lotgd\/core\/attack",
+                "name":"Attack",
+                "type":"CharacterStatInt",
+                "value":1
+            }, {
+                "id":"lotgd\/core\/defense",
+                "name":"Defense",
+                "type":"CharacterStatInt",
+                "value":1
+            },{
+                "id":"lotgd\/core\/health",
+                "name":"Health",
+                "type":"CharacterStatRange",
+                "currentValue":10,
+                "maxValue":10
+            }]
         }
     }
 }
@@ -302,11 +395,11 @@ JSON;
 
         /** @var Game $game */
         $game = self::$game;
-        $game->getEventManager()->subscribe("#h/lotgd/crate-graphql/characterStats/public#", TestEventProvider::class, "lotgd/test");
+        $game->getEventManager()->subscribe("#h/lotgd/crate-graphql/characterStats/private#", TestEventProvider::class, "lotgd/test");
 
         $results = $this->getQueryResultsAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonVariables);
-        $this->assertQuery($query, $jsonExpected, $jsonVariables);
+        $this->assertQueryResult($jsonExpected, $results);
 
-        $game->getEventManager()->unsubscribe("#h/lotgd/crate-graphql/characterStats/public#", TestEventProvider::class, "lotgd/test");
+        $game->getEventManager()->unsubscribe("#h/lotgd/crate-graphql/characterStats/private#", TestEventProvider::class, "lotgd/test");
     }
 }

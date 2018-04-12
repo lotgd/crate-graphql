@@ -26,7 +26,11 @@ class CharacterType extends BaseType
         $this->characterEntity = $character;
     }
 
-    public function getType()
+    /**
+     * Returns type
+     * @return string
+     */
+    public function getType(): string
     {
         return "Character";
     }
@@ -130,6 +134,7 @@ class CharacterType extends BaseType
     public function getPublicStats(): array
     {
         $stats = $this->returnBaseStats();
+
         return $stats;
     }
 
@@ -149,6 +154,8 @@ class CharacterType extends BaseType
 
         $privateStats = $eventData->get("value");
 
-        return array_combine($publicStats, $privateStats);
+        $returnValue = array_merge($publicStats, $privateStats);
+
+        return $returnValue;
     }
 }

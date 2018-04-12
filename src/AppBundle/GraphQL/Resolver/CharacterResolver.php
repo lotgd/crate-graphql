@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\AppBundle\GraphQL\Resolver;
 
+use Doctrine\Common\Util\Debug;
 use LotGD\Core\Models\Permission;
 use LotGD\Core\PermissionManager;
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\CharacterStatType;

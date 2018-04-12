@@ -6,5 +6,5 @@ Character:
     description: "A character in this realm."
     fields:
       name: {type: "String!", description: "Unique name of the character without colour information."}
-      publicStats: {type: "[CharacterStat]", description: "Publicly available details about the character."}
-      privateStats: {type: "[CharacterStat]", description: "Publicly available details about the character, as well as private information."}
+      publicStats: {type: "[CharacterStat!]", description: "Publicly available details about the character."}
+      privateStats: {type: "[CharacterStat!]", description: "Publicly available details about the character, as well as private information."}

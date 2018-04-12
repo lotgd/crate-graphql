@@ -80,6 +80,10 @@ class GraphQLTestCase extends WebTestCase
         $this->assertStatusCode(200, $client);
         $this->assertEquals(json_decode($jsonExpected, true), json_decode($result, true), $result);
     }
+
+    protected function assertQueryResult($expected, $result) {
+        $this->assertEquals(json_decode($expected, true), $result);
+    }
     
     protected function assertArrayKeysInQuery($query, $subKey, $arrayKeys, $jsonVariables = "{}")
     {
