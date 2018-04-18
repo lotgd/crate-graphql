@@ -85,7 +85,7 @@ class AuthorizationService extends BaseManagerService
      */
     public function guard(BaseType $type, array $whitelistedFields): TypeGuardian
     {
-        $type->_setGuarded();
+        $type->flagAsGuarded();
         return new TypeGuardian($type, $whitelistedFields);
     }
 }

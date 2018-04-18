@@ -33,11 +33,23 @@ abstract class BaseType implements TypeInterface
         return $this->gameInstance;
     }
 
-    public function _setGuarded(): void
+    /**
+     * Flags a type as guarded.
+     */
+    public function flagAsGuarded(): void
     {
         $this->guarded = true;
     }
 
+    /**
+     * Returns whether the type is guarded or not.
+     *
+     * If a user does not own a character, they should not have access to certain properties, such as current funds,
+     * or even non-interesting stats like the number of turns. Such information should only be returned by getters
+     * if this method returns true. An example is in CharacterType which only adds private stats to the stat field
+     * if the type is guarded.
+     * @return bool
+     */
     public function isGuarded(): bool
     {
         return $this->guarded;
