@@ -136,13 +136,13 @@ JSON;
         $this->assertQuery($query, $jsonExpected, $jsonVariables);
     }
 
-    public function testIfQueryOnCharacterStatsReturnsStats()
+    public function testIfQueryOnStatsReturnPublicStatsIfUserNotAuthenticated()
     {
         $query = <<<'EOF'
 query CharacterQuery($name: String) {
     character(characterName: $name) {
         id
-        publicStats {
+        stats {
             id
             name
             type
@@ -171,7 +171,7 @@ JSON;
     "data": {
         "character": {
             "id": "2",
-            "publicStats": [{
+            "stats": [{
                 "id":"lotgd\/core\/level",
                 "name":"Level", 
                 "type":"CharacterStatInt",
@@ -208,13 +208,13 @@ JSON;
         $game->getEventManager()->unsubscribe("#h/lotgd/crate-graphql/characterStats/public#", TestEventProvider::class, "lotgd/test");
     }
 
-    public function testIfQueryOnPrivateCharacterStatsReturnsNothingIfNotAuthenticated()
+    public function testIfQueryOnStatsNotReturnPrivateStatsIfUserNotAuthenticated()
     {
         $query = <<<'EOF'
 query CharacterQuery($name: String) {
     character(characterName: $name) {
         id
-        privateStats {
+        stats {
             id
             name
             type
@@ -243,7 +243,7 @@ JSON;
     "data": {
         "character": {
             "id": "2",
-            "privateStats": null
+            "stats": []
         }
     }
 }
@@ -251,21 +251,21 @@ JSON;
 
         /** @var Game $game */
         $game = self::$game;
-        $game->getEventManager()->subscribe("#h/lotgd/crate-graphql/characterStats/public#", TestEventProvider::class, "lotgd/test");
+        $game->getEventManager()->subscribe("#h/lotgd/crate-graphql/characterStats/private#", TestEventProvider::class, "lotgd/test");
 
         $results = $this->getQueryResults($query, $jsonVariables);
         $this->assertQueryResult($jsonExpected, $results);
 
-        $game->getEventManager()->unsubscribe("#h/lotgd/crate-graphql/characterStats/public#", TestEventProvider::class, "lotgd/test");
+        $game->getEventManager()->unsubscribe("#h/lotgd/crate-graphql/characterStats/private#", TestEventProvider::class, "lotgd/test");
     }
 
-    public function testIfQueryOnPrivateCharacterStatsReturnsPublicStatsIfProperlyAuthenticated()
+    public function testIfQueryOnStatsReturnPublicStatsIfUserAuthenticated()
     {
         $query = <<<'EOF'
 query CharacterQuery($name: String) {
     character(characterName: $name) {
         id
-        publicStats {
+        stats {
             id
             name
             type
@@ -294,7 +294,7 @@ JSON;
     "data": {
         "character": {
             "id": "1",
-            "publicStats": [{
+            "stats": [{
                 "id":"lotgd\/core\/level",
                 "name":"Level", 
                 "type":"CharacterStatInt",
@@ -331,13 +331,13 @@ JSON;
         $game->getEventManager()->unsubscribe("#h/lotgd/crate-graphql/characterStats/public#", TestEventProvider::class, "lotgd/test");
     }
 
-    public function testIfQueryOnPrivateCharacterStatsReturnPrivateStatsIfProperlyAuthenticated()
+    public function testIfQueryOnStatsReturnPrivateStatsIfUserAuthenticated()
     {
         $query = <<<'EOF'
 query CharacterQuery($name: String) {
     character(characterName: $name) {
         id
-        privateStats {
+        stats {
             id
             name
             type
@@ -366,7 +366,7 @@ JSON;
     "data": {
         "character": {
             "id": "1",
-            "privateStats": [{
+            "stats": [{
                 "id":"lotgd\/core\/level",
                 "name":"Level", 
                 "type":"CharacterStatInt",

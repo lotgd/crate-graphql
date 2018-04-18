@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace LotGD\Crate\GraphQL\Services;
 
 use LotGD\Core\PermissionManager;
+use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\BaseType;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 use LotGD\Crate\GraphQL\AppBundle\GraphQL\Types\TypeGuardian;
@@ -82,8 +83,9 @@ class AuthorizationService extends BaseManagerService
      * @param array $whitelistedFields A list of field that are accessible through TypeGuardian. Everything else will return null.
      * @return TypeGuardian
      */
-    public function guard($type, array $whitelistedFields): TypeGuardian
+    public function guard(BaseType $type, array $whitelistedFields): TypeGuardian
     {
+        $type->_setGuarded();
         return new TypeGuardian($type, $whitelistedFields);
     }
 }

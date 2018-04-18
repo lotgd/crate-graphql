@@ -107,55 +107,54 @@ class CharacterType extends BaseType
         return $this->characterEntity->getMaxHealth();
     }
 
+    /**
+     * Returns status values and statistics about a character
+     * @return array
+     */
+    public function getStats(): array
+    {
+        $publicStats = $this->getPublicStats();
+
+        $privateStats = $this->isGuarded() ? [] : $this->getPrivateStats();
+
+        $joinedStats = array_merge($publicStats, $privateStats);
+
+        $eventData = $this->getGameObject()->getEventManager()->publish(
+            "h/lotgd/crate-graphql/characterStats/getJoined",
+            EventContextData::create(["character" => $this->characterEntity, "value" => $joinedStats])
+        );
+
+        return $eventData->get("value");
+    }
+
 
     /**
      * Returns base stats
      * @return array
      */
-    private function returnBaseStats(): array
+    private function getPublicStats(): array
     {
-        $stats = [
-        ];
-
+        $stats = [];
         $eventData = $this->getGameObject()->getEventManager()->publish(
             "h/lotgd/crate-graphql/characterStats/public",
             EventContextData::create(["character" => $this->characterEntity, "value" => $stats])
         );
 
-        $stats = $eventData->get("value");
-
-        return $stats;
-    }
-
-    /**
-     * Returns public stats
-     * @return array
-     */
-    public function getPublicStats(): array
-    {
-        $stats = $this->returnBaseStats();
-
-        return $stats;
+        return $eventData->get("value");
     }
 
     /**
      * Returns public and private stats.
      * @return array
      */
-    public function getPrivateStats(): array
+    private function getPrivateStats(): array
     {
-        $publicStats = $this->returnBaseStats();
-        $privateStats = [];
-
+        $stats = [];
         $eventData = $this->getGameObject()->getEventManager()->publish(
             "h/lotgd/crate-graphql/characterStats/private",
-            EventContextData::create(["character" => $this->characterEntity, "value" => $privateStats])
+            EventContextData::create(["character" => $this->characterEntity, "value" => $stats])
         );
 
-        $privateStats = $eventData->get("value");
-
-        $returnValue = array_merge($publicStats, $privateStats);
-
-        return $returnValue;
+        return $eventData->get("value");
     }
 }

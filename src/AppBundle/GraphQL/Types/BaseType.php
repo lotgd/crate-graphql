@@ -14,6 +14,7 @@ use LotGD\Core\Game;
 abstract class BaseType implements TypeInterface
 {
     private $gameInstance;
+    private $guarded = false;
 
     /**
      * {@inheritDoc}
@@ -30,5 +31,15 @@ abstract class BaseType implements TypeInterface
     protected function getGameObject(): Game
     {
         return $this->gameInstance;
+    }
+
+    public function _setGuarded(): void
+    {
+        $this->guarded = true;
+    }
+
+    public function isGuarded(): bool
+    {
+        return $this->guarded;
     }
 }
