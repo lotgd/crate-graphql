@@ -127,9 +127,8 @@ class CharacterType extends BaseType
         return $eventData->get("value");
     }
 
-
     /**
-     * Returns base stats
+     * Returns public stats
      * @return array
      */
     private function getPublicStats(): array
@@ -144,7 +143,7 @@ class CharacterType extends BaseType
     }
 
     /**
-     * Returns public and private stats.
+     * Returns private stats.
      * @return array
      */
     private function getPrivateStats(): array
