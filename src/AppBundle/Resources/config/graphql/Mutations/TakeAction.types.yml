@@ -1,20 +1,24 @@
 TakeActionInput:
-    type: relay-mutation-input
-    description: "Selects an action of a viewpoint."
-    config:
-        fields:
-            characterId:
-                description: "The character's id."
-                type: "String!"
-            actionId:
-                description: "The user's name."
-                type: "String!"
+  type: relay-mutation-input
+  description: "Selects an action of a viewpoint."
+  config:
+    fields:
+      characterId:
+        description: "The character's id."
+        type: "String!"
+      actionId:
+        description: "The user's name."
+        type: "String!"
 
 TakeActionPayload:
-    type: relay-mutation-payload
-    description: "Payload for viewpoint selection"
-    config:
-        fields:
-            viewpoint:
-                description: "The new viewpoint."
-                type: "Viewpoint!"
+  type: relay-mutation-payload
+  description: "Payload for viewpoint selection"
+  config:
+    fields:
+      viewpoint:
+        description: "The new viewpoint."
+        type: "Viewpoint!"
+      character:
+        description: "The viewpoint taking character."
+        type: "Character!"
+

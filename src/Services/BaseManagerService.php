@@ -52,7 +52,7 @@ abstract class BaseManagerService
      * Returns the entity manager.
      * @return EntityManagerInterface
      */
-    protected function getEntityManager(): EntityManagerInterface
+    public function getEntityManager(): EntityManagerInterface
     {
         return $this->game->getEntityManager();
     }

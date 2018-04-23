@@ -65,6 +65,10 @@ mutation takeActionMutation($input: TakeActionInput!) {
         }
       }
     }
+    
+    character {
+        name,
+    }
   }
 }
 GraphQL;
@@ -88,6 +92,7 @@ JSON;
         $this->assertArrayHasKey("description", $results2["data"]["takeAction"]["viewpoint"]);
         $this->assertArrayHasKey("template", $results2["data"]["takeAction"]["viewpoint"]);
         $this->assertArrayHasKey("actionGroups", $results2["data"]["takeAction"]["viewpoint"]);
+        $this->assertArrayHasKey("name", $results2["data"]["takeAction"]["character"]);
         $this->assertGreaterThan(0, count($results2["data"]["takeAction"]["viewpoint"]["actionGroups"]));
         $this->assertGreaterThan(0, count($results2["data"]["takeAction"]["viewpoint"]["actionGroups"][0]["actions"]));
     }

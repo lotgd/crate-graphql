@@ -18,7 +18,7 @@ class ViewpointMutation extends BaseManagerService implements EntityManagerAware
 {
     use EntityManagerAwareTrait;
 
-    function takeAction($characterId, $actionId)
+    public function takeAction($characterId, $actionId)
     {
         $character = $this->container->get("lotgd.crate.graphql.character_manager")->findById((int)$characterId);
 
@@ -38,6 +38,11 @@ class ViewpointMutation extends BaseManagerService implements EntityManagerAware
         ]);
 
         $a = $this->container->get("app.graph.resolver.viewpoint")->resolve($argument);
-        return ["viewpoint" => $a];
+        $c = $this->container->get("app.graph.resolver.character")->resolve($argument);
+
+        return [
+            "viewpoint" => $a,
+            "character" => $c,
+        ];
     }
 }
