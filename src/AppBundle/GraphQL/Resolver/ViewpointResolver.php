@@ -37,7 +37,7 @@ class ViewpointResolver extends BaseManagerService implements ContainerAwareInte
         }
 
         /** @var LotGD\Core\Models\Character */
-        $character = $this->getCharacterManager()->findById((int)$args["characterId"]);
+        $character = $this->getCharacterManager()->findById($args["characterId"]);
 
         if ($character) {
             // If currentUser does not own the character and if he isn't a superuser, throw UserError

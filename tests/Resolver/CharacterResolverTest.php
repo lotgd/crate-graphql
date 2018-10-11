@@ -37,18 +37,18 @@ class CharacterResolverTest extends WebTestCase
     {
         $resolver = $this->getResolver();
 
-        $return = $resolver->resolve($this->getMockedArgument(["characterId" => "1"]));
+        $return = $resolver->resolve($this->getMockedArgument(["characterId" => "10000000-0000-0000-0000-000000000001"]));
         $this->assertNotNull($return);
         $this->assertInstanceOf(TypeGuardian::class, $return);
         $this->assertTrue($return->isTypeOf(CharacterType::class));
-        $this->assertSame("1", $return->getId());
+        $this->assertSame("10000000-0000-0000-0000-000000000001", $return->getId());
     }
 
     public function testIfCharacterResolverWithIncorrectIdReturnsNull()
     {
         $resolver = $this->getResolver();
 
-        $return = $resolver->resolve($this->getMockedArgument(["characterId" => "19812371293"]));
+        $return = $resolver->resolve($this->getMockedArgument(["characterId" => "10000000-0000-0000-0000-000000000100"]));
         $this->assertNull($return);
     }
 

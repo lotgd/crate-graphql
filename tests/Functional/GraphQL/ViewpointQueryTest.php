@@ -31,11 +31,12 @@ GraphQL;
 
         $jsonVariables = <<<JSON
 {
-    "id": "1"
+    "id": "10000000-0000-0000-0000-000000000001"
 }
 JSON;
 
         $results = $this->getQueryResultsAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonVariables);
+
         $this->assertArrayHasKey("viewpoint", $results["data"]);
         $this->assertArrayHasKey("title", $results["data"]["viewpoint"]);
         $this->assertArrayHasKey("description", $results["data"]["viewpoint"]);

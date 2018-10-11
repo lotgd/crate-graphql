@@ -30,7 +30,7 @@ class CharacterResolver extends BaseManagerService implements ContainerAwareInte
 
         if (isset($args["characterId"])) {
             $characterEntity = $this->getCharacterManager()
-                ->findById((int)$args["characterId"]);
+                ->findById($args["characterId"]);
         } elseif (isset($args["characterName"])) {
             $characterEntity = $this->getCharacterManager()
                 ->findByName($args["characterName"]);

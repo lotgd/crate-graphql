@@ -8,7 +8,7 @@ namespace LotGD\Crate\GraphQL\Tests\Functional\GraphQL;
  */
 class ViewpointMutationTest extends GraphQLTestCase
 {
-    protected function getCurrentViewpointActionId(int $characterId = 1)
+    protected function getCurrentViewpointActionId(string $characterId = "10000000-0000-0000-0000-000000000001")
     {
         // First, get current viewpoint.
         $query = <<<'GraphQL'
@@ -38,6 +38,7 @@ JSON;
 
         // Let us do this as administrator
         $results = $this->getQueryResultsAuthorized("apiKeyForUser3", $query, $jsonVariables);
+
         $this->assertArrayNotHasKey("errors", $results);
 
         return $results["data"]["viewpoint"]["actionGroups"][0]["actions"][0]["id"];
@@ -77,7 +78,7 @@ GraphQL;
 {
     "input": {
         "clientMutationId": "mutationId",
-        "characterId": "1",
+        "characterId": "10000000-0000-0000-0000-000000000001",
         "actionId": "$takeActionId"
     }
 }
@@ -127,7 +128,7 @@ GraphQL;
 {
     "input": {
         "clientMutationId": "mutationId",
-        "characterId": "1",
+        "characterId": "10000000-0000-0000-0000-000000000001",
         "actionId": "$takeActionId"
     }
 }
@@ -152,7 +153,7 @@ JSON;
 
     public function testTakeActionMutationWhileAuthenticatedButNotAuthorized()
     {
-        $takeActionId = $this->getCurrentViewpointActionId(2);
+        $takeActionId = $this->getCurrentViewpointActionId("10000000-0000-0000-0000-000000000002");
 
         // Then, mutate the current viewpoint by taking an action.
         $mutation = <<<'GraphQL'
@@ -180,7 +181,7 @@ GraphQL;
 {
     "input": {
         "clientMutationId": "mutationId",
-        "characterId": "2",
+        "characterId": "10000000-0000-0000-0000-000000000002",
         "actionId": "$takeActionId"
     }
 }
@@ -233,7 +234,7 @@ GraphQL;
 {
     "input": {
         "clientMutationId": "mutationId",
-        "characterId": "1",
+        "characterId": "10000000-0000-0000-0000-000000000001",
         "actionId": "$takeActionId"
     }
 }

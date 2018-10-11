@@ -40,7 +40,7 @@
         "sensio/framework-extra-bundle": "^5.0",
         "incenteev/composer-parameter-handler": "^2.0",
 
-        "lotgd/core": "^0.4.0-alpha",
+        "lotgd/core": "dev-master as 0.4.0",
         "overblog/graphql-bundle": "^0.11.0-dev"
     },
     "require-dev": {
@@ -53,14 +53,7 @@
         "liip/functional-test-bundle": "^1.9",
 
         "lotgd/module-village": "^0.4.0-alpha",
-        "lotgd/module-scene-bundle": "^0.4.0-alpha",
-        "lotgd/module-new-day": "^0.4.0-alpha",
-        "lotgd/module-gender": "^0.4.0-alpha",
-        "lotgd/module-res-fight": "^0.4.0-alpha",
-        "lotgd/module-forest": "^0.4.0-alpha",
-
-        "lotgd/module-dragon-kills": "^0.4.0-alpha",
-        "lotgd/module-training": "^0.4.0-alpha"
+        "lotgd/module-scene-bundle": "^0.4.0-alpha"
     },
     "scripts": {
         "post-install-cmd": [

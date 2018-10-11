@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace LotGD\Crate\GraphQL\Tests\Functional\GraphQL;
 
+use GraphQL\Error\Debug;
 use LotGD\Crate\GraphQL\Models\User;
 
 class AuthWithPasswordMutationTest extends GraphQLTestCase
@@ -102,9 +103,9 @@ JSON;
         $this->assertArrayHasKey("name", $result["data"]["authWithPassword"]["session"]["user"]);
 
         $this->assertSame("avcd", $result["data"]["authWithPassword"]["clientMutationId"]);
-        $this->assertGreaterThan(0, count($result["data"]["authWithPassword"]["session"]["user"]["name"]));
+        $this->assertGreaterThan(0, strlen($result["data"]["authWithPassword"]["session"]["user"]["name"]));
         $this->assertInternalType("string", $result["data"]["authWithPassword"]["session"]["user"]["id"]);
-        $this->assertGreaterThan(0, count($result["data"]["authWithPassword"]["session"]["user"]["id"]));
+        $this->assertGreaterThan(0, strlen($result["data"]["authWithPassword"]["session"]["user"]["id"]));
     }
 
     public function testIfTwoAuthRequestResultInSameApiKey()

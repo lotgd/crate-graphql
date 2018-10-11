@@ -57,12 +57,13 @@ class CharacterTypeTest extends WebTestCase
 
     public function testIfIdValueIsSameAsInEntity()
     {
+        $uuid = \Ramsey\Uuid\Uuid::uuid4();
         $type = new CharacterType(
             $this->getGameMock(),
-            $this->getCharacterMock(["getId" => 123451])
+            $this->getCharacterMock(["getId" => $uuid])
         );
         // CharacterType needs to return a string, not an integer.
-        $this->assertSame("123451", $type->getId());
+        $this->assertSame($uuid->toString(), $type->getId());
     }
 
     public function testIfNameIsSameAsInEntity()

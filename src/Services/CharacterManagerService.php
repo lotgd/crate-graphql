@@ -60,10 +60,10 @@ class CharacterManagerService extends BaseManagerService
 
     /**
      * Finds a character by id.
-     * @param int $id
+     * @param string $id
      * @return Character|null
      */
-    public function findById(int $id): ?Character
+    public function findById(string $id): ?Character
     {
         return $this->getOneById(Character::class, $id);
     }

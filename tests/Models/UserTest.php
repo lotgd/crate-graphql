@@ -82,7 +82,7 @@ class UserTest extends WebTestCase
     public function testIfUserHasCharacterReturnsTrueWhenItShould()
     {
         $user = $this->getEntityManager()->getRepository(User::class)->find(1);
-        $character = $this->getEntityManager()->getRepository(Character::class)->find(2);
+        $character = $this->getEntityManager()->getRepository(Character::class)->find("10000000-0000-0000-0000-000000000002");
         
         $this->assertTrue($user->hasCharacter($character));
     }
@@ -90,7 +90,7 @@ class UserTest extends WebTestCase
     public function testIfUserHasCharacterReturnsFalseWhenItShould()
     {
         $user = $this->getEntityManager()->getRepository(User::class)->find(1);
-        $character = $this->getEntityManager()->getRepository(Character::class)->find(1);
+        $character = $this->getEntityManager()->getRepository(Character::class)->find("10000000-0000-0000-0000-000000000001");
         
         $this->assertFalse($user->hasCharacter($character));
     }

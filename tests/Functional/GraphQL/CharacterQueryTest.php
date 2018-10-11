@@ -78,7 +78,7 @@ EOF;
 
         $jsonVariables = <<<JSON
 {
-    "id": "1"
+    "id": "10000000-0000-0000-0000-000000000001"
 }
 JSON;
 
@@ -86,7 +86,7 @@ JSON;
 {
     "data": {
         "character": {
-            "id": "1",
+            "id": "10000000-0000-0000-0000-000000000001",
             "name": "DB-Test",
             "displayName": "Novice DB-Test",
             "level": 1,
@@ -124,7 +124,7 @@ JSON;
 {
     "data": {
         "character": {
-            "id": "2",
+            "id": "10000000-0000-0000-0000-000000000002",
             "name": "One",
             "displayName": "The One And Only"
         }
@@ -170,7 +170,7 @@ JSON;
 {
     "data": {
         "character": {
-            "id": "2",
+            "id": "10000000-0000-0000-0000-000000000002",
             "stats": [{
                 "id":"lotgd\/core\/level",
                 "name":"Level", 
@@ -201,6 +201,7 @@ JSON;
         /** @var Game $game */
         $game = self::$game;
         $game->getEventManager()->subscribe("#h/lotgd/crate-graphql/characterStats/public#", TestEventProvider::class, "lotgd/test");
+        $game->getEntityManager()->flush();
 
         $results = $this->getQueryResults($query, $jsonVariables);
         $this->assertQueryResult($jsonExpected, $results);
@@ -242,7 +243,7 @@ JSON;
 {
     "data": {
         "character": {
-            "id": "2",
+            "id": "10000000-0000-0000-0000-000000000002",
             "stats": []
         }
     }
@@ -293,7 +294,7 @@ JSON;
 {
     "data": {
         "character": {
-            "id": "1",
+            "id": "10000000-0000-0000-0000-000000000001",
             "stats": [{
                 "id":"lotgd\/core\/level",
                 "name":"Level", 
@@ -324,6 +325,7 @@ JSON;
         /** @var Game $game */
         $game = self::$game;
         $game->getEventManager()->subscribe("#h/lotgd/crate-graphql/characterStats/public#", TestEventProvider::class, "lotgd/test");
+        $game->getEntityManager()->flush();
 
         $results = $this->getQueryResultsAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonVariables);
         $this->assertQueryResult($jsonExpected, $results);
@@ -365,7 +367,7 @@ JSON;
 {
     "data": {
         "character": {
-            "id": "1",
+            "id": "10000000-0000-0000-0000-000000000001",
             "stats": [{
                 "id":"lotgd\/core\/level",
                 "name":"Level", 
@@ -396,6 +398,7 @@ JSON;
         /** @var Game $game */
         $game = self::$game;
         $game->getEventManager()->subscribe("#h/lotgd/crate-graphql/characterStats/private#", TestEventProvider::class, "lotgd/test");
+        $game->getEntityManager()->flush();
 
         $results = $this->getQueryResultsAuthorized("c4fEAJLQlaV/47UZl52nAQ==", $query, $jsonVariables);
         $this->assertQueryResult($jsonExpected, $results);

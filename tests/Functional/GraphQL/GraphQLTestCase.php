@@ -70,7 +70,15 @@ class GraphQLTestCase extends WebTestCase
         list($result, $client) = $this->queryHelper($query, $jsonVariables);
         
         $this->assertStatusCode(200, $client);
-        $this->assertEquals(json_decode($jsonExpected, true), json_decode($result, true), $result);
+        $result_decoded = json_decode($result, true);
+
+        if (isset($result_decoded["errors"])) {
+            foreach ($result_decoded["errors"] as $key => $error) {
+                unset($result_decoded["errors"][$key]["trace"]);
+            }
+        }
+
+        $this->assertEquals(json_decode($jsonExpected, true), $result_decoded, $result);
     }
 
     protected function assertQueryAuthorized($apiKey, $query, $jsonExpected, $jsonVariables = '{}')
@@ -78,7 +86,15 @@ class GraphQLTestCase extends WebTestCase
         list($result, $client) = $this->queryHelper($query, $jsonVariables, $apiKey);
 
         $this->assertStatusCode(200, $client);
-        $this->assertEquals(json_decode($jsonExpected, true), json_decode($result, true), $result);
+
+        $result_decoded = json_decode($result, true);
+        if (isset($result_decoded["errors"])) {
+            foreach ($result_decoded["errors"] as $key => $error) {
+                unset($result_decoded["errors"][$key]["trace"]);
+            }
+        }
+
+        $this->assertEquals(json_decode($jsonExpected, true), $result_decoded, $result);
     }
 
     protected function assertQueryResult($expected, $result) {

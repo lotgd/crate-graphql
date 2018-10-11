@@ -40,7 +40,7 @@ permissions:
         name: "Superuser. Superseeds all flags."
 characters:
     -
-        id: 1
+        id: "10000000-0000-0000-0000-000000000001"
         name: "DB-Test"
         displayName: "Novice DB-Test"
         maxHealth: 10
@@ -48,7 +48,7 @@ characters:
         level: 1
         deletedAt:
     -
-        id: 2
+        id: "10000000-0000-0000-0000-000000000002"
         name: "One"
         displayName: "The One And Only"
         maxHealth: 1000
@@ -58,10 +58,10 @@ characters:
 users_characters:
     -
         user_id: 1
-        character_id: 2
+        character_id: "10000000-0000-0000-0000-000000000002"
     -
         user_id: 2
-        character_id: 1
+        character_id: "10000000-0000-0000-0000-000000000001"
 modules:
     -
         library: "lotgd/module-village"
@@ -73,30 +73,30 @@ module_properties:
     -
         owner: "lotgd/module-village"
         propertyName: "lotgd/module-village/scenes"
-        propertyValue: "i:1;"
+        propertyValue: "s:36:\"30000000-0000-0000-0000-000000000001\";"
 scenes:
     -
-        id: 1
+        id: "30000000-0000-0000-0000-000000000001"
         title: "Village Square"
         description: "The village square hustles and bustles. No one really notices that you're are standing there. You see various shops and businesses along main street. There is a curious looking rock to one side. On every side the village is surrounded by deep dark forest."
         template: "lotgd/module-village/village"
     -
-        id: 2
+        id: "30000000-0000-0000-0000-000000000002"
         title: "The Pond"
         description: "A bit outside of the village, near the border to the dark deep forest, there is a place simply called «The Pond». It's name-giver, a small pond with a beautiful, blue-green colour, is in it's centre, enclosed by meadow. After seeing this place, everyone nows immediatly why this place is liked among lovers. A bit more separate, an old oak treestands mighty."
         template: "lotgd/module-scene-bundle/pond/oak"
     -
-        id: 3
+        id: "30000000-0000-0000-0000-000000000003"
         title: "The old oak"
         description: "The old oaken tree, the oldest tree inside of the village and one of the few that didn't fell victim to the woodcutter, has a lot of old and fresh hearts cut inside it's bork, witness to the numerous lover's that wanted their love to last as long as this tree does."
         template: "lotgd/module-scene-bundle/pond/oak"
 scene_connections:
     -
-        outgoingScene: 1
-        incomingScene: 2
+        outgoingScene: "30000000-0000-0000-0000-000000000001"
+        incomingScene: "30000000-0000-0000-0000-000000000002"
     -
-        outgoingScene: 2
-        incomingScene: 3
+        outgoingScene: "30000000-0000-0000-0000-000000000002"
+        incomingScene: "30000000-0000-0000-0000-000000000003"
 event_subscriptions:
     -
         pattern: "/h\\/lotgd\\/core\\/default-scene/"

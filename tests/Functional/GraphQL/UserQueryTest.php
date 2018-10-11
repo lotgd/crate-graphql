@@ -163,7 +163,7 @@ JSON;
 			"id": "2",
 			"name": "test-user",
 			"characters": [{
-                "id": "1",
+                "id": "10000000-0000-0000-0000-000000000001",
                 "name": "DB-Test",
                 "displayName": "Novice DB-Test"
 			}]

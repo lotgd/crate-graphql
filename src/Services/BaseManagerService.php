@@ -82,10 +82,10 @@ abstract class BaseManagerService
     /**
      * Helper function to get exactly one row from a repository by id.
      * @param string $repositoryClass
-     * @param int $id
+     * @param mixed $id
      * @return type
      */
-    protected function getOneById(string $repositoryClass, int $id)
+    protected function getOneById(string $repositoryClass, $id)
     {
         return $this->getEntityManager()
             ->getRepository($repositoryClass)
